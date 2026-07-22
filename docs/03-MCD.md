@@ -11,7 +11,7 @@ Le Modèle Conceptuel de Données (MCD) représente les entités, les associatio
 > Version 1.0
 
 <p align="center">
-  <img src="images/mcd-v1.png" alt="MCD Smart Auto-Ecole" width="900">
+  <img src="images/mcd_v1.png" alt="MCD Smart Auto-Ecole" width="900">
 </p>
 
 ---
