@@ -1,75 +1,112 @@
-
-
 <?php require_once __DIR__ . '/layouts/header.php'; ?>
 <?php require_once __DIR__ . '/layouts/sidebar.php'; ?>
 
 <main class="main-content">
-    <div class="container">
+    <div class="page-content">
 
-
-        <!-- Title -->
-        <div class="page-header" style="margin-bottom: 2rem;">
-            <h1>لوحة التحكم (Dashboard)</h1>
-            <p style="color: #64748b;">مرحباً بك في نظام إدارة سيارة التعليم Smart Auto-École</p>
+        <!-- Page Header -->
+        <div style="margin-bottom: 24px;">
+            <h1 style="font-size: 24px; font-weight: 700; letter-spacing: -0.4px;">Tableau de Bord</h1>
+            <p class="card-description">Bienvenue dans le système de gestion Smart Auto-École</p>
         </div>
 
-        <!-- Stat Cards Grid -->
-        <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+        <!-- Dashboard Stat Cards Grid -->
+        <div class="dashboard-grid" style="margin-bottom: 28px;">
             
-            <div class="card" style="background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <span style="font-size: 0.875rem; color: #64748b;">إجمالي المرشحين</span>
-                <h2 style="font-size: 1.875rem; margin-top: 0.5rem; color: #1e293b;">42</h2>
+            <!-- Total Candidats -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <div class="dashboard-card-label">Total Candidats</div>
+                        <div class="dashboard-card-value"><?php echo $totalStudents; ?></div>
+                    </div>
+                    <div class="dashboard-card-icon">
+                        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <span style="font-size: 0.875rem; color: #64748b;">حصص اليوم</span>
-                <h2 style="font-size: 1.875rem; margin-top: 0.5rem; color: #2563eb;">8</h2>
+            <!-- Séances du Jour -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <div class="dashboard-card-label">Séances d'Aujourd'hui</div>
+                        <div class="dashboard-card-value" style="color: var(--primary);">8</div>
+                    </div>
+                    <div class="dashboard-card-icon">
+                        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <span style="font-size: 0.875rem; color: #64748b;">السيارات الخدامة</span>
-                <h2 style="font-size: 1.875rem; margin-top: 0.5rem; color: #16a34a;">5</h2>
+            <!-- Véhicules Actifs -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <div class="dashboard-card-label">Véhicules Actifs</div>
+                        <div class="dashboard-card-value" style="color: var(--success);">5</div>
+                    </div>
+                    <div class="dashboard-card-icon" style="background: #f0fdf4; color: var(--success);">
+                        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                    </div>
+                </div>
             </div>
 
-            <div class="card" style="background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                <span style="font-size: 0.875rem; color: #64748b;">امتحانات هذا الأسبوع</span>
-                <h2 style="font-size: 1.875rem; margin-top: 0.5rem; color: #d97706;">3</h2>
+            <!-- Examens -->
+            <div class="dashboard-card">
+                <div class="dashboard-card-header">
+                    <div>
+                        <div class="dashboard-card-label">Examens de la Semaine</div>
+                        <div class="dashboard-card-value" style="color: var(--warning);">3</div>
+                    </div>
+                    <div class="dashboard-card-icon" style="background: #fffbeb; color: var(--warning);">
+                        <svg width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <!-- Quick Table Example -->
-        <div class="card" style="background: #ffffff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-            <h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #1e293b;">جدول حصص اليوم</h3>
-            <table style="width: 100%; border-collapse: collapse; text-align: right;">
-                <thead>
-                    <tr style="border-bottom: 2px solid #e2e8f0; color: #64748b;">
-                        <th style="padding: 0.75rem;">المرشح</th>
-                        <th style="padding: 0.75rem;">نوع الحصة</th>
-                        <th style="padding: 0.75rem;">التوقيت</th>
-                        <th style="padding: 0.75rem;">المدرب</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 0.75rem;">أحمد العالمي</td>
-                        <td style="padding: 0.75rem;">تطبيقي (Conduite)</td>
-                        <td style="padding: 0.75rem;">10:00 - 11:00</td>
-                        <td style="padding: 0.75rem;">مصطفى</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #f1f5f9;">
-                        <td style="padding: 0.75rem;">سارة بناني</td>
-                        <td style="padding: 0.75rem;">نظري (Code)</td>
-                        <td style="padding: 0.75rem;">11:30 - 12:30</td>
-                        <td style="padding: 0.75rem;">خالد</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Planning des Séances d'Aujourd'hui</h3>
+                <a href="#" style="color: var(--primary); font-size: 14px; font-weight: 500;">Voir tout →</a>
+            </div>
+            
+            <div class="table-wrapper" style="border: 0;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Candidat</th>
+                            <th>Type de Séance</th>
+                            <th>Horaire</th>
+                            <th>Moniteur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 600;">Ahmed El Alami</td>
+                            <td>
+                                <span class="badge" style="background: #e0f2fe; color: #0369a1;">Conduite</span>
+                            </td>
+                            <td style="font-family: monospace; font-weight: 500;">10:00 - 11:00</td>
+                            <td>Mustapha</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 600;">Sara Bennani</td>
+                            <td>
+                                <span class="badge" style="background: #f3f4f6; color: #4b5563;">Code</span>
+                            </td>
+                            <td style="font-family: monospace; font-weight: 500;">11:30 - 12:30</td>
+                            <td>Khalid</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 </main>
 
 <?php require_once __DIR__ . '/layouts/footer.php'; ?>
-</body>
-</html>

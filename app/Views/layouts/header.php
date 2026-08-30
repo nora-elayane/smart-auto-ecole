@@ -1,21 +1,27 @@
-<!-- header.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?php echo $pageTitle ?? 'Smart Auto-École System'; ?></title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
 </head>
 <body>
-    
 
 <div class="app-layout">
+
+    <!-- Sidebar Inclusion -->
+    <?php require_once __DIR__ . '/sidebar.php'; ?>
 
     <!-- Main Content Wrapper -->
     <main class="main-content">
 
-        <!-- Top Navigation -->
+        <!-- Top Navigation Bar -->
         <header class="top-navbar">
 
             <div class="navbar-left">
@@ -23,7 +29,7 @@
                     class="sidebar-toggle"
                     id="sidebarToggle"
                     type="button"
-                    aria-label="Toggle sidebar"
+                    aria-label="Basculer le menu"
                     aria-expanded="true"
                 >
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -36,11 +42,11 @@
                 </button>
 
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+                    <h1><?php echo $pageTitle ?? 'Tableau de Bord'; ?></h1>
                 </div>
             </div>
 
-            <!-- User Profile -->
+            <!-- User Profile Menu -->
             <div class="user-menu" id="userMenu">
 
                 <button
@@ -64,7 +70,7 @@
                         </svg>
                     </span>
 
-                    <span class="username">Admin User</span>
+                    <span class="username">Administrateur</span>
 
                     <svg class="chevron-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="m6 9 6 6 6-6"
@@ -76,10 +82,10 @@
                     </svg>
                 </button>
 
-                <!-- Static Dropdown -->
+                <!-- Profile Dropdown Menu -->
                 <div class="profile-dropdown" id="profileDropdown">
 
-                    <a href="#" class="dropdown-item">
+                    <a href="/smart-auto-ecole/public/profile" class="dropdown-item">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <circle cx="12" cy="8" r="4"
                                     fill="none"
@@ -91,10 +97,10 @@
                                   stroke-width="2"
                                   stroke-linecap="round"/>
                         </svg>
-                        <span>Profile</span>
+                        <span>Mon Profil</span>
                     </a>
 
-                    <a href="#" class="dropdown-item">
+                    <a href="/smart-auto-ecole/public/logout" class="dropdown-item" style="color: var(--danger);">
                         <svg viewBox="0 0 24 24" aria-hidden="true">
                             <path d="M10 17l5-5-5-5"
                                   fill="none"
@@ -113,7 +119,7 @@
                                   stroke-width="2"
                                   stroke-linecap="round"/>
                         </svg>
-                        <span>Logout</span>
+                        <span>Déconnexion</span>
                     </a>
 
                 </div>
@@ -121,7 +127,5 @@
 
         </header>
 
-        <!-- Page Content Starts Here -->
+        <!-- Page Content Area -->
         <section class="page-content">
-            </body>
-</html>
