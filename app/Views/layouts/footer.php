@@ -1,18 +1,11 @@
 </section>
-        <!-- End Page Content Area -->
-
-        <!-- Main Footer -->
+    
         <footer class="main-footer">
             <p>&copy; <?php echo date('Y'); ?> <strong>Smart Auto-École</strong>. Tous droits réservés.</p>
         </footer>
 
     </main>
-    <!-- End Main Content Wrapper -->
-
 </div>
-<!-- End App Layout -->
-
-<!-- JS Scripts -->
 <script>
     // Toggle Sidebar
     const sidebarToggle = document.getElementById('sidebarToggle');
@@ -26,7 +19,6 @@
         });
     }
 
-    // Toggle User Profile Dropdown
     const userProfile = document.getElementById('userProfile');
     const profileDropdown = document.getElementById('profileDropdown');
 

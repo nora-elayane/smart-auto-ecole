@@ -20,14 +20,12 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         </div>
     </div>
 
-    <!-- Navigation -->
     <nav class="sidebar-navigation" aria-label="Main navigation">
 
         <p class="nav-section-title">MENU PRINCIPAL</p>
 
         <ul class="nav-list">
 
-            <!-- Dashboard -->
             <li class="nav-item <?php echo ($current_uri === '/smart-auto-ecole/public/' || $current_uri === '/smart-auto-ecole/public/dashboard') ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/dashboard" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -40,7 +38,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Candidates -->
             <li class="nav-item <?php echo (strpos($current_uri, '/candidates') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/candidates" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -53,7 +50,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Instructors / Moniteurs -->
             <li class="nav-item <?php echo (strpos($current_uri, '/instructors') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/instructors" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -65,7 +61,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Vehicles -->
             <li class="nav-item <?php echo (strpos($current_uri, '/vehicles') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/vehicles" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -78,7 +73,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Driving Lessons / Séances -->
             <li class="nav-item <?php echo (strpos($current_uri, '/lessons') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/lessons" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -90,7 +84,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Exams -->
             <li class="nav-item <?php echo (strpos($current_uri, '/exams') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/exams" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -102,7 +95,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
                 </a>
             </li>
 
-            <!-- Payments -->
             <li class="nav-item <?php echo (strpos($current_uri, '/payments') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/payments" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -118,7 +110,6 @@ $current_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
     </nav>
 
-    <!-- Sidebar Bottom -->
     <div class="sidebar-footer">
         <div class="system-status">
             <span class="status-dot"></span>

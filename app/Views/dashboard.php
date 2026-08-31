@@ -4,16 +4,13 @@
 <main class="main-content">
     <div class="page-content">
 
-        <!-- Page Header -->
         <div style="margin-bottom: 24px;">
             <h1 style="font-size: 24px; font-weight: 700; letter-spacing: -0.4px;">Tableau de Bord</h1>
             <p class="card-description">Bienvenue dans le système de gestion Smart Auto-École</p>
         </div>
 
-        <!-- Dashboard Stat Cards Grid -->
         <div class="dashboard-grid" style="margin-bottom: 28px;">
             
-            <!-- Total Candidats -->
             <div class="dashboard-card">
                 <div class="dashboard-card-header">
                     <div>
@@ -26,7 +23,6 @@
                 </div>
             </div>
 
-            <!-- Séances du Jour -->
             <div class="dashboard-card">
                 <div class="dashboard-card-header">
                     <div>
@@ -39,7 +35,6 @@
                 </div>
             </div>
 
-            <!-- Véhicules Actifs -->
             <div class="dashboard-card">
                 <div class="dashboard-card-header">
                     <div>
@@ -52,7 +47,6 @@
                 </div>
             </div>
 
-            <!-- Examens -->
             <div class="dashboard-card">
                 <div class="dashboard-card-header">
                     <div>
@@ -67,7 +61,6 @@
 
         </div>
 
-        <!-- Quick Table Example -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">Planning des Séances d'Aujourd'hui</h3>

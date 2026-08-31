@@ -4,19 +4,17 @@
 <main class="main-content">
     <div class="page-content">
         
-        <!-- Page Header -->
         <div class="card-header">
             <div>
                 <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Gestion des Candidats</h1>
                 <p class="card-description">Liste et suivi de tous les candidats inscrits au système.</p>
             </div>
-            <a href="/smart-auto-ecole/public/candidates/create" class="btn btn-primary">
+            <a href="/smart-auto-ecole/public/candidates/createStudent" class="btn btn-primary">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 Nouveau Candidat
             </a>
         </div>
 
-        <!-- Data Table Wrapper -->
         <div class="table-wrapper">
             <table class="table">
                 <thead>
@@ -32,52 +30,45 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($students) && is_array($students)): ?>
+                    <?php if (!empty($students)): ?>
                         <?php foreach ($students as $student): ?>
                             <tr>
-                                <!-- ID -->
                                 <td style="font-weight: 600; color: var(--text-secondary);">
-                                    #<?php echo htmlspecialchars($student['id_user'] ?? $student['id_utilisateur'] ?? '-'); ?>
+                                    #<?php echo htmlspecialchars($student['id_user'] ?? '-'); ?>
                                 </td>
 
-                                <!-- Photo & Nom/Prénom/Email -->
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <?php if (!empty($student['photo'])): ?>
                                             <img src="/smart-auto-ecole/public/uploads/<?php echo htmlspecialchars($student['photo']); ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
                                         <?php else: ?>
                                             <div class="user-avatar" style="width: 36px; height: 36px; font-weight: 600; font-size: 0.875rem;">
-                                                <?php echo strtoupper(substr($student['nomprenom'] ?? 'C', 0, 1)); ?>
+                                                <?php echo strtoupper(substr($student['nom'] ?? 'C', 0, 1)); ?>
                                             </div>
                                         <?php endif; ?>
                                         <div>
-                                            <div style="font-weight: 600; color: var(--text-primary);"><?php echo htmlspecialchars($student['nomprenom'] ?? ''); ?></div>
+                                            <div style="font-weight: 600; color: var(--text-primary);"><?php echo htmlspecialchars(($student['prenom'] ?? '') . ' ' . ($student['nom'] ?? '')); ?></div>
                                             <div style="font-size: 12px; color: var(--text-secondary);"><?php echo htmlspecialchars($student['email'] ?? ''); ?></div>
                                         </div>
                                     </div>
                                 </td>
 
-                                <!-- CIN -->
                                 <td style="font-weight: 500; font-family: monospace;">
                                     <?php echo htmlspecialchars($student['cin'] ?? 'N/A'); ?>
                                 </td>
 
-                                <!-- Telephone -->
                                 <td>
                                     <?php echo htmlspecialchars($student['telephone'] ?? 'N/A'); ?>
                                 </td>
 
-                                <!-- Adresse -->
                                 <td style="color: var(--text-secondary); max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                     <?php echo htmlspecialchars($student['adresse'] ?? 'N/A'); ?>
                                 </td>
 
-                                <!-- Date de naissance -->
                                 <td style="color: var(--text-secondary);">
                                     <?php echo htmlspecialchars($student['date_naissance'] ?? 'N/A'); ?>
                                 </td>
 
-                                <!-- Etat/Statut -->
                                 <td>
                                     <?php 
                                         $etat = strtolower($student['etat'] ?? 'actif');
@@ -88,11 +79,20 @@
                                     </span>
                                 </td>
 
-                                <!-- Actions -->
                                 <td style="text-align: right;">
                                     <div style="display: flex; justify-content: flex-end; gap: 6px;">
-                                        <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user'] ?? $student['id_utilisateur']; ?>" class="btn btn-secondary" style="min-height: 32px; padding: 0 10px; font-size: 12px;">Éditer</a>
-                                        <a href="/smart-auto-ecole/public/candidates/delete?id=<?php echo $student['id_user'] ?? $student['id_utilisateur']; ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce candidat ?');" class="btn btn-danger" style="min-height: 32px; padding: 0 10px; font-size: 12px;">Supprimer</a>
+                                        <a href="/smart-auto-ecole/public/contracts/create?candidate_id=<?php echo $student['id_user']; ?>" class="btn btn-primary" style="min-height: 32px; padding: 0 10px; font-size: 12px;" title="Créer un contrat">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                                            Contrat
+                                        </a>
+
+                                        <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user']; ?>" class="btn btn-secondary" style="min-height: 32px; padding: 0 8px; font-size: 12px;" title="Éditer">
+                                            Éditer
+                                        </a>
+
+                                        <a href="/smart-auto-ecole/public/candidates/archive?id=<?php echo $student['id_user']; ?>" onclick="return confirm('Voulez-vous vraiment archiver ce candidat ?');" class="btn btn-danger" style="min-height: 32px; padding: 0 8px; font-size: 12px;" title="Archiver">
+                                            Archiver
+                                        </a>
                                     </div>
                                 </td>
                             </tr>

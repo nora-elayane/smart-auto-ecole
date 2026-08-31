@@ -4,24 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'Smart Auto-École System'; ?></title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
 </head>
 <body>
 
 <div class="app-layout">
-
-    <!-- Sidebar Inclusion -->
     <?php require_once __DIR__ . '/sidebar.php'; ?>
-
-    <!-- Main Content Wrapper -->
     <main class="main-content">
-
-        <!-- Top Navigation Bar -->
         <header class="top-navbar">
 
             <div class="navbar-left">
@@ -46,7 +38,6 @@
                 </div>
             </div>
 
-            <!-- User Profile Menu -->
             <div class="user-menu" id="userMenu">
 
                 <button
@@ -82,7 +73,6 @@
                     </svg>
                 </button>
 
-                <!-- Profile Dropdown Menu -->
                 <div class="profile-dropdown" id="profileDropdown">
 
                     <a href="/smart-auto-ecole/public/profile" class="dropdown-item">
@@ -127,5 +117,4 @@
 
         </header>
 
-        <!-- Page Content Area -->
         <section class="page-content">

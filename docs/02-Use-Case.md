@@ -84,6 +84,8 @@ Ajouter, modifier, consulter ou supprimer un moniteur.
 
 Directeur
 
+Secrétaire
+
 ### Description
 
 Ajouter, modifier, consulter ou supprimer un véhicule.
