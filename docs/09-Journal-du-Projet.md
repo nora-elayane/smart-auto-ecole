@@ -148,73 +148,159 @@ La fonctionnalité de **création d'un candidat** est maintenant opérationnelle
 
 ---
 
+# 📅 Jour 6 — Modification & Sécurisation des Candidats
+
+## 🎯 Objectif
+
+Finaliser la fonctionnalité de modification des candidats (**UC03**) avec une gestion sécurisée des données et des photos de profil.
+
+## ✅ Réalisations
+
+### ✏️ Modification d'un candidat
+
+* Création et intégration de l'interface d'édition d'un candidat.
+* Mise en place du traitement de modification dans le contrôleur et le modèle.
+* Récupération et affichage des informations existantes du candidat.
+* Mise à jour sécurisée des données en base avec **PDO**.
+
+### 🔐 Sécurité du compte
+
+* Gestion sécurisée du mot de passe lors de la modification.
+* Conservation de l'ancien mot de passe lorsqu'aucun nouveau mot de passe n'est fourni.
+* Mise à jour du mot de passe uniquement lorsqu'une nouvelle valeur est renseignée.
+
+### 📷 Gestion des photos
+
+* Ajout de l'upload d'une nouvelle photo.
+* Ajout d'un **preview JavaScript** avant l'enregistrement.
+* Suppression automatique de l'ancienne photo avec `unlink` lors de son remplacement.
+* Gestion du chemin de stockage des photos de profil.
+
+## 🧠 Décisions importantes
+
+* Ne jamais écraser le mot de passe existant sans nouvelle valeur.
+* Supprimer l'ancienne photo uniquement lorsqu'une nouvelle photo est correctement enregistrée.
+* Conserver les requêtes préparées **PDO** pour les opérations de modification.
+
+## 🎯 Use Case concerné
+
+* **UC03 — Gérer les candidats** : consultation, création et modification.
+
+---
+
+# 📈 Avancement
+
+**Analyse & Conception : 100 %** ✅
+
+**Architecture & UI : 100 %** ✅
+
+**Module Candidats : 80 %** 🚀
+
+La liste, la création et la modification des candidats sont maintenant fonctionnelles et sécurisées.
+
+---
+
+# 🎯 Prochaine étape — Jour 7
+
+* 📦 Implémenter l'archivage (**Soft Delete**) des candidats.
+* 🗑️ Finaliser la suppression définitive.
+* 🔔 Ajouter les **Flash Messages**.
+* ✅ Renforcer la validation des formulaires.
+* 🔐 Commencer le module **Authentification (UC01)**.
+
 # ✅ État du projet
 
 ## Analyse & Conception
 
 * [x] Cahier des Charges
-* [x] Use Cases
-* [x] MCD
-* [x] MLD
-* [x] Dépendances Fonctionnelles
-* [x] Dictionnaire des Données
-* [x] Diagramme EER
+* [x] Acteurs & Use Cases
+* [x] MCD / MLD
+* [x] Dictionnaire de données
+* [x] Dépendances fonctionnelles
+* [x] EER Diagram
 * [x] Base de données MySQL
 
 ## Architecture & Interface
 
 * [x] Architecture MVC
 * [x] Front Controller
-* [x] Routing de base
-* [x] Clean URLs
-* [x] Layouts UI
-* [x] Responsive Design
-* [x] Dashboard
+* [x] Routing avec `mod_rewrite`
+* [x] Layouts modulaires
+* [x] Interface Dashboard
+* [x] Sidebar dynamique
+* [x] Design responsive en CSS / Vanilla JS
 
 ## Développement
 
-* [x] Connexion MySQL / PDO
+### UC02 — Gestion des utilisateurs
+
+* [x] Structure des utilisateurs et rôles
+* [x] Formulaire centralisé de création
+* [x] Attribution dynamique des rôles
+* [ ] Modification d'un utilisateur
+* [ ] Désactivation / suppression d'un utilisateur
+
+### UC03 — Gestion des candidats
+
 * [x] Liste des candidats
-* [x] Affichage dynamique du Dashboard
-* [x] Création d'un candidat
-* [x] Formulaire utilisateur centralisé
-* [x] Gestion dynamique des rôles
-* [x] Gestion des photos de profil
-* [ ] Modification d'un candidat
-* [ ] Suppression d'un candidat
+* [x] Consultation des candidats
+* [x] Ajout d'un candidat
+* [x] Attribution automatique du rôle Candidat
+* [x] Upload & preview de photo de profil
+* [x] Modification d'un candidat
+* [x] Sécurisation du mot de passe à la modification
+* [x] Remplacement / suppression automatique des anciennes photos
+* [ ] Archivage / Soft Delete
+* [ ] Suppression définitive
 * [ ] Validation complète des formulaires
 * [ ] Flash Messages
-* [ ] Authentification
-* [ ] Autres modules métier
 
----
+### UC01 — Authentification
 
-# 🎯 Prochaine étape — Jour 6
+* [ ] Connexion
+* [ ] Gestion des sessions
+* [ ] Déconnexion
+* [ ] Protection des routes
+* [ ] Gestion des accès selon les rôles
 
-* ✏️ Modifier un candidat.
-* 🗑️ Supprimer un candidat.
-* 🔔 Ajouter les messages de succès/erreur.
-* ✅ Renforcer la validation des formulaires.
-* 🔐 Préparer le module **Authentification (UC01)**.
+### Autres Use Cases
 
----
+* [ ] UC04 — Gestion des moniteurs
+* [ ] UC05 — Gestion des véhicules
+* [ ] UC06 — Gestion des contrats
+* [ ] UC07 — Gestion des paiements
+* [ ] UC08 — Planification des séances
+* [ ] UC09 — Consultation du planning
+* [ ] UC10 — Validation des séances
+* [ ] UC11 — Planification des examens
+* [ ] UC12 — Consultation des examens
+* [ ] UC13 — Consultation des statistiques
+* [ ] UC14 — Gestion du profil
+* [ ] UC15 — Déconnexion
 
-# 📈 Avancement
+## Tests & Finalisation
 
-| Phase                | État            |
-| -------------------- | --------------- |
-| Analyse & Conception | **100 %** ✅     |
-| Architecture & UI    | **100 %** ✅     |
-| Module Candidats     | **En cours** 🚀 |
-| Authentification     | **À venir**     |
-| Autres Use Cases     | **À venir**     |
-| Tests                | **À venir**     |
-| Déploiement          | **À venir**     |
+* [ ] Tests fonctionnels
+* [ ] Tests de sécurité
+* [ ] Validation complète des formulaires
+* [ ] Gestion globale des erreurs
+* [ ] Optimisation
+* [ ] Documentation finale
+* [ ] Déploiement
 
----
+### 📊 Progression actuelle
 
-# 🏁 Statut actuel
+| Partie                   | État        |
+| ------------------------ | ----------- |
+| Analyse & Conception     | 🟢 100%     |
+| Architecture & Interface | 🟢 100%     |
+| Base de données          | 🟢 100%     |
+| Dashboard                | 🟢 100%     |
+| UC03 — Candidats         | 🟡 En cours |
+| UC02 — Utilisateurs      | 🟡 En cours |
+| UC01 — Authentification  | 🔴 À venir  |
+| UC04 → UC15              | 🔴 À venir  |
+| Tests & Déploiement      | 🔴 À venir  |
 
-**Smart Auto-École est en phase de développement fonctionnel. 🚀**
+> **État actuel :** Le projet Smart Auto-École est en phase de développement fonctionnel. La gestion des candidats est déjà opérationnelle pour la consultation, la création et la modification, avec plusieurs mécanismes de sécurité déjà intégrés.
 
-Le premier module métier, **Gérer les candidats (UC03)**, est en cours de réalisation avec la **liste et la création des candidats déjà fonctionnelles**.

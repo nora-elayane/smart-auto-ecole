@@ -40,7 +40,7 @@
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <?php if (!empty($student['photo'])): ?>
-                                            <img src="/smart-auto-ecole/public/uploads/<?php echo htmlspecialchars($student['photo']); ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">
+<img src="/smart-auto-ecole/public/uploads/<?php echo htmlspecialchars($student['photo']); ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">   
                                         <?php else: ?>
                                             <div class="user-avatar" style="width: 36px; height: 36px; font-weight: 600; font-size: 0.875rem;">
                                                 <?php echo strtoupper(substr($student['nom'] ?? 'C', 0, 1)); ?>

@@ -25,6 +25,18 @@ class Students {
     $stm = $this->conn->prepare($query);
     return $stm->execute([$nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat, $roleId]);
 }
+public function getByid($id){
+    $query = "SELECT * FROM " . $this->table . " WHERE id_user = ? " ; 
+    $stm = $this->conn->prepare($query) ; 
+    $stm->execute([$id]) ; 
+    return  $stm->fetch(PDO::FETCH_ASSOC) ; 
+}
+public function updateStudent($nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat , $id , $id_role){
+    $query = "UPDATE " . $this->table . " SET nom = ? , prenom = ? , email = ? , mot_de_passe = ? , cin = ? , telephone = ? , adresse = ? , date_naissance = ? , photo = ? , etat = ? WHERE id_user = ? AND id_role = ?" ; 
+    $stm = $this->conn->prepare($query) ; 
+    return $stm->execute([$nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat , $id , $id_role]) ; 
+
+}
 }
 
 ?>

@@ -24,7 +24,13 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/candidates/storeStudent'){
     $controller = new StudentController();
     $controller->storeStudent();
-} else {
+}elseif($uri === $basePath . '/candidates/edit'){
+    $controller = new StudentController();
+    $controller->edit();
+}elseif($uri === $basePath . '/candidates/update'){
+    $controller = new StudentController();
+    $controller->update();
+}else {
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";
     echo "<p>current path " . htmlspecialchars($uri) . "</p>"; 
