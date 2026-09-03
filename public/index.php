@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
@@ -30,6 +30,15 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/candidates/update'){
     $controller = new StudentController();
     $controller->update();
+}elseif($uri === $basePath . '/candidates/archive'){
+    $controller = new StudentController();
+    $controller->archive();
+}elseif($uri === $basePath . '/candidates/activate'){
+    $controller = new StudentController();
+    $controller->active();
+}elseif($uri === $basePath . '/candidates/delete'){
+    $controller = new StudentController();
+    $controller->delete();
 }else {
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";

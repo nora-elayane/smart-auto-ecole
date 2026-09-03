@@ -1,5 +1,26 @@
+
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 <?php require_once __DIR__ . '/../layouts/sidebar.php'; ?>
+<link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
+<?php if (isset($_SESSION['flash'])): ?>
+    <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
+        <div class="toast-indicator"></div>
+        <div class="toast-content">
+            <?php echo $_SESSION['flash']['message']; ?>
+        </div>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+
+    <script>
+        setTimeout(function() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.classList.add('toast-hide');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }, 3000);
+    </script>
+<?php endif; ?>
 
 <main class="main-content">
     <div class="page-content">
@@ -30,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($students)): ?>
+                    <?php if (!empty($students) && is_array($students)): ?>
                         <?php foreach ($students as $student): ?>
                             <tr>
                                 <td style="font-weight: 600; color: var(--text-secondary);">
@@ -79,22 +100,25 @@
                                     </span>
                                 </td>
 
-                                <td style="text-align: right;">
-                                    <div style="display: flex; justify-content: flex-end; gap: 6px;">
-                                        <a href="/smart-auto-ecole/public/contracts/create?candidate_id=<?php echo $student['id_user']; ?>" class="btn btn-primary" style="min-height: 32px; padding: 0 10px; font-size: 12px;" title="Créer un contrat">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
-                                            Contrat
-                                        </a>
+                                <td class="actions">
+    <a href="/smart-auto-ecole/public/candidates/contract?id=<?php echo $student['id_user']; ?>" class="btn btn-primary btn-sm">Contrat</a>
 
-                                        <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user']; ?>" class="btn btn-secondary" style="min-height: 32px; padding: 0 8px; font-size: 12px;" title="Éditer">
-                                            Éditer
-                                        </a>
+    <?php if ($student['etat'] === 'Actif'): ?>
+        <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user']; ?>" class="btn btn-secondary btn-sm">Éditer</a>
+        <a href="/smart-auto-ecole/public/candidates/archive?id=<?php echo $student['id_user']; ?>" 
+           onclick="return confirm('Voulez-vous vraiment archiver ce candidat ?');" 
+           class="btn btn-warning btn-sm">Archiver</a>
 
-                                        <a href="/smart-auto-ecole/public/candidates/archive?id=<?php echo $student['id_user']; ?>" onclick="return confirm('Voulez-vous vraiment archiver ce candidat ?');" class="btn btn-danger" style="min-height: 32px; padding: 0 8px; font-size: 12px;" title="Archiver">
-                                            Archiver
-                                        </a>
-                                    </div>
-                                </td>
+    <?php else: ?>
+        <a href="/smart-auto-ecole/public/candidates/activate?id=<?php echo $student['id_user']; ?>" 
+           onclick="return confirm('Voulez-vous réactiver ce candidat ?');" 
+           class="btn btn-success btn-sm">Activer</a>
+        
+        <a href="/smart-auto-ecole/public/candidates/delete?id=<?php echo $student['id_user']; ?>" 
+           onclick="return confirm('Attention! Voulez-vous supprimer définitivement ce candidat ?');" 
+           class="btn btn-danger btn-sm">Supprimer</a>
+    <?php endif; ?>
+</td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -111,5 +135,34 @@
 
     </div>
 </main>
-
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+
+<!-- Toast Notification UI -->
+<?php if (isset($_SESSION['flash'])): ?>
+    <div id="toastBox" class="toast-box toast-<?php echo $_SESSION['flash']['type']; ?>">
+        <span class="toast-icon">
+            <?php 
+                echo match($_SESSION['flash']['type']) {
+                    'success' => '✅',
+                    'warning' => '⚠️',
+                    'danger'  => '🗑️',
+                    default   => 'ℹ️'
+                };
+            ?>
+        </span>
+        <span class="toast-message"><?php echo $_SESSION['flash']['message']; ?></span>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
+
+    <script>
+        // إخفاء الـ Toast أوتوماتيكياً بعد 3 ثواني
+        setTimeout(function() {
+            const toast = document.getElementById('toastBox');
+            if (toast) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateY(-20px)';
+                setTimeout(() => toast.remove(), 400); // مسح العنصر من DOM
+            }
+        }, 3000);
+    </script>
+<?php endif; ?>

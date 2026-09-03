@@ -200,93 +200,68 @@ La liste, la création et la modification des candidats sont maintenant fonction
 
 ---
 
-# 🎯 Prochaine étape — Jour 7
+# 📅 Jour 7 — Finalisation du module Candidats & Notifications
 
-* 📦 Implémenter l'archivage (**Soft Delete**) des candidats.
-* 🗑️ Finaliser la suppression définitive.
-* 🔔 Ajouter les **Flash Messages**.
-* ✅ Renforcer la validation des formulaires.
-* 🔐 Commencer le module **Authentification (UC01)**.
+## 🎯 Objectif
 
-# ✅ État du projet
+Finaliser les principales actions de gestion des candidats et améliorer le feedback utilisateur grâce à un système de notifications visuelles.
 
-## Analyse & Conception
+## ✅ Réalisations
 
-* [x] Cahier des Charges
-* [x] Acteurs & Use Cases
-* [x] MCD / MLD
-* [x] Dictionnaire de données
-* [x] Dépendances fonctionnelles
-* [x] EER Diagram
-* [x] Base de données MySQL
+* [x] Implémentation de l'**archivage (Soft Delete)** des candidats.
+* [x] Implémentation de l'**activation** des candidats archivés.
+* [x] Finalisation de la **suppression définitive** des candidats.
+* [x] Ajout de **Flash Messages / Toast Notifications** dynamiques.
+* [x] Notifications pour les actions :
 
-## Architecture & Interface
+  * Création
+  * Modification
+  * Archivage
+  * Activation
+  * Suppression définitive
+* [x] Création d'une feuille de style dédiée `public/css/toast.css`.
+* [x] Intégration des Toast Notifications dans l'interface.
+* [x] Ajout d'une fermeture automatique des notifications.
+* [x] Implémentation d'un effet **auto-fade** en JavaScript.
+* [x] Amélioration du feedback utilisateur après chaque opération.
 
-* [x] Architecture MVC
-* [x] Front Controller
-* [x] Routing avec `mod_rewrite`
-* [x] Layouts modulaires
-* [x] Interface Dashboard
-* [x] Sidebar dynamique
-* [x] Design responsive en CSS / Vanilla JS
+## 🧠 Décisions importantes
 
-## Développement
+* Utiliser le **Soft Delete** afin de conserver les données du candidat tout en permettant son archivage.
+* Permettre la réactivation d'un candidat archivé.
+* Réserver la suppression définitive aux actions nécessitant réellement la suppression des données.
+* Centraliser l'affichage des notifications pour garder une interface cohérente.
+* Séparer le style des Toasts dans un fichier CSS dédié.
+* Utiliser JavaScript pour gérer le comportement dynamique et la disparition automatique des notifications.
 
-### UC02 — Gestion des utilisateurs
-
-* [x] Structure des utilisateurs et rôles
-* [x] Formulaire centralisé de création
-* [x] Attribution dynamique des rôles
-* [ ] Modification d'un utilisateur
-* [ ] Désactivation / suppression d'un utilisateur
+## 🎯 Use Cases concernés
 
 ### UC03 — Gestion des candidats
 
-* [x] Liste des candidats
-* [x] Consultation des candidats
-* [x] Ajout d'un candidat
-* [x] Attribution automatique du rôle Candidat
-* [x] Upload & preview de photo de profil
-* [x] Modification d'un candidat
-* [x] Sécurisation du mot de passe à la modification
-* [x] Remplacement / suppression automatique des anciennes photos
-* [ ] Archivage / Soft Delete
-* [ ] Suppression définitive
-* [ ] Validation complète des formulaires
-* [ ] Flash Messages
+* Création
+* Consultation
+* Modification
+* Archivage
+* Activation
+* Suppression définitive
 
-### UC01 — Authentification
+## 📌 État
 
-* [ ] Connexion
-* [ ] Gestion des sessions
-* [ ] Déconnexion
-* [ ] Protection des routes
-* [ ] Gestion des accès selon les rôles
+Le module **Gestion des candidats (UC03)** est maintenant fonctionnel pour les principales opérations CRUD, avec archivage, activation, suppression définitive et système de notifications intégré.
 
-### Autres Use Cases
+La validation complète des formulaires reste à renforcer avant de considérer le module comme totalement finalisé.
 
-* [ ] UC04 — Gestion des moniteurs
-* [ ] UC05 — Gestion des véhicules
-* [ ] UC06 — Gestion des contrats
-* [ ] UC07 — Gestion des paiements
-* [ ] UC08 — Planification des séances
-* [ ] UC09 — Consultation du planning
-* [ ] UC10 — Validation des séances
-* [ ] UC11 — Planification des examens
-* [ ] UC12 — Consultation des examens
-* [ ] UC13 — Consultation des statistiques
-* [ ] UC14 — Gestion du profil
-* [ ] UC15 — Déconnexion
+# 🎯 Prochaine étape — Jour 8
 
-## Tests & Finalisation
+📄 **Implémenter le module UC06 — Gestion des contrats.**
 
-* [ ] Tests fonctionnels
-* [ ] Tests de sécurité
-* [ ] Validation complète des formulaires
-* [ ] Gestion globale des erreurs
-* [ ] Optimisation
-* [ ] Documentation finale
-* [ ] Déploiement
+* [ ] Liste des contrats
+* [ ] Création d'un contrat
+* [ ] Association d'un contrat à un candidat
+* [ ] Consultation des contrats
+* [ ] Gestion sécurisée des fichiers PDF
+* [ ] Validation des données du contrat
+* [ ] Gestion des erreurs et notifications
 
 ### 📊 Progression actuelle
 
@@ -296,11 +271,11 @@ La liste, la création et la modification des candidats sont maintenant fonction
 | Architecture & Interface | 🟢 100%     |
 | Base de données          | 🟢 100%     |
 | Dashboard                | 🟢 100%     |
-| UC03 — Candidats         | 🟡 En cours |
+| UC03 — Candidats         | 🟢 90%      |
 | UC02 — Utilisateurs      | 🟡 En cours |
 | UC01 — Authentification  | 🔴 À venir  |
 | UC04 → UC15              | 🔴 À venir  |
 | Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le projet Smart Auto-École est en phase de développement fonctionnel. La gestion des candidats est déjà opérationnelle pour la consultation, la création et la modification, avec plusieurs mécanismes de sécurité déjà intégrés.
+> **État actuel :** Le projet Smart Auto-École est en phase de développement fonctionnel. Le module **Gestion des candidats (UC03)** est fonctionnel pour les principales opérations : consultation, création, modification, archivage, activation et suppression définitive. Un système de Flash Messages / Toast Notifications est également intégré. La validation complète des formulaires reste à renforcer.
 

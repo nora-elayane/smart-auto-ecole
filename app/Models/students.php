@@ -37,6 +37,32 @@ public function updateStudent($nom, $prenom, $email, $mot, $cin, $telephone, $ad
     return $stm->execute([$nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat , $id , $id_role]) ; 
 
 }
+public function archiverStudent($id){
+    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user = ?" ;
+    $stm = $this->conn->prepare($query) ; 
+    return $stm->execute(["Inactif" , $id]) ; 
+}
+public function activerStudent($id){
+    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user = ?" ;
+    $stm = $this->conn->prepare($query) ; 
+    return $stm->execute(["Actif" , $id]) ; 
+}
+public function deleteStudent($id){
+    $queryPhoto = "SELECT photo FROM " . $this->table . " WHERE id_user = ?";
+    $stmtPhoto = $this->conn->prepare($queryPhoto);
+    $stmtPhoto->execute([$id]);
+    $student = $stmtPhoto->fetch(PDO::FETCH_ASSOC);
+
+    if ($student && !empty($student['photo'])) {
+        $filePath = __DIR__ . '/../../public/uploads/' . $student['photo'];
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+    }
+    $query = "DELETE FROM " . $this->table . " WHERE id_user = ?" ; 
+    $stm = $this->conn->prepare($query) ; 
+    return $stm->execute([$id]) ; 
+}
 }
 
 ?>

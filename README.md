@@ -210,9 +210,9 @@ Elle comprend :
 * [x] Structure utilisateur
 * [x] Gestion des rôles
 * [x] Formulaire centralisé de création
-* [ ] Modification
-* [ ] Désactivation
-* [ ] Suppression
+* [x] Modification
+* [x] Désactivation
+* [x] Suppression
 
 #### Candidats — UC03
 
@@ -220,10 +220,10 @@ Elle comprend :
 * [x] Ajout d'un candidat
 * [x] Attribution automatique du rôle
 * [x] Affichage des photos de profil
-* [ ] Modification
-* [ ] Suppression
-* [ ] Validation complète des formulaires
-* [ ] Flash Messages
+* [x] Modification
+* [x] Suppression
+* [x] Validation complète des formulaires
+* [x] Flash Messages
 
 #### Autres Use Cases
 
