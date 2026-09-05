@@ -251,19 +251,123 @@ Le module **Gestion des candidats (UC03)** est maintenant fonctionnel pour les p
 
 La validation complète des formulaires reste à renforcer avant de considérer le module comme totalement finalisé.
 
-# 🎯 Prochaine étape — Jour 8
+# 📅 Jour 8 — Analyse, Benchmark & Redesign UX / Architecture du Module Contrats
 
-📄 **Implémenter le module UC06 — Gestion des contrats.**
+## 🎯 Objectif
 
-* [ ] Liste des contrats
-* [ ] Création d'un contrat
-* [ ] Association d'un contrat à un candidat
-* [ ] Consultation des contrats
-* [ ] Gestion sécurisée des fichiers PDF
-* [ ] Validation des données du contrat
-* [ ] Gestion des erreurs et notifications
+Analyser le fonctionnement du module Contrats et redéfinir son organisation afin d'améliorer l'expérience utilisateur et de préparer son intégration avec les autres modules métier.
 
-### 📊 Progression actuelle
+## ✅ Réalisations
+
+* **Étude concurrentielle & Analyse SWOT :**
+
+  * Analyse des solutions existantes.
+  * Identification des points forts et faibles.
+  * Recherche d'une expérience utilisateur plus fluide et intuitive.
+
+* **Architecture Single Source of Truth (SSOT) :**
+
+  * Centralisation de l'accès aux contrats depuis la gestion des candidats.
+  * Réduction de la duplication des informations.
+
+* **Fiche Candidat :**
+
+  * Affichage des informations personnelles.
+  * Affichage de l'historique des contrats.
+  * Ajout d'un contrat directement depuis la fiche candidat.
+
+* **Tableau des Contrats :**
+
+  * Ajout d'un menu d'actions :
+
+    * Éditer
+    * Supprimer
+    * Imprimer Contrat
+    * Imprimer Attestation
+    * Imprimer Carte Candidat
+  * Ajout d'un bouton **Consulter**.
+
+* **Page de détails du Contrat :**
+
+  * Création d'une vue dédiée.
+  * Organisation par onglets :
+
+    * Paiements
+    * Séances
+    * Examens
+
+## 🎯 Use Cases concernés
+
+* **UC03 — Gestion des candidats**
+* **UC06 — Gestion des contrats**
+* Préparation de **UC07 — Gestion des paiements**
+* Préparation de **UC08 — Planification des séances**
+* Préparation de **UC11 — Planification des examens**
+
+## 📌 État
+
+La conception UX et l'organisation du module Contrats sont définies. La structure permet également de préparer l'intégration future des paiements, séances et examens.
+
+# 📅 Jour 9 — Implémentation Technique & Module Contrats
+
+## 🎯 Objectif
+
+Implémenter le module Contrats dans l'architecture MVC et permettre la création et l'affichage des contrats associés aux candidats.
+
+## ✅ Réalisations
+
+* **Architecture MVC :**
+
+  * Création du `ContratController`.
+  * Création du modèle `Contrat`.
+  * Création des vues :
+
+    * `students/show.php`
+    * `contrats/create.php`
+
+* **Fiche Candidat & Contrats :**
+
+  * Affichage des informations du candidat.
+  * Affichage des contrats associés.
+  * Utilisation d'une jointure SQL `LEFT JOIN categorie`.
+  * Récupération de la catégorie du permis avec les détails du contrat.
+  * Utilisation de `PDO::fetchAll()`.
+
+* **Gestion dynamique :**
+
+  * Récupération de l'ID candidat via `$_GET['id']`.
+  * Affichage dynamique des informations correspondant au candidat sélectionné.
+
+* **Création d'un Contrat :**
+
+  * Création du formulaire de souscription.
+  * Transmission de l'ID candidat via un `hidden input`.
+  * Traitement du formulaire en `POST`.
+  * Utilisation de requêtes préparées PDO.
+  * Validation des données côté serveur.
+  * Redirection dynamique après traitement.
+
+## 🎯 Use Cases concernés
+
+* **UC03 — Gestion des candidats**
+* **UC06 — Gestion des contrats**
+
+## 📌 État
+
+La création et l'affichage des contrats associés aux candidats sont maintenant fonctionnels. Le module est intégré à l'architecture MVC et utilise des requêtes préparées avec validation côté serveur.
+
+# 🎯 Prochaine étape — Jour 10
+
+📄 **Finaliser le module UC06 — Gestion des contrats.**
+
+* [ ] Implémenter la modification d'un contrat
+* [ ] Implémenter la suppression d'un contrat
+* [ ] Ajouter les notifications Toast aux actions Contrats
+* [ ] Renforcer la validation des formulaires Contrats
+* [ ] Tester les opérations CRUD du module
+* [ ] Vérifier les relations Contrat ↔ Candidat
+
+# 📊 Progression actuelle
 
 | Partie                   | État        |
 | ------------------------ | ----------- |
@@ -273,9 +377,10 @@ La validation complète des formulaires reste à renforcer avant de considérer 
 | Dashboard                | 🟢 100%     |
 | UC03 — Candidats         | 🟢 90%      |
 | UC02 — Utilisateurs      | 🟡 En cours |
+| UC06 — Contrats          | 🟡 50%      |
 | UC01 — Authentification  | 🔴 À venir  |
-| UC04 → UC15              | 🔴 À venir  |
+| UC04 → UC05              | 🔴 À venir  |
+| UC07 → UC15              | 🔴 À venir  |
 | Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le projet Smart Auto-École est en phase de développement fonctionnel. Le module **Gestion des candidats (UC03)** est fonctionnel pour les principales opérations : consultation, création, modification, archivage, activation et suppression définitive. Un système de Flash Messages / Toast Notifications est également intégré. La validation complète des formulaires reste à renforcer.
-
+> **État actuel :** Le module **Gestion des contrats (UC06)** est en cours d'implémentation. La fiche candidat permet maintenant d'afficher les contrats associés et de créer un nouveau contrat avec validation côté serveur et requêtes préparées PDO. La modification et la suppression des contrats restent à implémenter.

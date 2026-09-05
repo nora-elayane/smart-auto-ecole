@@ -101,7 +101,10 @@
                                 </td>
 
                                 <td class="actions">
-    <a href="/smart-auto-ecole/public/candidates/contract?id=<?php echo $student['id_user']; ?>" class="btn btn-primary btn-sm">Contrat</a>
+  <!-- Button Dropdown ou Action Directe -->
+<a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($student['id_user']); ?>" class="btn btn-sm btn-outline-primary">
+   <i class="bi bi-file-text"></i> Contrats
+</a>
 
     <?php if ($student['etat'] === 'Actif'): ?>
         <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user']; ?>" class="btn btn-secondary btn-sm">Éditer</a>
@@ -155,13 +158,12 @@
     <?php unset($_SESSION['flash']); ?>
 
     <script>
-        // إخفاء الـ Toast أوتوماتيكياً بعد 3 ثواني
         setTimeout(function() {
             const toast = document.getElementById('toastBox');
             if (toast) {
                 toast.style.opacity = '0';
                 toast.style.transform = 'translateY(-20px)';
-                setTimeout(() => toast.remove(), 400); // مسح العنصر من DOM
+                setTimeout(() => toast.remove(), 400); 
             }
         }, 3000);
     </script>
