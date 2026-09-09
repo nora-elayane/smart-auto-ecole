@@ -1,7 +1,6 @@
-
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
 <?php require_once __DIR__ . '/../layouts/sidebar.php'; ?>
-<link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
+<!-- Toast Notification UI -->
 <?php if (isset($_SESSION['flash'])): ?>
     <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
         <div class="toast-indicator"></div>
@@ -22,6 +21,7 @@
     </script>
 <?php endif; ?>
 
+
 <main class="main-content">
     <div class="page-content">
         
@@ -36,97 +36,110 @@
             </a>
         </div>
 
-        <div class="table-wrapper">
-            <table class="table">
+       <div class="table-wrapper table-container" style="position: relative;">
+
+    <!-- Floating Action Bar -->
+    <div id="actionBar" class="action-bar-overlay">
+        <div class="d-flex align-items-center gap-3">
+            <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
+            
+            <button type="button" id="btnEdit" class="btn btn-sm btn-outline-secondary" data-action-url="/smart-auto-ecole/public/candidates/edit">
+                Éditer
+            </button>
+
+            <button type="button" id="btnArchive" class="btn btn-sm btn-outline-warning" data-action-url="/smart-auto-ecole/public/candidates/archive">
+                Archiver
+            </button>
+
+            <button type="button" id="btnActivate" class="btn btn-sm btn-outline-success" data-action-url="/smart-auto-ecole/public/candidates/activate">
+                Activer
+            </button>
+
+            <button type="button" id="btnDelete" class="btn btn-sm btn-outline-danger" data-action-url="/smart-auto-ecole/public/candidates/delete">
+                Supprimer
+            </button>
+        </div>
+    </div>
+
+            <table class="table align-middle">
                 <thead>
                     <tr>
+                        <th width="40"><input type="checkbox" id="selectAll" class="form-check-input"></th>
                         <th>#ID</th>
-                        <th>Candidat</th>
+                        <th>CANDIDAT</th>
                         <th>CIN</th>
-                        <th>Contact</th>
-                        <th>Adresse</th>
-                        <th>Né(e) le</th>
-                        <th>Statut</th>
-                        <th style="text-align: right;">Actions</th>
+                        <th>CONTACT</th>
+                        <th>ADRESSE</th>
+                        <th>NÉ(E) LE</th>
+                        <th>STATUT</th>
+                        <th style="text-align: right;">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (!empty($students) && is_array($students)): ?>
                         <?php foreach ($students as $student): ?>
-                            <tr>
+                            <?php 
+                                $etatRaw = strtolower($student['etat'] ?? 'actif');
+                                $isActif = ($etatRaw === 'actif' || $etatRaw === 'active');
+                            ?>
+                            <tr data-etat="<?= $isActif ? 'actif' : 'archivé' ?>">
+                                <td>
+                                    <input type="checkbox" class="select-row form-check-input" value="<?= htmlspecialchars($student['id_user']); ?>">
+                                </td>
                                 <td style="font-weight: 600; color: var(--text-secondary);">
-                                    #<?php echo htmlspecialchars($student['id_user'] ?? '-'); ?>
+                                    #<?= htmlspecialchars($student['id_user'] ?? '-'); ?>
                                 </td>
 
                                 <td>
                                     <div style="display: flex; align-items: center; gap: 12px;">
                                         <?php if (!empty($student['photo'])): ?>
-<img src="/smart-auto-ecole/public/uploads/<?php echo htmlspecialchars($student['photo']); ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">   
+                                            <img src="/smart-auto-ecole/public/uploads/<?= htmlspecialchars($student['photo']); ?>" alt="Avatar" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;">   
                                         <?php else: ?>
                                             <div class="user-avatar" style="width: 36px; height: 36px; font-weight: 600; font-size: 0.875rem;">
-                                                <?php echo strtoupper(substr($student['nom'] ?? 'C', 0, 1)); ?>
+                                                <?= strtoupper(substr($student['nom'] ?? 'C', 0, 1)); ?>
                                             </div>
                                         <?php endif; ?>
                                         <div>
-                                            <div style="font-weight: 600; color: var(--text-primary);"><?php echo htmlspecialchars(($student['prenom'] ?? '') . ' ' . ($student['nom'] ?? '')); ?></div>
-                                            <div style="font-size: 12px; color: var(--text-secondary);"><?php echo htmlspecialchars($student['email'] ?? ''); ?></div>
+                                            <div style="font-weight: 600; color: var(--text-primary);"><?= htmlspecialchars(($student['prenom'] ?? '') . ' ' . ($student['nom'] ?? '')); ?></div>
+                                            <div style="font-size: 12px; color: var(--text-secondary);"><?= htmlspecialchars($student['email'] ?? ''); ?></div>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td style="font-weight: 500; font-family: monospace;">
-                                    <?php echo htmlspecialchars($student['cin'] ?? 'N/A'); ?>
+                                    <?= htmlspecialchars($student['cin'] ?? 'N/A'); ?>
                                 </td>
 
                                 <td>
-                                    <?php echo htmlspecialchars($student['telephone'] ?? 'N/A'); ?>
+                                    <?= htmlspecialchars($student['telephone'] ?? 'N/A'); ?>
                                 </td>
 
                                 <td style="color: var(--text-secondary); max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                                    <?php echo htmlspecialchars($student['adresse'] ?? 'N/A'); ?>
+                                    <?= htmlspecialchars($student['adresse'] ?? 'N/A'); ?>
                                 </td>
 
                                 <td style="color: var(--text-secondary);">
-                                    <?php echo htmlspecialchars($student['date_naissance'] ?? 'N/A'); ?>
+                                    <?= htmlspecialchars($student['date_naissance'] ?? 'N/A'); ?>
                                 </td>
 
                                 <td>
-                                    <?php 
-                                        $etat = strtolower($student['etat'] ?? 'actif');
-                                        $isActif = ($etat === 'actif' || $etat === 'active');
-                                    ?>
-                                    <span class="badge <?php echo $isActif ? 'badge-success' : 'badge-danger'; ?>">
-                                        <?php echo ucfirst($etat); ?>
+                                    <span class="badge <?= $isActif ? 'badge-success' : 'badge-danger'; ?>">
+                                        <?= ucfirst($etatRaw); ?>
                                     </span>
                                 </td>
 
-                                <td class="actions">
-  <!-- Button Dropdown ou Action Directe -->
-<a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($student['id_user']); ?>" class="btn btn-sm btn-outline-primary">
-   <i class="bi bi-file-text"></i> Contrats
-</a>
+                                <td class="actions" style="text-align: right;">
+                                    <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($student['id_user']); ?>" class="btn btn-sm btn-outline-primary">
+                                       <i class="bi bi-file-text"></i> Consulter
+                                    </a>
 
-    <?php if ($student['etat'] === 'Actif'): ?>
-        <a href="/smart-auto-ecole/public/candidates/edit?id=<?php echo $student['id_user']; ?>" class="btn btn-secondary btn-sm">Éditer</a>
-        <a href="/smart-auto-ecole/public/candidates/archive?id=<?php echo $student['id_user']; ?>" 
-           onclick="return confirm('Voulez-vous vraiment archiver ce candidat ?');" 
-           class="btn btn-warning btn-sm">Archiver</a>
-
-    <?php else: ?>
-        <a href="/smart-auto-ecole/public/candidates/activate?id=<?php echo $student['id_user']; ?>" 
-           onclick="return confirm('Voulez-vous réactiver ce candidat ?');" 
-           class="btn btn-success btn-sm">Activer</a>
-        
-        <a href="/smart-auto-ecole/public/candidates/delete?id=<?php echo $student['id_user']; ?>" 
-           onclick="return confirm('Attention! Voulez-vous supprimer définitivement ce candidat ?');" 
-           class="btn btn-danger btn-sm">Supprimer</a>
-    <?php endif; ?>
-</td>
+                                   
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="8" style="padding: 40px; text-align: center; color: var(--text-light);">
+                            <td colspan="9" style="padding: 40px; text-align: center; color: var(--text-light);">
                                 <div style="font-size: 16px; font-weight: 600;">Aucun candidat trouvé</div>
                                 <div style="font-size: 13px; margin-top: 4px;">Commencez par ajouter un nouveau candidat à la base de données.</div>
                             </td>
@@ -138,7 +151,11 @@
 
     </div>
 </main>
+
+<script src="/smart-auto-ecole/public/js/table-actions.js"></script>
+
 <?php require_once __DIR__ . '/../layouts/footer.php'; ?>
+
 
 <!-- Toast Notification UI -->
 <?php if (isset($_SESSION['flash'])): ?>

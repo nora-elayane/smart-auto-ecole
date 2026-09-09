@@ -113,51 +113,70 @@ class StudentController {
         }
     }
 }
-public function archive(){
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-        $id = $_GET['id'] ; 
-        $database = new Database() ; 
-        $db = $database->getConnection() ; 
-        $studentModel = new Students($db) ; 
-        $result = $studentModel->archiverStudent($id);
-        
-        if ($result) {
-          $_SESSION['flash'] = ['type' => 'warning', 'message' => 'Le candidat a été archivé.'];
+private function parseIdsFromRequest() {
+        $raw = $_GET['ids'] ?? $_GET['id'] ?? null;
+        if (!$raw) return [];
+
+        $ids = explode(',', $raw);
+        return array_map('intval', array_filter($ids));
+    }
+
+    public function archive(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $ids = $this->parseIdsFromRequest();
+            if (!empty($ids)) {
+                $database = new Database(); 
+                $db = $database->getConnection(); 
+                $studentModel = new Students($db); 
+                
+                if ($studentModel->archiverStudent($ids)) {
+                    $count = count($ids);
+                    $msg = ($count > 1) ? "$count candidats ont été archivés." : 'Le candidat a été archivé.';
+                    $_SESSION['flash'] = ['type' => 'warning', 'message' => $msg];
+                }
+            }
             header('Location: /smart-auto-ecole/public/candidates');
             exit();
         }
     }
-}
-public function active(){
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-        $id = $_GET['id'] ; 
-        $database = new Database() ; 
-        $db = $database->getConnection() ; 
-        $studentModel = new Students($db) ; 
-        $result = $studentModel->activerStudent($id);
-        
-        if ($result) {
-            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Le candidat a été réactivé.'];
+
+    public function active(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $ids = $this->parseIdsFromRequest();
+            if (!empty($ids)) {
+                $database = new Database(); 
+                $db = $database->getConnection(); 
+                $studentModel = new Students($db); 
+
+                if ($studentModel->activerStudent($ids)) {
+                    $count = count($ids);
+                    $msg = ($count > 1) ? "$count candidats ont été réactivés." : 'Le candidat a été réactivé.';
+                    $_SESSION['flash'] = ['type' => 'success', 'message' => $msg];
+                }
+            }
             header('Location: /smart-auto-ecole/public/candidates');
             exit();
         }
     }
-}
-public function delete(){
-     if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-        $id = $_GET['id'] ; 
-        $database = new Database() ; 
-        $db = $database->getConnection() ; 
-        $studentModel = new Students($db) ; 
-        $result = $studentModel->deleteStudent($id);
-        
-        if ($result) {
-            $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Candidat supprimé définitivement.'];
+
+    public function delete(){
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $ids = $this->parseIdsFromRequest();
+            if (!empty($ids)) {
+                $database = new Database(); 
+                $db = $database->getConnection(); 
+                $studentModel = new Students($db); 
+
+                if ($studentModel->deleteStudent($ids)) {
+                    $count = count($ids);
+                    $msg = ($count > 1) ? "$count candidats supprimés définitivement." : 'Candidat supprimé définitivement.';
+                    $_SESSION['flash'] = ['type' => 'danger', 'message' => $msg];
+                }
+            }
             header('Location: /smart-auto-ecole/public/candidates');
             exit();
         }
     }
-}
 }
 
 

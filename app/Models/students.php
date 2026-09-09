@@ -37,31 +37,51 @@ public function updateStudent($nom, $prenom, $email, $mot, $cin, $telephone, $ad
     return $stm->execute([$nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat , $id , $id_role]) ; 
 
 }
-public function archiverStudent($id){
-    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user = ?" ;
-    $stm = $this->conn->prepare($query) ; 
-    return $stm->execute(["Inactif" , $id]) ; 
-}
-public function activerStudent($id){
-    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user = ?" ;
-    $stm = $this->conn->prepare($query) ; 
-    return $stm->execute(["Actif" , $id]) ; 
-}
-public function deleteStudent($id){
-    $queryPhoto = "SELECT photo FROM " . $this->table . " WHERE id_user = ?";
-    $stmtPhoto = $this->conn->prepare($queryPhoto);
-    $stmtPhoto->execute([$id]);
-    $student = $stmtPhoto->fetch(PDO::FETCH_ASSOC);
+public function archiverStudent($ids){
+    if (!is_array($ids)) { $ids = [$ids]; }
+    if (empty($ids)) return false;
 
-    if ($student && !empty($student['photo'])) {
-        $filePath = __DIR__ . '/../../public/uploads/' . $student['photo'];
-        if (file_exists($filePath)) {
-            unlink($filePath);
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user IN ($placeholders)";
+    
+    $stm = $this->conn->prepare($query);
+    return $stm->execute(array_merge(["Inactif"], $ids));
+}
+
+public function activerStudent($ids){
+    if (!is_array($ids)) { $ids = [$ids]; }
+    if (empty($ids)) return false;
+
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $query = "UPDATE " . $this->table . " SET etat = ? WHERE id_user IN ($placeholders)";
+    
+    $stm = $this->conn->prepare($query);
+    return $stm->execute(array_merge(["Actif"], $ids));
+}
+
+public function deleteStudent($ids){
+    if (!is_array($ids)) { $ids = [$ids]; }
+    if (empty($ids)) return false;
+
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+
+    $queryPhoto = "SELECT photo FROM " . $this->table . " WHERE id_user IN ($placeholders)";
+    $stmtPhoto = $this->conn->prepare($queryPhoto);
+    $stmtPhoto->execute($ids);
+    $students = $stmtPhoto->fetchAll(PDO::FETCH_ASSOC);
+
+    foreach ($students as $student) {
+        if (!empty($student['photo'])) {
+            $filePath = __DIR__ . '/../../public/uploads/' . $student['photo'];
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
         }
     }
-    $query = "DELETE FROM " . $this->table . " WHERE id_user = ?" ; 
-    $stm = $this->conn->prepare($query) ; 
-    return $stm->execute([$id]) ; 
+
+    $query = "DELETE FROM " . $this->table . " WHERE id_user IN ($placeholders)";
+    $stm = $this->conn->prepare($query);
+    return $stm->execute($ids);
 }
 }
 

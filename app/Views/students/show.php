@@ -1,6 +1,8 @@
 <div class="page-content">
         <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
+    <link rel="stylesheet" href="/smart-auto-ecole/public/css/buttons.css">
+    
     <div class="card-header" style="margin-bottom: 24px;">
         <div>
             <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Fiche Candidat</h1>
@@ -67,7 +69,6 @@
         </div>
     </div>
 
-    <!-- Liste des Contrats -->
     <div class="card">
         <div class="card-header">
             <div>
@@ -75,23 +76,47 @@
                 <p class="card-description">Historique des souscriptions aux permis de conduire.</p>
             </div>
         </div>
+        
+      
 
-        <div class="table-wrapper">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>N° Contrat</th>
-                        <th>Catégorie</th>
-                        <th>Date Contrat</th>
-                        <th>Prix Final</th>
-                        <th>Statut</th>
-                        <th style="text-align: right;">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="table-container" style="position: relative;">
+    
+    <div id="actionBar" class="action-bar-overlay">
+        <div class="d-flex align-items-center gap-3">
+            <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
+           <button type="button" id="btnEdit" data-action-url="/smart-auto-ecole/public/candidates/contrats/edit" class="btn btn-sm btn-outline-secondary">Éditer</button>
+<button type="button" id="btnDelete" data-action-url="/smart-auto-ecole/public/candidates/contrats/delete" class="btn btn-sm btn-outline-danger">Supprimer</button>
+           <div class="dropdown-wrapper" style="position: relative; display: inline-block;">
+    <button type="button" id="btnPrintDropdown" class="btn btn-sm btn-secondary">
+        Imprimer ▾
+    </button>
+    <div id="printMenu" class="custom-dropdown-menu">
+        <button type="button" class="dropdown-item print-action" data-type="contrat">Contrat d'apprentissage</button>
+        <button type="button" class="dropdown-item print-action" data-type="attestation">Attestation d'inscription</button>
+        <div class="dropdown-divider"></div>
+        <button type="button" class="dropdown-item print-action" data-type="carte">Carte Candidat</button>
+    </div>
+</div>
+        </div>
+    </div>
+
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                <th>N° CONTRAT</th>
+                <th>CATÉGORIE</th>
+                <th>DATE CONTRAT</th>
+                <th>PRIX FINAL</th>
+                <th>STATUT</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody>
                     <?php if (!empty($contrats) && is_array($contrats)): ?>
                         <?php foreach ($contrats as $contrat): ?>
                             <tr>
+                                <td><input type="checkbox" class="select-row" value="<?= $contrat['id_contrat'] ?>"></td>
                                 <td style="font-weight: 600;">#<?= htmlspecialchars($contrat['id_contrat']) ?></td>
                                 <td>
                                     <span class="badge badge-warning" style="background: #eff6ff; color: var(--primary);">
@@ -126,3 +151,6 @@
         </div>
     </div>
 </div>
+
+
+<script src="/smart-auto-ecole/public/js/table-actions.js"></script>

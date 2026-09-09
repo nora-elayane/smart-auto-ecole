@@ -8,6 +8,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
+    <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
+    <link rel="stylesheet" href="/smart-auto-ecole/public/css/buttons.css">
+
 </head>
 <body>
 
