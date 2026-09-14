@@ -22,21 +22,35 @@ class Contrat{
             return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getContratById($id_contrat){
-           
+    public function getContratById($id_contrat) {
+    $query = "SELECT * FROM " . $this->table . " WHERE id_contrat = ? LIMIT 1";
+    $stm = $this->conn->prepare($query);
+    $stm->execute([$id_contrat]);
+    return $stm->fetch(PDO::FETCH_ASSOC); // ضروري FETCH_ASSOC باش ترجع array
+}
 
+    public function updateContrat($date , $prix , $statut , $id_user , $id_categorie){
+        $query = "UPDATE " . $this->table . " SET date_contrat = ? , prix_final = ? , statut = ? WHERE id_user = ? AND id_categorie = ?" ;
+        $stm = $this->conn->prepare($query) ; 
+        return $stm->execute([$date , $prix , $statut , $id_user , $id_categorie]) ; 
     }
+    public function getStudentIdByContratId($contratId) {
+    $query = "SELECT id_user FROM " . $this->table . " WHERE id_contrat = ? LIMIT 1";
+    $stm = $this->conn->prepare($query);
+    $stm->execute([$contratId]);
+    $row = $stm->fetch(PDO::FETCH_ASSOC);
+    return $row['id_user'] ?? null;
+}
 
-    public function updateContrat($id_contrat){
-
-
+    public function deleteContrat($ids){
+        if (!is_array($ids)) { $ids = [$ids]; }
+    if (empty($ids)) return false;
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+        $query = "DELETE FROM " . $this->table . " WHERE id_contrat IN ($placeholders)" ;
+        $stm = $this->conn->prepare($query) ; 
+        return $stm->execute($ids) ;
     }
-
-    public function deleteContrat($id_contrat){
-
-    }
-
-
+    
 
     }
 

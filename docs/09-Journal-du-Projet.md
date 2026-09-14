@@ -356,16 +356,58 @@ Implémenter le module Contrats dans l'architecture MVC et permettre la créatio
 
 La création et l'affichage des contrats associés aux candidats sont maintenant fonctionnels. Le module est intégré à l'architecture MVC et utilise des requêtes préparées avec validation côté serveur.
 
-# 🎯 Prochaine étape — Jour 10
+# 📅 Jour 10 — Finalisation du module Contrats
 
-📄 **Finaliser le module UC06 — Gestion des contrats.**
+## 🎯 Objectif
 
-* [ ] Implémenter la modification d'un contrat
-* [ ] Implémenter la suppression d'un contrat
-* [ ] Ajouter les notifications Toast aux actions Contrats
-* [ ] Renforcer la validation des formulaires Contrats
-* [ ] Tester les opérations CRUD du module
-* [ ] Vérifier les relations Contrat ↔ Candidat
+Finaliser le module **Gestion des Contrats (UC06)** en ajoutant les opérations de modification et de suppression, tout en améliorant les validations et les retours utilisateur.
+
+## ✅ Réalisations
+
+* ✏️ Implémentation de la **modification des contrats**
+* 🗑️ Implémentation de la **suppression des contrats**
+* 🔔 Ajout des **Toast Notifications** pour les actions sur les contrats
+* 🛡️ Renforcement de la **validation des données du formulaire**
+* 🧪 Test des opérations principales du **CRUD des contrats**
+* 🔗 Vérification de la relation **Contrat ↔ Candidat**
+* ✅ Vérification du bon fonctionnement des redirections et des actions après chaque opération
+
+## 🧠 Décisions importantes
+
+* Utilisation des requêtes **PDO préparées** pour sécuriser les opérations SQL.
+* Conservation d'une relation cohérente entre les **candidats et leurs contrats**.
+* Utilisation des **Toast Notifications** pour informer clairement l'utilisateur du résultat de chaque action.
+* Centralisation des opérations du module Contrats à travers l'architecture **MVC**.
+
+## 🎯 Use Cases concernés
+
+* **UC06 — Gérer les contrats**
+
+  * Création
+  * Consultation
+  * Modification
+  * Suppression
+* Préparation des fonctionnalités liées à :
+
+  * **UC07 — Gérer les paiements**
+  * **UC08 — Planifier les séances**
+  * **UC11 — Planifier les examens**
+
+## 📌 État
+
+🟢 **UC06 — Gestion des contrats : 80%**
+
+Le module permet maintenant de **créer, consulter, modifier et supprimer les contrats**, avec validation des données et notifications utilisateur.
+
+# 🎯 Prochaine étape — Jour 11
+
+📄 **Implémenter l'impression des documents liés aux contrats et aux candidats.**
+
+* [ ] Impression du **Contrat d'Apprentissage**
+* [ ] Impression de l'**Attestation d'Inscription**
+* [ ] Impression de la **Carte Candidat**
+* [ ] Préparer les vues dédiées à l'impression
+* [ ] Vérifier la mise en page et les informations affichées sur chaque document
 
 # 📊 Progression actuelle
 
@@ -377,10 +419,10 @@ La création et l'affichage des contrats associés aux candidats sont maintenant
 | Dashboard                | 🟢 100%     |
 | UC03 — Candidats         | 🟢 90%      |
 | UC02 — Utilisateurs      | 🟡 En cours |
-| UC06 — Contrats          | 🟡 50%      |
+| UC06 — Contrats          | 🟢 80%      |
 | UC01 — Authentification  | 🔴 À venir  |
 | UC04 → UC05              | 🔴 À venir  |
 | UC07 → UC15              | 🔴 À venir  |
 | Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le module **Gestion des contrats (UC06)** est en cours d'implémentation. La fiche candidat permet maintenant d'afficher les contrats associés et de créer un nouveau contrat avec validation côté serveur et requêtes préparées PDO. La modification et la suppression des contrats restent à implémenter.
+> **État actuel :** Le module **Gestion des contrats (UC06)** est maintenant fonctionnel pour la **création, la consultation, la modification et la suppression des contrats**. La prochaine étape consiste à intégrer l'impression des documents administratifs : **Contrat d'Apprentissage, Attestation d'Inscription et Carte Candidat**.

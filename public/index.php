@@ -49,7 +49,16 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/candidates/contrats/store'){
     $controller = new ContratController();
     $controller->store();
-}else {
+}elseif($uri === $basePath . '/candidates/contrats/delete'){
+    $controller = new ContratController();
+    $controller->delete();
+}elseif($uri === $basePath . '/candidates/contrats/edit'){
+    $controller = new ContratController();
+    $controller->edit();
+}elseif ($uri === $basePath . '/candidates/contrats/update') {
+    $controller = new ContratController();
+    $controller->update();
+}else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";
     echo "<p>current path " . htmlspecialchars($uri) . "</p>"; 
