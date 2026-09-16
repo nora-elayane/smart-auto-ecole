@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/buttons.css">
-
 </head>
 <body>
 
@@ -20,19 +19,9 @@
         <header class="top-navbar">
 
             <div class="navbar-left">
-                <button
-                    class="sidebar-toggle"
-                    id="sidebarToggle"
-                    type="button"
-                    aria-label="Basculer le menu"
-                    aria-expanded="true"
-                >
-                    <svg viewBox="0 0 24 24" aria-hidden="true">
-                        <path d="M4 6h16M4 12h16M4 18h16"
-                              fill="none"
-                              stroke="currentColor"
-                              stroke-width="2"
-                              stroke-linecap="round"/>
+                <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Ouvrir/fermer le menu">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
                     </svg>
                 </button>
 
@@ -106,11 +95,6 @@
                                   stroke="currentColor"
                                   stroke-width="2"
                                   stroke-linecap="round"/>
-                            <path d="M21 3v18"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap="round"/>
                         </svg>
                         <span>Déconnexion</span>
                     </a>
@@ -121,3 +105,18 @@
         </header>
 
         <section class="page-content">
+
+        <script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    if (window.innerWidth <= 767) {
+        sidebar.classList.toggle('active');
+        if (overlay) overlay.classList.toggle('active');
+    } else {
+        document.body.classList.toggle('sidebar-collapsed');
+        sidebar.classList.toggle('collapsed');
+    }
+}
+</script>

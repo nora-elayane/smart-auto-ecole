@@ -438,34 +438,76 @@ Implémenter les premiers documents administratifs imprimables liés aux **contr
 
 La création, consultation, modification, suppression et une partie de l'impression des documents liés aux contrats sont maintenant fonctionnelles.
 
-# 🎯 Prochaine étape — Jour 12
+# 📅 Jour 12 — Finalisation de l'interface & navigation
 
-### 📄 Finalisation de l'impression
+## 🎯 Objectif
 
-- [ ] Implémenter l'**Attestation d'Inscription**
-- [ ] Vérifier et finaliser les templates d'impression
-- [ ] Tester l'impression avec différents candidats et contrats
+Finaliser les améliorations visuelles de l'interface et corriger les principaux problèmes liés à la navigation, aux tableaux et aux actions utilisateur.
 
-### 🎨 Finalisation de l'interface
+## ✅ Réalisations
 
-- [ ] Finaliser les améliorations du **Sidebar**
-- [ ] Uniformiser l'affichage des tableaux
-- [ ] Corriger les derniers bugs de navigation et d'affichage
+### 🎨 Interface & Sidebar
+
+- Réorganisation du **menu latéral (Sidebar)**.
+- Amélioration de la structure et de la présentation visuelle du Sidebar.
+- Optimisation de l'affichage des différentes sections du menu.
+
+### 📊 Gestion des Tables & Actions
+
+- Correction du comportement des menus déroulants, notamment le **Dropdown Imprimer**.
+- Optimisation de la sélection et de l'interaction avec les lignes des tableaux.
+- Amélioration de l'affichage et de l'utilisation des actions associées aux tableaux.
+
+### 🧭 Navigation
+
+- Résolution du bug lié au bouton **Retour**.
+- Correction des problèmes de **redirection vers les pages précédentes**.
+- Amélioration de la navigation entre les différentes pages de l'application.
+
+## 🧠 Décisions importantes
+
+- Uniformiser progressivement les composants d'interface afin de faciliter leur réutilisation dans les prochains modules.
+- Corriger les problèmes de navigation avant de commencer le développement de nouveaux modules.
+- Conserver une interface simple et cohérente pour les différentes opérations CRUD.
+
+## 🎯 Use Cases concernés
+
+- **UC03 — Gérer les candidats**
+- **UC06 — Gérer les contrats**
+- Préparation de l'interface pour les prochains modules de gestion.
+
+## 📌 État
+
+🟢 **Interface & Navigation : finalisées pour les modules actuels**
+
+Les principaux problèmes liés au **Sidebar, aux tableaux, aux Dropdowns et à la navigation** ont été corrigés.
+
+# 🎯 Prochaine étape — Jour 13
+
+👥 **Développement du module Gestion des employés**
+
+- [ ] Gestion des **Secrétaires**
+- [ ] Gestion des **Moniteurs**
+- [ ] Réutilisation de la logique commune de gestion des utilisateurs
+- [ ] Création et modification des profils employés
+- [ ] Gestion des rôles et des informations spécifiques à chaque type d'employé
+- [ ] Préparer la structure pour l'intégration future de l'authentification
 
 # 📊 Progression actuelle
 
-| Partie                   | État        |
-| ------------------------ | ----------- |
-| Analyse & Conception     | 🟢 100%     |
-| Architecture & Interface | 🟢 100%     |
-| Base de données          | 🟢 100%     |
-| Dashboard                | 🟢 100%     |
-| UC03 — Candidats         | 🟢 90%      |
-| UC02 — Utilisateurs      | 🟡 En cours |
-| UC06 — Contrats          | 🟢 85%      |
-| UC01 — Authentification  | 🔴 À venir  |
-| UC04 → UC05              | 🔴 À venir  |
-| UC07 → UC15              | 🔴 À venir  |
-| Tests & Déploiement      | 🔴 À venir  |
+| Partie                      | État               |
+| --------------------------- | ------------------ |
+| Analyse & Conception        | 🟢 100%            |
+| Architecture & Interface    | 🟢 100%            |
+| Base de données             | 🟢 100%            |
+| Dashboard                   | 🟢 100%            |
+| UC03 — Candidats            | 🟢 90%             |
+| UC02 — Utilisateurs         | 🟡 En cours        |
+| UC06 — Contrats             | 🟢 85%             |
+| UC01 — Authentification     | 🔴 À venir         |
+| UC04 — Gestion des employés | 🟡 Prochaine étape |
+| UC05 — Véhicules            | 🔴 À venir         |
+| UC07 → UC15                 | 🔴 À venir         |
+| Tests & Déploiement         | 🔴 À venir         |
 
-> **État actuel :** Le module **Gestion des contrats (UC06)** est maintenant fonctionnel pour la **création, la consultation, la modification, la suppression et l'impression partielle des documents administratifs**. Le **Contrat d'Apprentissage** et la **Carte Candidat** disposent désormais de leurs templates d'impression. La prochaine étape consiste à finaliser l'**Attestation d'Inscription**, poursuivre les améliorations de l'interface et corriger les derniers bugs de navigation.
+> **État actuel :** Les améliorations principales de l'interface, du **Sidebar**, des **tableaux**, des **Dropdowns** et de la **navigation** sont terminées. La prochaine étape consiste à développer le module **Gestion des employés**, comprenant les **Secrétaires et les Moniteurs**, tout en réutilisant la logique commune déjà développée pour la gestion des utilisateurs et des candidats.

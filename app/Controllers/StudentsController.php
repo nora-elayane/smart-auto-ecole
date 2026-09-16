@@ -1,13 +1,21 @@
 <?php
-require_once __DIR__ . '/../Models/students.php' ; 
+require_once __DIR__ . '/../Models/students.php'; 
+require_once __DIR__ . '/../Models/schoolInfo.php'; 
+
 class StudentController {
     public function index(){
-        $database = new Database() ; 
-        $db = $database->getConnection() ; 
-        $studentModel = new Students($db) ; 
-        $students = $studentModel->getAll() ; 
-        require_once __DIR__ . '/../Views/students/index.php' ; 
+        $database = new Database(); 
+        $db = $database->getConnection(); 
+        
+        $studentModel = new Students($db); 
+        $students = $studentModel->getAll(); 
+
+        $schoolModel = new SchoolInfo($db);
+        $schoolInfo = $schoolModel->getInfo();
+
+        require_once __DIR__ . '/../Views/students/index.php'; 
     }
+
     public function createStudent() {
         $roleId = 4; // Candidat
         $pageTitle = "Nouveau Candidat";

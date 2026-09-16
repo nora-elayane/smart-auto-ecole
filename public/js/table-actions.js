@@ -139,36 +139,53 @@ class TableActionsManager {
   }
 
   bindPrintDropdown() {
-    if (this.btnPrintDropdown && this.printMenu) {
-      this.btnPrintDropdown.addEventListener("click", (e) => {
-        e.stopPropagation();
-        this.printMenu.classList.toggle("active");
-      });
+    if (!this.btnPrintDropdown || !this.printMenu) return;
 
-      document.addEventListener("click", (e) => {
-        if (
-          !this.printMenu.contains(e.target) &&
-          e.target !== this.btnPrintDropdown
-        ) {
-          this.printMenu.classList.remove("active");
-        }
-      });
-    }
+    this.btnPrintDropdown.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      this.printMenu.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (
+        !this.printMenu.contains(e.target) &&
+        !this.btnPrintDropdown.contains(e.target)
+      ) {
+        this.printMenu.classList.remove("active");
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") this.printMenu.classList.remove("active");
+    });
   }
 
   bindPrintActions() {
-    document.querySelectorAll(".print-action").forEach((btn) => {
+    this.container.querySelectorAll(".print-action").forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
+        e.stopPropagation();
+
+        if (this.printMenu) this.printMenu.classList.remove("active");
+
         const ids = this.getSelectedIds();
-        if (ids.length === 0) return;
+        if (ids.length === 0) {
+          alert("Voulez Vous choisir une contrat ");
+          return;
+        }
+        if (ids.length > 1) {
+          alert("Voulez vous Choisi une seul Contrat ");
+          return;
+        }
 
         const printType = btn.dataset.type;
         const baseUrl =
           btn.getAttribute("data-action-url") ||
           "/smart-auto-ecole/public/candidates/contrats/print";
+
         window.open(
-          `${baseUrl}?type=${printType}&ids=${ids.join(",")}`,
+          `${baseUrl}?id=${encodeURIComponent(ids[0])}&type=${encodeURIComponent(printType)}`,
           "_blank",
         );
       });

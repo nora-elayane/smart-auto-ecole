@@ -1,6 +1,7 @@
 <?php
 session_start();
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../config/database.php';
@@ -61,6 +62,15 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif ($uri === $basePath . '/candidates/contrats/print') {
     $controller = new ContratController();
     $controller->print();
+}
+ elseif ($uri === $basePath . '/settings/school') {
+    require_once __DIR__ . '/../app/Controllers/SchoolController.php';
+    $controller = new SchoolController();
+    $controller->index();
+} elseif ($uri === $basePath . '/settings/school/update') {
+    require_once __DIR__ . '/../app/Controllers/SchoolController.php';
+    $controller = new SchoolController();
+    $controller->update();
 }else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";

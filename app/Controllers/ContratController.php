@@ -179,9 +179,8 @@ public function edit() {
         $type = $_GET['type'] ?? 'contrat';
         $id_contrat = $_GET['id'] ?? null;
 
-        // اختبار للتأكد من القيمة المستقبلة فـ URL
         if (empty($id_contrat)) {
-            die("خطأ: لم يتم استقبال أي ID للعقد عبر الـ URL! القيمة الحالية هي: " . var_export($id_contrat, true));
+            die("Error " . var_export($id_contrat, true));
         }
 
         $database = new Database();
@@ -194,7 +193,7 @@ public function edit() {
         $contrat = $contratModel->getContratById($id_contrat);
 
         if (!$contrat) {
-            die("خطأ: لم يتم العثور على العقد في قاعدة البيانات بالرقم: " . htmlspecialchars($id_contrat));
+            die("Error " . htmlspecialchars($id_contrat));
         }
 
         $studentModel = new Students($db);
@@ -218,7 +217,7 @@ public function edit() {
         if (file_exists($file)) {
             require_once $file;
         } else {
-            die("الملف غير موجود في المسار: " . htmlspecialchars($file));
+            die("Error " . htmlspecialchars($file));
         }
     }
 }

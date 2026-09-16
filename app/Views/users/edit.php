@@ -51,7 +51,6 @@
         Laissez ce champ vide pour conserver le mot de passe actuel.
     </small>
     
-    <!-- حقل مخفي تحتفظي فيه بالباسوورد القديم المشفر (Hash) اللي جايباه من الموديل -->
     <input type="hidden" name="oldmot" value="<?php echo htmlspecialchars($student['mot_de_passe'] ?? ''); ?>">
 </div>
 

@@ -48,7 +48,6 @@
             }
         }
 
-        /* Top Header Info */
         .top-meta {
             width: 100%;
             display: flex;
@@ -58,7 +57,6 @@
             margin-bottom: 4px;
         }
 
-        /* Title Block */
         .title-block {
             text-align: center;
             margin-bottom: 10px;
@@ -77,7 +75,6 @@
             font-size: 11px;
         }
 
-        /* Section Header */
         .section-header {
             font-size: 13.5px;
             font-weight: bold;
@@ -88,7 +85,6 @@
             padding-bottom: 1px;
         }
 
-        /* Detailed Key-Value Block Layout */
         .block-section {
             margin-bottom: 8px;
         }
@@ -111,7 +107,6 @@
             margin: 8px 0;
         }
 
-        /* Articles Styling */
         .article {
             margin-bottom: 5px;
             text-align: justify;
@@ -124,11 +119,10 @@
         }
         .article-body {
             font-size: 10.5px;
-            color: #555555; /* لون باهت للمواد */
+            color: #555555; 
             line-height: 1.35;
         }
 
-        /* Bottom Footer Signatures */
         .footer-signatures {
             margin-top: 10px;
         }
@@ -151,24 +145,20 @@
         <button class="btn-print" onclick="window.print()">طباعة العقد</button>
     </div>
 
-    <!-- Header Meta -->
     <div class="top-meta">
         <div>عقد التكوين</div>
         <div>بتاريخ : <?= htmlspecialchars($contrat['date_contrat'] ?? '') ?></div>
     </div>
 
-    <!-- Title Block -->
     <div class="title-block">
         <div class="main-title">عقد التكوين</div>
 <div class="sub-title">رخصة السياقة من صنف : <?= htmlspecialchars($contrat['category_code'] ?? $contrat['code'] ?? '') ?></div>        <div class="num-title">رقم : <?= htmlspecialchars($contrat['id_contrat'] ?? '') ?></div>
     </div>
 
-    <!-- Section: الطرفين -->
     <div class="section-header">
         <span>طرفي العقد</span>
     </div>
 
-    <!-- Party 1: School Info -->
     <div class="block-section">
         <div class="row-line right-align">
             <div><span class="label-bold">مؤسسة تعليم السياقة :</span> <?= htmlspecialchars($school['nom_ecole'] ?? '') ?></div>
@@ -196,7 +186,6 @@
 
     <div class="divider"></div>
 
-    <!-- Party 2: Candidate Info -->
     <div class="block-section">
         <div class="row-line right-align">
             <div><span class="label-bold">والسيد(ة) :</span> <?= htmlspecialchars(trim(($candidat['nom'] ?? '') . ' ' . ($candidat['prenom'] ?? ''))) ?></div>
@@ -218,7 +207,6 @@
         </div>
     </div>
 
-    <!-- Articles Section -->
     <div class="article">
         <div class="article-title">المادة الأولى : موضوع العقد</div>
         <div class="article-body">
@@ -279,7 +267,6 @@
         </div>
     </div>
 
-    <!-- Signatures -->
     <div class="footer-signatures">
         <div class="sig-line">عقد محرر في نظيرين أصليين.</div>
         <div class="city-date-line">

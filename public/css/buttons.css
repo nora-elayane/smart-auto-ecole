@@ -1,20 +1,28 @@
+/* =========================================================
+   Table Action Bar + Dropdown + Row Selection
+   ========================================================= */
+
 .table-container {
   position: relative;
   overflow: hidden;
 }
 
+/* Action bar that slides down when rows are selected (toggled via .show) */
 .action-bar-overlay {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 48px;
-  background: #ffffff;
-  border-bottom: 2px solid #0d6efd;
+  height: 50px;
+
   display: flex;
   align-items: center;
   padding: 0 16px;
-  z-index: 10;
+
+  background: #ffffff;
+  border-bottom: 2px solid var(--primary, #2563eb);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 100;
 
   opacity: 0;
   pointer-events: none;
@@ -39,19 +47,27 @@
   background-color: rgba(13, 110, 253, 0.08) !important;
 }
 
+/* Dropdown menu, toggled via JS with the .active class */
+.dropdown-wrapper {
+  position: relative;
+}
+
 .custom-dropdown-menu {
   position: absolute;
   top: 100%;
   right: 0;
   margin-top: 6px;
+
+  min-width: 200px;
+  padding: 6px 0;
+
   background-color: var(--bg-surface, #ffffff);
   border: 1px solid var(--border-color, #e5e7eb);
   border-radius: 8px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
-  padding: 6px 0;
-  z-index: 100;
-
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 9999;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-6px);
@@ -69,10 +85,13 @@
   width: 100%;
   padding: 8px 16px;
   text-align: left;
+
   background: transparent;
   border: none;
-  font-size: 13.5px;
+
   color: var(--text-color, #374151);
+  font-size: 13.5px;
+
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
@@ -83,50 +102,42 @@
 
 .custom-dropdown-menu .dropdown-divider {
   height: 1px;
-  background-color: var(--border-color, #e5e7eb);
   margin: 4px 0;
+  background-color: var(--border-color, #e5e7eb);
 }
 
-.action-bar-overlay {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: #ffffff;
-  border-bottom: 2px solid var(--primary, #2563eb);
-  padding: 0 16px;
-  align-items: center;
-  z-index: 100;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 767px) {
+  .action-bar-overlay {
+    padding: 0 12px;
+    height: 46px;
+    font-size: 13px;
+  }
+
+  .custom-dropdown-menu {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    margin-top: 0;
+    min-width: 0;
+    width: auto;
+  }
+
+  .custom-dropdown-menu .dropdown-item {
+    min-height: 44px; /* touch target */
+    padding: 10px 16px;
+  }
 }
 
-.action-bar-overlay.show {
-  display: flex !important;
-}
-
-tr.selected-row {
-  background-color: #eff6ff !important;
-}
-
-.custom-dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 9999 !important; /* لضمان ظهور القائمة فوق أسطر الجدول */
-  background: #ffffff;
-  border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 6px;
-  box-shadow:
-    0 10px 15px -3px rgba(0, 0, 0, 0.1),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  min-width: 180px;
-  display: none; /* يتم إظهاره بالـ JS أو Hover */
-}
-
-/* إظهار القائمة عند الضغط أو التمرير */
-.dropdown-wrapper:hover .custom-dropdown-menu,
-.dropdown-wrapper.active .custom-dropdown-menu {
+.school-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-md);
   display: block;
 }

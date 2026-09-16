@@ -1,9 +1,8 @@
-<div class="page-content">
+<div class="page-content" style="width: 100% !important; max-width: 100% !important; padding: 0 !important; box-sizing: border-box;">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/buttons.css">
 
-    <!-- Toast Notification UI -->
     <?php if (isset($_SESSION['flash'])): ?>
         <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
             <div class="toast-indicator"></div>
@@ -24,10 +23,10 @@
         </script>
     <?php endif; ?>
 
-    <div class="card-header" style="margin-bottom: 24px;">
+    <div class="card-header" style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center;">
         <div>
-            <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Fiche Candidat</h1>
-            <p class="card-description">Détails du candidat et gestion de ses contrats d'apprentissage.</p>
+            <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary); margin: 0;">Fiche Candidat</h1>
+            <p class="card-description" style="margin: 4px 0 0 0;">Détails du candidat et gestion de ses contrats d'apprentissage.</p>
         </div>
         <div style="display: flex; gap: 10px;">
             <a href="/smart-auto-ecole/public/candidates" class="btn btn-secondary">
@@ -41,8 +40,8 @@
         </div>
     </div>
 
-    <!-- Informations du Candidat -->
-    <div class="card" style="margin-bottom: 24px; padding: 24px;">
+    <!-- بطاقة تفاصيل المرشح -->
+    <div class="card" style="margin-bottom: 24px; padding: 24px; width: 100% !important; box-sizing: border-box;">
         <div class="d-flex align-items-center justify-content-between mb-4 pb-3" style="border-bottom: 1px solid var(--border-color, #eef2f6);">
             <div class="d-flex align-items-center gap-3">
                 <div class="profile-avatar-wrapper">
@@ -76,7 +75,7 @@
             </span>
         </div>
         
-        <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div class="dashboard-grid" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%;">
             <div class="info-item">
                 <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">CIN</span>
                 <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
@@ -114,17 +113,19 @@
         </div>
     </div>
 
-    <!-- Liste des Contrats -->
-    <div class="card">
-        <div class="card-header">
+    <!-- بطاقة العقود -->
+    <div class="card" style="width: 100% !important; padding: 20px; box-sizing: border-box; overflow: visible;">
+        <div class="card-header" style="margin-bottom: 15px;">
             <div>
-                <h2 class="card-title">Liste des Contrats</h2>
-                <p class="card-description">Historique des souscriptions aux permis de conduire.</p>
+                <h2 class="card-title" style="margin: 0; font-size: 18px; font-weight: 700;">Liste des Contrats</h2>
+                <p class="card-description" style="margin: 2px 0 0 0;">Historique des souscriptions aux permis de conduire.</p>
             </div>
         </div>
 
-        <div class="table-container" style="position: relative; overflow: visible !important;">
-            <div id="actionBar" class="action-bar-overlay">
+        <div class="table-wrapper table-container" style="width: 100% !important; padding: 0; background: #fff; border-radius: 10px; overflow-x: auto; overflow-y: visible;">
+            
+            <!-- شريط العمليات -->
+            <div id="actionBar" class="action-bar-overlay" style="margin-bottom: 15px; padding: 5px 0;">
                 <div class="d-flex align-items-center gap-3">
                     <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
                     <button type="button" id="btnEdit" data-action-url="/smart-auto-ecole/public/candidates/contrats/edit" class="btn btn-sm btn-outline-secondary">
@@ -134,31 +135,30 @@
                         Supprimer
                     </button>
                     
-                    <!-- Print Dropdown Menu -->
-                  <div class="dropdown-wrapper" style="position: relative; display: inline-block;">
-    <button type="button" id="btnPrintDropdown" class="btn btn-sm btn-secondary">
-        Imprimer ▾
-    </button>
-    <div id="printMenu" class="custom-dropdown-menu">
-        <button type="button" class="dropdown-item print-action" data-type="contrat">Contrat d'apprentissage</button>
-        <button type="button" class="dropdown-item print-action" data-type="attestation">Attestation d'inscription</button>
-        <div class="dropdown-divider"></div>
-        <button type="button" class="dropdown-item print-action" data-type="carte">Carte Candidat</button>
-    </div>
-</div>
+                    <div class="dropdown-wrapper" style="position: relative; display: inline-block; z-index: 1050;">
+                        <button type="button" id="btnPrintDropdown" class="btn btn-sm btn-secondary">
+                            Imprimer ▾
+                        </button>
+                        <div id="printMenu" class="custom-dropdown-menu" style="position: absolute; top: 100%; right: 0; z-index: 1060; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 6px; min-width: 200px;">
+                            <button type="button" class="dropdown-item print-action" data-type="contrat">Contrat d'apprentissage</button>
+                            <button type="button" class="dropdown-item print-action" data-type="attestation">Attestation d'inscription</button>
+                            <div class="dropdown-divider"></div>
+                            <button type="button" class="dropdown-item print-action" data-type="carte">Carte Candidat</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <table class="table align-middle">
+            <table class="table align-middle" style="width: 100% !important; min-width: 950px; margin-bottom: 0; table-layout: fixed;">
                 <thead>
                     <tr>
-                        <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
-                        <th>N° CONTRAT</th>
-                        <th>CATÉGORIE</th>
-                        <th>DATE CONTRAT</th>
-                        <th>PRIX FINAL</th>
-                        <th>STATUT</th>
-                        <th>ACTIONS</th>
+                        <th style="width: 45px;"><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                        <th style="width: 160px;">N° CONTRAT</th>
+                        <th style="width: 140px;">CATÉGORIE</th>
+                        <th style="width: 150px;">DATE CONTRAT</th>
+                        <th style="width: 150px;">PRIX FINAL</th>
+                        <th style="width: 130px;">STATUT</th>
+                        <th style="width: 120px; text-align: right;">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -166,20 +166,21 @@
                         <?php foreach ($contrats as $contrat): ?>
                             <tr>
                                 <td><input type="checkbox" class="select-row" value="<?= htmlspecialchars($contrat['id_contrat']) ?>"></td>
-<td class="text-start">
-    <div style="font-weight: 600; color: var(--text-primary);">
-        #<?= htmlspecialchars($contrat['id_contrat']) ?>
-    </div>
-    <?php if (!empty($contrat['num_enregistrement'])): ?>
-        <small style="color: #6b7280; font-size: 11px; display: block;">
-            Ref: <?= htmlspecialchars($contrat['num_enregistrement']) ?>
-        </small>
-    <?php else: ?>
-        <small style="color: #9ca3af; font-size: 11px; display: block; font-style: italic;">
-            Non enregistré
-        </small>
-    <?php endif; ?>
-</td>                                <td>
+                                <td class="text-start">
+                                    <div style="font-weight: 600; color: var(--text-primary);">
+                                        #<?= htmlspecialchars($contrat['id_contrat']) ?>
+                                    </div>
+                                    <?php if (!empty($contrat['num_enregistrement'])): ?>
+                                        <small style="color: #6b7280; font-size: 11px; display: block;">
+                                            Ref: <?= htmlspecialchars($contrat['num_enregistrement']) ?>
+                                        </small>
+                                    <?php else: ?>
+                                        <small style="color: #9ca3af; font-size: 11px; display: block; font-style: italic;">
+                                            Non enregistré
+                                        </small>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
                                     <span class="badge badge-warning" style="background: #eff6ff; color: var(--primary);">
                                         Permis <?= htmlspecialchars($contrat['code']) ?>
                                     </span>
@@ -194,7 +195,7 @@
                                     </span>
                                 </td>
                                 <td style="text-align: right;">
-                                    <a href="/smart-auto-ecole/public/candidates/contrats/show?id=<?= htmlspecialchars($contrat['id_contrat']) ?>" class="btn btn-secondary" style="min-height: 32px; padding: 0 10px; font-size: 12px;">
+                                    <a href="/smart-auto-ecole/public/candidates/contrats/show?id=<?= htmlspecialchars($contrat['id_contrat']) ?>" class="btn btn-secondary" style="min-height: 32px; padding: 0 12px; font-size: 12px; white-space: nowrap;">
                                         Consulter
                                     </a>
                                 </td>
@@ -215,26 +216,3 @@
 
 <script src="/smart-auto-ecole/public/js/table-actions.js"></script>
 
-<!-- JS for Print Dropdown Handling -->
-<script>
-document.querySelectorAll('.print-action').forEach(function(item) {
-    item.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        // البحث عن الـ Checkbox المحدد داخل الجدول
-        const selectedCheckbox = document.querySelector('.select-row:checked');
-        
-        if (!selectedCheckbox || !selectedCheckbox.value) {
-            alert('المرجو تحديد عقد واحد من القائمة بواسطة الـ Checkbox أولاً.');
-            return;
-        }
-
-        const contratId = selectedCheckbox.value;
-        const type = this.getAttribute('data-type');
-        
-        const printUrl = `/smart-auto-ecole/public/candidates/contrats/print?id=${encodeURIComponent(contratId)}&type=${type}`;
-        
-        window.open(printUrl, '_blank');
-    });
-});
-</script>

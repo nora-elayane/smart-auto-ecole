@@ -6,7 +6,7 @@
             <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Nouveau Contrat</h1>
             <p class="card-description">Créer un nouveau contrat de formation pour le candidat.</p>
         </div>
-        <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($_GET['id_user'] ?? '') ?>" class="btn btn-secondary">
+        <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($_GET['id'] ?? '') ?>" class="btn btn-secondary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Annuler
         </a>
@@ -59,7 +59,6 @@
                 </select>
             </div>
 
-            <!-- Form Actions -->
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                 <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($_GET['id_user'] ?? '') ?>" class="btn btn-secondary">
                     Annuler

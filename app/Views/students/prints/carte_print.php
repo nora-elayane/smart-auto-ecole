@@ -39,7 +39,6 @@
             .no-print-bar { display: none !important; }
         }
 
-        /* العنوان العلوي */
         .header-title {
             text-align: center;
             margin-bottom: 12px;
@@ -54,14 +53,13 @@
             font-size: 12px;
         }
 
-        /* الجزء العلوي: تقسيم العمودين */
         .top-section {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    direction: ltr;   
+}
 
-        /* العمود الأيسر (الفرنسية LTR) */
         .col-left {
             width: 48%;
             direction: ltr;
@@ -83,7 +81,6 @@
             object-fit: cover;
         }
 
-        /* العمود الأيمن (العربية RTL) */
         .col-right {
             width: 48%;
             direction: rtl;
@@ -102,7 +99,6 @@
             font-weight: bold;
         }
 
-        /* قسم أصناف الرخصة المكررة */
         .permis-grid {
             margin: 4px 0;
         }
@@ -113,13 +109,13 @@
             margin-bottom: 2px;
         }
 
-        /* الجداول المالية السفلية */
         .finance-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            margin-top: 10px;
-        }
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    direction: ltr;   
+}
         .finance-box {
             width: 49%;
             border: 1px solid #ccc;
@@ -174,7 +170,6 @@
         <button class="btn-print" onclick="window.print()">طباعة البطاقة</button>
     </div>
 
-    <!-- العنوان العلوي -->
     <div class="header-title">
         <h3>بطاقة المرشح(ة) Carte Candidat(e)</h3>
         <p>Ecole de Conduite: <?= htmlspecialchars($school['nom_ecole'] ?? 'auto-ecole') ?></p>
@@ -182,12 +177,10 @@
 
     <div class="top-section">
         
-        <!-- العمود الأيسر: الصورة والبيانات بالفرنسية -->
         <div class="col-left">
             <div class="photo-box">
                 <?php 
                     $photoName = $candidat['photo'] ?? '';
-                    // مسار الصور في مشروع Smart Auto-Ecole
                     $uploadPath = '/smart-auto-ecole/public/uploads/';
                     $fullPath = $_SERVER['DOCUMENT_ROOT'] . $uploadPath . $photoName;
                 ?>
@@ -223,7 +216,6 @@
             <div class="row-item"><span class="lbl-bold">Date Fin de la Formation :</span> <span class="val-bold"><?= htmlspecialchars($contrat['date_fin'] ?? '') ?></span></div>
         </div>
 
-        <!-- العمود الأيمن: البيانات بالعربية وأصناف الرخصة -->
         <div class="col-right">
             <div class="row-item"><span class="lbl-bold">الاسم العائلي:</span> <span class="val-bold"><?= htmlspecialchars($candidat['nom'] ?? '') ?></span></div>
             <div class="row-item"><span class="lbl-bold">الاسم الشخصي:</span> <span class="val-bold"><?= htmlspecialchars($candidat['prenom'] ?? '') ?></span></div>
@@ -239,7 +231,6 @@
                 <span class="lbl-bold">صنف رخصة السياقة المرغوب في الحصول عليها:</span>
             </div>
 
-            <!-- أسطر أصناف الرخصة المكررة كما في الصورة -->
             <div class="permis-grid">
                 <?php for($k = 0; $k < 5; $k++): ?>
                     <div class="permis-row">
@@ -259,10 +250,8 @@
 
     </div>
 
-    <!-- الجداول المالية السفلية -->
     <div class="finance-container">
         
-        <!-- العمود الأيسر: ثمن التكوين المتفق عليه -->
         <div class="finance-box">
             <div class="finance-header">ثمن التكوين المتفق عليه: <?= number_format($contrat['prix_final'] ?? 5000, 0, '', '') ?></div>
             <div class="finance-sub">الدفوعات</div>
@@ -286,7 +275,6 @@
             </table>
         </div>
 
-        <!-- العمود الأيمن: مصاريف الملف -->
         <div class="finance-box">
             <div class="finance-header">مصاريف الملف:</div>
             <div class="finance-sub">الدفوعات</div>

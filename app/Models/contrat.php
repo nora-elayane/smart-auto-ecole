@@ -45,7 +45,6 @@ class Contrat{
               
     $stm = $this->conn->prepare($query);
     
-    // الترتيب هنا خاصو يكون متبع نفس ترتيب العلامات (?) فـ الـ Query بالضبط
     return $stm->execute([
         $date,               // 1. date_contrat
         $prix,               // 2. prix_final
