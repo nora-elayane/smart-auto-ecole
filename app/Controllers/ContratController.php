@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../Models/contrat.php'; 
 require_once __DIR__ . '/../Models/students.php'; 
 require_once __DIR__ . '/../Models/categories.php'; 
+require_once __DIR__ . '/../Models/schoolInfo.php';
 
 
 class ContratController{
@@ -48,6 +49,7 @@ class ContratController{
         $date_contrat = $_POST['date_contrat'] ?? date('Y-m-d');
         $prix_final   = $_POST['prix_final'] ?? null;
         $statut       = $_POST['statut'] ?? 'En cours';
+        $num_enregistrement = $_POST['num_enregistrement'] ?? null;
 
         if (!empty($id_user) && !empty($id_categorie) && !empty($prix_final)) {
             $database = new Database();
@@ -56,7 +58,7 @@ class ContratController{
             $contratModel = new Contrat($db);
 
             // createContrat($date, $prix, $statut, $id_user, $id_categorie)
-            $result = $contratModel->createContrat($date_contrat, $prix_final, $statut, $id_user, $id_categorie);
+            $result = $contratModel->createContrat($date_contrat, $prix_final, $statut, $id_user, $id_categorie , $num_enregistrement);
 
             if ($result) {
                 $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat ajouté avec succès.'];
@@ -143,13 +145,19 @@ public function edit() {
             $date_contrat = $_POST['date_contrat'] ?? null;
             $prix_final   = $_POST['prix_final'] ?? null;
             $statut       = $_POST['statut'] ?? 'En cours';
+            $num_enregistrement = $_POST['num_enregistrement'] ?? null;
 
             if (!empty($id_user) && !empty($id_categorie) && !empty($date_contrat) && !empty($prix_final)) {
                 $database = new Database();
                 $db = $database->getConnection();
 
                 $contratModel = new Contrat($db);
-                $result = $contratModel->updateContrat($date_contrat, $prix_final, $statut, $id_user, $id_categorie);
+                $result = $contratModel->updateContrat($id_contrat, 
+    $date_contrat, 
+    $prix_final, 
+    $statut, 
+    $id_categorie, 
+    $num_enregistrement);
 
                 if ($result) {
                     if (session_status() === PHP_SESSION_NONE) session_start();
@@ -165,6 +173,55 @@ public function edit() {
             }
         }
     }
+
+    public function print() {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        $type = $_GET['type'] ?? 'contrat';
+        $id_contrat = $_GET['id'] ?? null;
+
+        // اختبار للتأكد من القيمة المستقبلة فـ URL
+        if (empty($id_contrat)) {
+            die("خطأ: لم يتم استقبال أي ID للعقد عبر الـ URL! القيمة الحالية هي: " . var_export($id_contrat, true));
+        }
+
+        $database = new Database();
+        $db = $database->getConnection();
+
+        $schoolModel = new SchoolInfo($db);
+        $school = $schoolModel->getInfo();
+
+        $contratModel = new Contrat($db);
+        $contrat = $contratModel->getContratById($id_contrat);
+
+        if (!$contrat) {
+            die("خطأ: لم يتم العثور على العقد في قاعدة البيانات بالرقم: " . htmlspecialchars($id_contrat));
+        }
+
+        $studentModel = new Students($db);
+        $candidat = $studentModel->getByid($contrat['id_user']);
+
+        $baseViewPath = __DIR__ . '/../Views/students/prints/';
+
+        switch ($type) {
+            case 'attestation':
+                $file = $baseViewPath . 'attestation_print.php';
+                break;
+            case 'carte':
+                $file = $baseViewPath . 'carte_print.php';
+                break;
+            case 'contrat':
+            default:
+                $file = $baseViewPath . 'contrat_print.php';
+                break;
+        }
+
+        if (file_exists($file)) {
+            require_once $file;
+        } else {
+            die("الملف غير موجود في المسار: " . htmlspecialchars($file));
+        }
+    }
+}
  
 }
 

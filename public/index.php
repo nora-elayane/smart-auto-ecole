@@ -58,6 +58,9 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif ($uri === $basePath . '/candidates/contrats/update') {
     $controller = new ContratController();
     $controller->update();
+}elseif ($uri === $basePath . '/candidates/contrats/print') {
+    $controller = new ContratController();
+    $controller->print();
 }else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";

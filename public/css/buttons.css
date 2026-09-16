@@ -109,3 +109,24 @@
 tr.selected-row {
   background-color: #eff6ff !important;
 }
+
+.custom-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 9999 !important; /* لضمان ظهور القائمة فوق أسطر الجدول */
+  background: #ffffff;
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 6px;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  min-width: 180px;
+  display: none; /* يتم إظهاره بالـ JS أو Hover */
+}
+
+/* إظهار القائمة عند الضغط أو التمرير */
+.dropdown-wrapper:hover .custom-dropdown-menu,
+.dropdown-wrapper.active .custom-dropdown-menu {
+  display: block;
+}

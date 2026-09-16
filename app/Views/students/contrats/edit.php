@@ -46,6 +46,11 @@
                            value="<?= htmlspecialchars($contrat['prix_final'] ?? '') ?>" placeholder="ex: 3500.00" required>
                 </div>
             </div>
+            <div class="form-group">
+    <label class="form-label" for="num_enregistrement">N° d'enregistrement (NARSA / Ref Web)</label>
+    <input type="text" name="num_enregistrement" id="num_enregistrement" class="form-control" 
+           value="<?= htmlspecialchars($contrat['num_enregistrement'] ?? '') ?>" placeholder="ex: 12345678 أو Ref Web">
+</div>
 
             <!-- Statut -->
             <div class="form-group">

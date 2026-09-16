@@ -44,6 +44,10 @@
                     <label class="form-label" for="prix_final">Prix Final (DH) <span style="color: var(--danger);">*</span></label>
                     <input type="number" step="0.01" name="prix_final" id="prix_final" class="form-control" placeholder="ex: 3500.00" required>
                 </div>
+                <div class="form-group">
+    <label class="form-label" for="num_enregistrement">N° d'enregistrement (NARSA / Ref Web)</label>
+    <input type="text" name="num_enregistrement" id="num_enregistrement" class="form-control" placeholder="ex: 12345678 أو Ref Web">
+</div>
             </div>
 
             <div class="form-group">

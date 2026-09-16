@@ -1,27 +1,29 @@
 <div class="page-content">
-        <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
+    <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/buttons.css">
-    <!-- Toast Notification UI -->
-<?php if (isset($_SESSION['flash'])): ?>
-    <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
-        <div class="toast-indicator"></div>
-        <div class="toast-content">
-            <?php echo $_SESSION['flash']['message']; ?>
-        </div>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
 
-    <script>
-        setTimeout(function() {
-            const toast = document.getElementById('toastNotification');
-            if (toast) {
-                toast.classList.add('toast-hide');
-                setTimeout(() => toast.remove(), 400);
-            }
-        }, 3000);
-    </script>
-<?php endif; ?>
+    <!-- Toast Notification UI -->
+    <?php if (isset($_SESSION['flash'])): ?>
+        <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
+            <div class="toast-indicator"></div>
+            <div class="toast-content">
+                <?php echo $_SESSION['flash']['message']; ?>
+            </div>
+        </div>
+        <?php unset($_SESSION['flash']); ?>
+
+        <script>
+            setTimeout(function() {
+                const toast = document.getElementById('toastNotification');
+                if (toast) {
+                    toast.classList.add('toast-hide');
+                    setTimeout(() => toast.remove(), 400);
+                }
+            }, 3000);
+        </script>
+    <?php endif; ?>
+
     <div class="card-header" style="margin-bottom: 24px;">
         <div>
             <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Fiche Candidat</h1>
@@ -40,82 +42,79 @@
     </div>
 
     <!-- Informations du Candidat -->
-   <div class="card" style="margin-bottom: 24px; padding: 24px;">
-    <!-- Card Header with Avatar & Badge -->
-    <div class="d-flex align-items-center justify-content-between mb-4 pb-3" style="border-bottom: 1px solid var(--border-color, #eef2f6);">
-        <div class="d-flex align-items-center gap-3">
-            <!-- Candidate Photo / Avatar -->
-            <div class="profile-avatar-wrapper">
-                <?php 
-                    $photoName = $candidat['photo'] ?? '';
-                    $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/smart-auto-ecole/public/uploads/';
-                    $hasPhoto = !empty($photoName) && file_exists($uploadDir . $photoName);
-                ?>
+    <div class="card" style="margin-bottom: 24px; padding: 24px;">
+        <div class="d-flex align-items-center justify-content-between mb-4 pb-3" style="border-bottom: 1px solid var(--border-color, #eef2f6);">
+            <div class="d-flex align-items-center gap-3">
+                <div class="profile-avatar-wrapper">
+                    <?php 
+                        $photoName = $candidat['photo'] ?? '';
+                        $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/smart-auto-ecole/public/uploads/';
+                        $hasPhoto = !empty($photoName) && file_exists($uploadDir . $photoName);
+                    ?>
 
-                <?php if ($hasPhoto): ?>
-                    <img src="/smart-auto-ecole/public/uploads/<?= htmlspecialchars($photoName) ?>" 
-                         alt="Photo Candidate" 
-                         style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #f1f5f9; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-                <?php else: ?>
-                    <div style="width: 72px; height: 72px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; border: 3px solid #f1f5f9;">
-                        <?= strtoupper(substr($candidat['nom'] ?? 'C', 0, 1) . substr($candidat['prenom'] ?? '', 0, 1)) ?>
-                    </div>
-                <?php endif; ?>
+                    <?php if ($hasPhoto): ?>
+                        <img src="/smart-auto-ecole/public/uploads/<?= htmlspecialchars($photoName) ?>" 
+                             alt="Photo Candidate" 
+                             style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid #f1f5f9; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+                    <?php else: ?>
+                        <div style="width: 72px; height: 72px; border-radius: 50%; background: #e2e8f0; color: #475569; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 22px; border: 3px solid #f1f5f9;">
+                            <?= strtoupper(substr($candidat['nom'] ?? 'C', 0, 1) . substr($candidat['prenom'] ?? '', 0, 1)) ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                <div>
+                    <h2 class="card-title" style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary);">
+                        <?= htmlspecialchars(($candidat['nom'] ?? '') . ' ' . ($candidat['prenom'] ?? '')) ?>
+                    </h2>
+                    <span class="card-description" style="font-size: 13px;">Fiche détaillée du candidat</span>
+                </div>
             </div>
 
-            <!-- Title & Name -->
-            <div>
-                <h2 class="card-title" style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text-primary);">
-                    <?= htmlspecialchars(($candidat['nom'] ?? '') . ' ' . ($candidat['prenom'] ?? '')) ?>
-                </h2>
-                <span class="card-description" style="font-size: 13px;">Fiche détaillée du candidat</span>
+            <span class="badge <?= ($candidat['etat'] ?? '') === 'Actif' ? 'badge-success' : 'badge-danger' ?>" style="padding: 6px 14px; font-size: 13px; font-weight: 600;">
+                <?= htmlspecialchars($candidat['etat'] ?? 'Actif') ?>
+            </span>
+        </div>
+        
+        <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div class="info-item">
+                <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">CIN</span>
+                <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
+                    <?= htmlspecialchars($candidat['cin'] ?? '-') ?>
+                </p>
+            </div>
+
+            <div class="info-item">
+                <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Téléphone</span>
+                <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
+                    <?= htmlspecialchars($candidat['telephone'] ?? '-') ?>
+                </p>
+            </div>
+
+            <div class="info-item">
+                <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Email</span>
+                <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
+                    <?= htmlspecialchars($candidat['email'] ?? '-') ?>
+                </p>
+            </div>
+
+            <div class="info-item">
+                <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Date de Naissance</span>
+                <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
+                    <?= htmlspecialchars($candidat['date_naissance'] ?? '-') ?>
+                </p>
+            </div>
+
+            <div class="info-item" style="grid-column: span 2;">
+                <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Adresse</span>
+                <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
+                    <?= htmlspecialchars($candidat['adresse'] ?? '-') ?>
+                </p>
             </div>
         </div>
-
-        <!-- Status Badge -->
-        <span class="badge <?= ($candidat['etat'] ?? '') === 'Actif' ? 'badge-success' : 'badge-danger' ?>" style="padding: 6px 14px; font-size: 13px; font-weight: 600;">
-            <?= htmlspecialchars($candidat['etat'] ?? 'Actif') ?>
-        </span>
     </div>
-    
-    <!-- Information Details Grid -->
-    <div class="dashboard-grid" style="grid-template-columns: repeat(3, 1fr); gap: 20px;">
-        <div class="info-item">
-            <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">CIN</span>
-            <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
-                <?= htmlspecialchars($candidat['cin'] ?? '-') ?>
-            </p>
-        </div>
 
-        <div class="info-item">
-            <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Téléphone</span>
-            <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
-                <?= htmlspecialchars($candidat['telephone'] ?? '-') ?>
-            </p>
-        </div>
-
-        <div class="info-item">
-            <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Email</span>
-            <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
-                <?= htmlspecialchars($candidat['email'] ?? '-') ?>
-            </p>
-        </div>
-
-        <div class="info-item">
-            <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Date de Naissance</span>
-            <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
-                <?= htmlspecialchars($candidat['date_naissance'] ?? '-') ?>
-            </p>
-        </div>
-
-        <div class="info-item" style="grid-column: span 2;">
-            <span class="card-description" style="display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #64748b;">Adresse</span>
-            <p style="font-weight: 600; font-size: 15px; margin-top: 4px; margin-bottom: 0; color: var(--text-primary);">
-                <?= htmlspecialchars($candidat['adresse'] ?? '-') ?>
-            </p>
-        </div>
-    </div>
-</div>
+    <!-- Liste des Contrats -->
     <div class="card">
         <div class="card-header">
             <div>
@@ -123,21 +122,20 @@
                 <p class="card-description">Historique des souscriptions aux permis de conduire.</p>
             </div>
         </div>
-        
-      
 
-        <div class="table-container" style="position: relative;">
-    
-    <div id="actionBar" class="action-bar-overlay">
-        <div class="d-flex align-items-center gap-3">
-            <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
-          <button type="button" id="btnEdit" 
-        data-action-url="/smart-auto-ecole/public/candidates/contrats/edit" 
-        class="btn btn-sm btn-outline-secondary">
-    Éditer
-</button>
-<button type="button" id="btnDelete" data-action-url="/smart-auto-ecole/public/candidates/contrats/delete" class="btn btn-sm btn-outline-danger">Supprimer</button>
-           <div class="dropdown-wrapper" style="position: relative; display: inline-block;">
+        <div class="table-container" style="position: relative; overflow: visible !important;">
+            <div id="actionBar" class="action-bar-overlay">
+                <div class="d-flex align-items-center gap-3">
+                    <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
+                    <button type="button" id="btnEdit" data-action-url="/smart-auto-ecole/public/candidates/contrats/edit" class="btn btn-sm btn-outline-secondary">
+                        Éditer
+                    </button>
+                    <button type="button" id="btnDelete" data-action-url="/smart-auto-ecole/public/candidates/contrats/delete" class="btn btn-sm btn-outline-danger">
+                        Supprimer
+                    </button>
+                    
+                    <!-- Print Dropdown Menu -->
+                  <div class="dropdown-wrapper" style="position: relative; display: inline-block;">
     <button type="button" id="btnPrintDropdown" class="btn btn-sm btn-secondary">
         Imprimer ▾
     </button>
@@ -148,30 +146,42 @@
         <button type="button" class="dropdown-item print-action" data-type="carte">Carte Candidat</button>
     </div>
 </div>
-        </div>
-    </div>
+                </div>
+            </div>
 
-    <table class="table align-middle">
-        <thead>
-            <tr>
-                <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
-                <th>N° CONTRAT</th>
-                <th>CATÉGORIE</th>
-                <th>DATE CONTRAT</th>
-                <th>PRIX FINAL</th>
-                <th>STATUT</th>
-                <th>ACTIONS</th>
-            </tr>
-        </thead>
-        <tbody>
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" id="selectAll" class="form-check-input"></th>
+                        <th>N° CONTRAT</th>
+                        <th>CATÉGORIE</th>
+                        <th>DATE CONTRAT</th>
+                        <th>PRIX FINAL</th>
+                        <th>STATUT</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <?php if (!empty($contrats) && is_array($contrats)): ?>
                         <?php foreach ($contrats as $contrat): ?>
                             <tr>
-                                <td><input type="checkbox" class="select-row" value="<?= $contrat['id_contrat'] ?>"></td>
-                                <td style="font-weight: 600;">#<?= htmlspecialchars($contrat['id_contrat']) ?></td>
-                                <td>
+                                <td><input type="checkbox" class="select-row" value="<?= htmlspecialchars($contrat['id_contrat']) ?>"></td>
+<td class="text-start">
+    <div style="font-weight: 600; color: var(--text-primary);">
+        #<?= htmlspecialchars($contrat['id_contrat']) ?>
+    </div>
+    <?php if (!empty($contrat['num_enregistrement'])): ?>
+        <small style="color: #6b7280; font-size: 11px; display: block;">
+            Ref: <?= htmlspecialchars($contrat['num_enregistrement']) ?>
+        </small>
+    <?php else: ?>
+        <small style="color: #9ca3af; font-size: 11px; display: block; font-style: italic;">
+            Non enregistré
+        </small>
+    <?php endif; ?>
+</td>                                <td>
                                     <span class="badge badge-warning" style="background: #eff6ff; color: var(--primary);">
-                                        Permis <?= htmlspecialchars( $contrat['code']) ?>
+                                        Permis <?= htmlspecialchars($contrat['code']) ?>
                                     </span>
                                 </td>
                                 <td><?= htmlspecialchars($contrat['date_contrat']) ?></td>
@@ -192,7 +202,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" style="text-align: center; color: var(--text-secondary); padding: 24px;">
+                            <td colspan="7" style="text-align: center; color: var(--text-secondary); padding: 24px;">
                                 Aucun contrat trouvé pour ce candidat.
                             </td>
                         </tr>
@@ -203,34 +213,28 @@
     </div>
 </div>
 
-
 <script src="/smart-auto-ecole/public/js/table-actions.js"></script>
 
-<!-- Toast Notification UI -->
-<?php if (isset($_SESSION['flash'])): ?>
-    <div id="toastBox" class="toast-box toast-<?php echo $_SESSION['flash']['type']; ?>">
-        <span class="toast-icon">
-            <?php 
-                echo match($_SESSION['flash']['type']) {
-                    'success' => '✅',
-                    'warning' => '⚠️',
-                    'danger'  => '🗑️',
-                    default   => 'ℹ️'
-                };
-            ?>
-        </span>
-        <span class="toast-message"><?php echo $_SESSION['flash']['message']; ?></span>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
+<!-- JS for Print Dropdown Handling -->
+<script>
+document.querySelectorAll('.print-action').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // البحث عن الـ Checkbox المحدد داخل الجدول
+        const selectedCheckbox = document.querySelector('.select-row:checked');
+        
+        if (!selectedCheckbox || !selectedCheckbox.value) {
+            alert('المرجو تحديد عقد واحد من القائمة بواسطة الـ Checkbox أولاً.');
+            return;
+        }
 
-    <script>
-        setTimeout(function() {
-            const toast = document.getElementById('toastBox');
-            if (toast) {
-                toast.style.opacity = '0';
-                toast.style.transform = 'translateY(-20px)';
-                setTimeout(() => toast.remove(), 400); 
-            }
-        }, 3000);
-    </script>
-<?php endif; ?>
+        const contratId = selectedCheckbox.value;
+        const type = this.getAttribute('data-type');
+        
+        const printUrl = `/smart-auto-ecole/public/candidates/contrats/print?id=${encodeURIComponent(contratId)}&type=${type}`;
+        
+        window.open(printUrl, '_blank');
+    });
+});
+</script>

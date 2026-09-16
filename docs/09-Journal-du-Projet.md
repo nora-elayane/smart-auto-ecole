@@ -6,18 +6,18 @@
 
 ## Réalisations
 
-* Définition de l'idée et des objectifs de **Smart Auto-École**.
-* Analyse des besoins fonctionnels.
-* Identification des principaux acteurs :
+- Définition de l'idée et des objectifs de **Smart Auto-École**.
+- Analyse des besoins fonctionnels.
+- Identification des principaux acteurs :
+  - Directeur
+  - Secrétaire
+  - Moniteur
+  - Candidat
 
-  * Directeur
-  * Secrétaire
-  * Moniteur
-  * Candidat
-* Choix de l'architecture **MVC**.
-* Choix des technologies : **PHP, MySQL, HTML5, CSS3 et JavaScript**.
-* Création du dépôt GitHub et de la structure initiale du projet.
-* Mise en place de la documentation.
+- Choix de l'architecture **MVC**.
+- Choix des technologies : **PHP, MySQL, HTML5, CSS3 et JavaScript**.
+- Création du dépôt GitHub et de la structure initiale du projet.
+- Mise en place de la documentation.
 
 ---
 
@@ -25,25 +25,25 @@
 
 ## Réalisations
 
-* Rédaction du **Cahier des Charges**.
-* Création des **Use Cases**.
-* Conception du **MCD** et du **MLD**.
-* Définition des entités, relations et cardinalités.
-* Rédaction des **Dépendances Fonctionnelles**.
-* Création du **Dictionnaire des Données**.
-* Conception du diagramme **EER** avec MySQL Workbench.
-* Génération et validation de la base de données MySQL.
+- Rédaction du **Cahier des Charges**.
+- Création des **Use Cases**.
+- Conception du **MCD** et du **MLD**.
+- Définition des entités, relations et cardinalités.
+- Rédaction des **Dépendances Fonctionnelles**.
+- Création du **Dictionnaire des Données**.
+- Conception du diagramme **EER** avec MySQL Workbench.
+- Génération et validation de la base de données MySQL.
 
 ## Décisions importantes
 
-* Une table **Utilisateur** liée à **Role** pour les différents profils.
-* Le **Contrat** comme élément central de la gestion des candidats.
-* Plusieurs contrats possibles pour un candidat.
-* Plusieurs paiements possibles pour un contrat.
-* Gestion des séances via **Participation**.
-* Gestion des tentatives d'examen avec `numero_tentative`.
-* Utilisation des `ENUM` pour certains types et états.
-* Une séance **Code** peut être réalisée sans véhicule.
+- Une table **Utilisateur** liée à **Role** pour les différents profils.
+- Le **Contrat** comme élément central de la gestion des candidats.
+- Plusieurs contrats possibles pour un candidat.
+- Plusieurs paiements possibles pour un contrat.
+- Gestion des séances via **Participation**.
+- Gestion des tentatives d'examen avec `numero_tentative`.
+- Utilisation des `ENUM` pour certains types et états.
+- Une séance **Code** peut être réalisée sans véhicule.
 
 ---
 
@@ -51,29 +51,29 @@
 
 ## Réalisations
 
-* Configuration du serveur **Apache/Linux**.
-* Résolution des erreurs **404** et **403**.
-* Mise en place du lien symbolique vers `/var/www/html/`.
-* Configuration des permissions Linux.
-* Création des layouts réutilisables :
+- Configuration du serveur **Apache/Linux**.
+- Résolution des erreurs **404** et **403**.
+- Mise en place du lien symbolique vers `/var/www/html/`.
+- Configuration des permissions Linux.
+- Création des layouts réutilisables :
+  - `header.php`
+  - `sidebar.php`
+  - `footer.php`
 
-  * `header.php`
-  * `sidebar.php`
-  * `footer.php`
-* Création du `style.css` en **Pure CSS**.
-* Utilisation de **Flexbox**, **CSS Grid** et SVG.
-* Mise en place du responsive design.
-* Création du **Front Controller** `public/index.php`.
-* Mise en place du routing de base.
-* Création de `HomeController.php`.
-* Création du **Dashboard**.
+- Création du `style.css` en **Pure CSS**.
+- Utilisation de **Flexbox**, **CSS Grid** et SVG.
+- Mise en place du responsive design.
+- Création du **Front Controller** `public/index.php`.
+- Mise en place du routing de base.
+- Création de `HomeController.php`.
+- Création du **Dashboard**.
 
 ## Use Cases concernés
 
-* **UC02 — Gérer les utilisateurs**
-* **UC03 — Gérer les candidats**
-* **UC09 — Consulter le planning**
-* **UC13 — Consulter les statistiques**
+- **UC02 — Gérer les utilisateurs**
+- **UC03 — Gérer les candidats**
+- **UC09 — Consulter le planning**
+- **UC13 — Consulter les statistiques**
 
 > Les interfaces sont préparées, tandis que les fonctionnalités métier sont développées progressivement.
 
@@ -83,27 +83,27 @@
 
 ## Réalisations
 
-* Création du modèle `Students.php`.
-* Connexion aux données avec **PDO**.
-* Création des méthodes `getAll()` et `getTotalStudents()`.
-* Filtrage des utilisateurs ayant le rôle **Candidat** (`id_role = 3`).
-* Connexion du Dashboard aux données réelles.
-* Affichage dynamique du nombre de candidats.
-* Création de `StudentController.php`.
-* Création de la vue `students/index.php`.
-* Ajout de la route `/candidates`.
+- Création du modèle `Students.php`.
+- Connexion aux données avec **PDO**.
+- Création des méthodes `getAll()` et `getTotalStudents()`.
+- Filtrage des utilisateurs ayant le rôle **Candidat** (`id_role = 3`).
+- Connexion du Dashboard aux données réelles.
+- Affichage dynamique du nombre de candidats.
+- Création de `StudentController.php`.
+- Création de la vue `students/index.php`.
+- Ajout de la route `/candidates`.
 
 ## Routing & Interface
 
-* Mise en place de `public/.htaccess`.
-* Activation de `mod_rewrite`.
-* Configuration de `AllowOverride All`.
-* Mise en place des **Clean URLs**.
-* Gestion dynamique de la classe `active` dans le Sidebar.
+- Mise en place de `public/.htaccess`.
+- Activation de `mod_rewrite`.
+- Configuration de `AllowOverride All`.
+- Mise en place des **Clean URLs**.
+- Gestion dynamique de la classe `active` dans le Sidebar.
 
 ## Use Case concerné
 
-* **UC03 — Gérer les candidats** : consultation et affichage de la liste.
+- **UC03 — Gérer les candidats** : consultation et affichage de la liste.
 
 ---
 
@@ -113,36 +113,35 @@
 
 ### ➕ Création
 
-* Liaison du bouton **Ajouter un candidat** avec la route dédiée.
-* Ajout de la méthode de traitement dans `StudentsController`.
-* Création de la requête d'insertion dans `Students.php`.
-* Attribution automatique du rôle **Candidat**.
-* Mise en place du formulaire de création.
+- Liaison du bouton **Ajouter un candidat** avec la route dédiée.
+- Ajout de la méthode de traitement dans `StudentsController`.
+- Création de la requête d'insertion dans `Students.php`.
+- Attribution automatique du rôle **Candidat**.
+- Mise en place du formulaire de création.
 
 ### 🔄 Centralisation
 
-* Remplacement des formulaires spécifiques par un **formulaire unique pour les utilisateurs**.
-* Transmission dynamique du rôle via un champ `hidden`.
-* Suppression de la vue spécifique `create.php` après centralisation.
+- Remplacement des formulaires spécifiques par un **formulaire unique pour les utilisateurs**.
+- Transmission dynamique du rôle via un champ `hidden`.
+- Suppression de la vue spécifique `create.php` après centralisation.
 
 ### 🛣️ Routing & Corrections
 
-* Ajout de la route `storeStudent`.
-* Résolution de l'erreur **404** lors de la soumission du formulaire.
-* Correction de la structure HTML du tableau des candidats.
-* Correction des chemins d'accès aux photos de profil.
+- Ajout de la route `storeStudent`.
+- Résolution de l'erreur **404** lors de la soumission du formulaire.
+- Correction de la structure HTML du tableau des candidats.
+- Correction des chemins d'accès aux photos de profil.
 
 ### 📁 Stockage
 
-* Séparation entre :
-
-  * ressources publiques → photos de profil ;
-  * stockage sécurisé → documents confidentiels comme les contrats PDF.
+- Séparation entre :
+  - ressources publiques → photos de profil ;
+  - stockage sécurisé → documents confidentiels comme les contrats PDF.
 
 ## Use Cases concernés
 
-* **UC02 — Gérer les utilisateurs**
-* **UC03 — Gérer les candidats**
+- **UC02 — Gérer les utilisateurs**
+- **UC03 — Gérer les candidats**
 
 La fonctionnalité de **création d'un candidat** est maintenant opérationnelle.
 
@@ -158,33 +157,33 @@ Finaliser la fonctionnalité de modification des candidats (**UC03**) avec une g
 
 ### ✏️ Modification d'un candidat
 
-* Création et intégration de l'interface d'édition d'un candidat.
-* Mise en place du traitement de modification dans le contrôleur et le modèle.
-* Récupération et affichage des informations existantes du candidat.
-* Mise à jour sécurisée des données en base avec **PDO**.
+- Création et intégration de l'interface d'édition d'un candidat.
+- Mise en place du traitement de modification dans le contrôleur et le modèle.
+- Récupération et affichage des informations existantes du candidat.
+- Mise à jour sécurisée des données en base avec **PDO**.
 
 ### 🔐 Sécurité du compte
 
-* Gestion sécurisée du mot de passe lors de la modification.
-* Conservation de l'ancien mot de passe lorsqu'aucun nouveau mot de passe n'est fourni.
-* Mise à jour du mot de passe uniquement lorsqu'une nouvelle valeur est renseignée.
+- Gestion sécurisée du mot de passe lors de la modification.
+- Conservation de l'ancien mot de passe lorsqu'aucun nouveau mot de passe n'est fourni.
+- Mise à jour du mot de passe uniquement lorsqu'une nouvelle valeur est renseignée.
 
 ### 📷 Gestion des photos
 
-* Ajout de l'upload d'une nouvelle photo.
-* Ajout d'un **preview JavaScript** avant l'enregistrement.
-* Suppression automatique de l'ancienne photo avec `unlink` lors de son remplacement.
-* Gestion du chemin de stockage des photos de profil.
+- Ajout de l'upload d'une nouvelle photo.
+- Ajout d'un **preview JavaScript** avant l'enregistrement.
+- Suppression automatique de l'ancienne photo avec `unlink` lors de son remplacement.
+- Gestion du chemin de stockage des photos de profil.
 
 ## 🧠 Décisions importantes
 
-* Ne jamais écraser le mot de passe existant sans nouvelle valeur.
-* Supprimer l'ancienne photo uniquement lorsqu'une nouvelle photo est correctement enregistrée.
-* Conserver les requêtes préparées **PDO** pour les opérations de modification.
+- Ne jamais écraser le mot de passe existant sans nouvelle valeur.
+- Supprimer l'ancienne photo uniquement lorsqu'une nouvelle photo est correctement enregistrée.
+- Conserver les requêtes préparées **PDO** pour les opérations de modification.
 
 ## 🎯 Use Case concerné
 
-* **UC03 — Gérer les candidats** : consultation, création et modification.
+- **UC03 — Gérer les candidats** : consultation, création et modification.
 
 ---
 
@@ -208,42 +207,42 @@ Finaliser les principales actions de gestion des candidats et améliorer le feed
 
 ## ✅ Réalisations
 
-* [x] Implémentation de l'**archivage (Soft Delete)** des candidats.
-* [x] Implémentation de l'**activation** des candidats archivés.
-* [x] Finalisation de la **suppression définitive** des candidats.
-* [x] Ajout de **Flash Messages / Toast Notifications** dynamiques.
-* [x] Notifications pour les actions :
+- [x] Implémentation de l'**archivage (Soft Delete)** des candidats.
+- [x] Implémentation de l'**activation** des candidats archivés.
+- [x] Finalisation de la **suppression définitive** des candidats.
+- [x] Ajout de **Flash Messages / Toast Notifications** dynamiques.
+- [x] Notifications pour les actions :
+  - Création
+  - Modification
+  - Archivage
+  - Activation
+  - Suppression définitive
 
-  * Création
-  * Modification
-  * Archivage
-  * Activation
-  * Suppression définitive
-* [x] Création d'une feuille de style dédiée `public/css/toast.css`.
-* [x] Intégration des Toast Notifications dans l'interface.
-* [x] Ajout d'une fermeture automatique des notifications.
-* [x] Implémentation d'un effet **auto-fade** en JavaScript.
-* [x] Amélioration du feedback utilisateur après chaque opération.
+- [x] Création d'une feuille de style dédiée `public/css/toast.css`.
+- [x] Intégration des Toast Notifications dans l'interface.
+- [x] Ajout d'une fermeture automatique des notifications.
+- [x] Implémentation d'un effet **auto-fade** en JavaScript.
+- [x] Amélioration du feedback utilisateur après chaque opération.
 
 ## 🧠 Décisions importantes
 
-* Utiliser le **Soft Delete** afin de conserver les données du candidat tout en permettant son archivage.
-* Permettre la réactivation d'un candidat archivé.
-* Réserver la suppression définitive aux actions nécessitant réellement la suppression des données.
-* Centraliser l'affichage des notifications pour garder une interface cohérente.
-* Séparer le style des Toasts dans un fichier CSS dédié.
-* Utiliser JavaScript pour gérer le comportement dynamique et la disparition automatique des notifications.
+- Utiliser le **Soft Delete** afin de conserver les données du candidat tout en permettant son archivage.
+- Permettre la réactivation d'un candidat archivé.
+- Réserver la suppression définitive aux actions nécessitant réellement la suppression des données.
+- Centraliser l'affichage des notifications pour garder une interface cohérente.
+- Séparer le style des Toasts dans un fichier CSS dédié.
+- Utiliser JavaScript pour gérer le comportement dynamique et la disparition automatique des notifications.
 
 ## 🎯 Use Cases concernés
 
 ### UC03 — Gestion des candidats
 
-* Création
-* Consultation
-* Modification
-* Archivage
-* Activation
-* Suppression définitive
+- Création
+- Consultation
+- Modification
+- Archivage
+- Activation
+- Suppression définitive
 
 ## 📌 État
 
@@ -259,50 +258,44 @@ Analyser le fonctionnement du module Contrats et redéfinir son organisation afi
 
 ## ✅ Réalisations
 
-* **Étude concurrentielle & Analyse SWOT :**
+- **Étude concurrentielle & Analyse SWOT :**
+  - Analyse des solutions existantes.
+  - Identification des points forts et faibles.
+  - Recherche d'une expérience utilisateur plus fluide et intuitive.
 
-  * Analyse des solutions existantes.
-  * Identification des points forts et faibles.
-  * Recherche d'une expérience utilisateur plus fluide et intuitive.
+- **Architecture Single Source of Truth (SSOT) :**
+  - Centralisation de l'accès aux contrats depuis la gestion des candidats.
+  - Réduction de la duplication des informations.
 
-* **Architecture Single Source of Truth (SSOT) :**
+- **Fiche Candidat :**
+  - Affichage des informations personnelles.
+  - Affichage de l'historique des contrats.
+  - Ajout d'un contrat directement depuis la fiche candidat.
 
-  * Centralisation de l'accès aux contrats depuis la gestion des candidats.
-  * Réduction de la duplication des informations.
+- **Tableau des Contrats :**
+  - Ajout d'un menu d'actions :
+    - Éditer
+    - Supprimer
+    - Imprimer Contrat
+    - Imprimer Attestation
+    - Imprimer Carte Candidat
 
-* **Fiche Candidat :**
+  - Ajout d'un bouton **Consulter**.
 
-  * Affichage des informations personnelles.
-  * Affichage de l'historique des contrats.
-  * Ajout d'un contrat directement depuis la fiche candidat.
-
-* **Tableau des Contrats :**
-
-  * Ajout d'un menu d'actions :
-
-    * Éditer
-    * Supprimer
-    * Imprimer Contrat
-    * Imprimer Attestation
-    * Imprimer Carte Candidat
-  * Ajout d'un bouton **Consulter**.
-
-* **Page de détails du Contrat :**
-
-  * Création d'une vue dédiée.
-  * Organisation par onglets :
-
-    * Paiements
-    * Séances
-    * Examens
+- **Page de détails du Contrat :**
+  - Création d'une vue dédiée.
+  - Organisation par onglets :
+    - Paiements
+    - Séances
+    - Examens
 
 ## 🎯 Use Cases concernés
 
-* **UC03 — Gestion des candidats**
-* **UC06 — Gestion des contrats**
-* Préparation de **UC07 — Gestion des paiements**
-* Préparation de **UC08 — Planification des séances**
-* Préparation de **UC11 — Planification des examens**
+- **UC03 — Gestion des candidats**
+- **UC06 — Gestion des contrats**
+- Préparation de **UC07 — Gestion des paiements**
+- Préparation de **UC08 — Planification des séances**
+- Préparation de **UC11 — Planification des examens**
 
 ## 📌 État
 
@@ -316,41 +309,36 @@ Implémenter le module Contrats dans l'architecture MVC et permettre la créatio
 
 ## ✅ Réalisations
 
-* **Architecture MVC :**
+- **Architecture MVC :**
+  - Création du `ContratController`.
+  - Création du modèle `Contrat`.
+  - Création des vues :
+    - `students/show.php`
+    - `contrats/create.php`
 
-  * Création du `ContratController`.
-  * Création du modèle `Contrat`.
-  * Création des vues :
+- **Fiche Candidat & Contrats :**
+  - Affichage des informations du candidat.
+  - Affichage des contrats associés.
+  - Utilisation d'une jointure SQL `LEFT JOIN categorie`.
+  - Récupération de la catégorie du permis avec les détails du contrat.
+  - Utilisation de `PDO::fetchAll()`.
 
-    * `students/show.php`
-    * `contrats/create.php`
+- **Gestion dynamique :**
+  - Récupération de l'ID candidat via `$_GET['id']`.
+  - Affichage dynamique des informations correspondant au candidat sélectionné.
 
-* **Fiche Candidat & Contrats :**
-
-  * Affichage des informations du candidat.
-  * Affichage des contrats associés.
-  * Utilisation d'une jointure SQL `LEFT JOIN categorie`.
-  * Récupération de la catégorie du permis avec les détails du contrat.
-  * Utilisation de `PDO::fetchAll()`.
-
-* **Gestion dynamique :**
-
-  * Récupération de l'ID candidat via `$_GET['id']`.
-  * Affichage dynamique des informations correspondant au candidat sélectionné.
-
-* **Création d'un Contrat :**
-
-  * Création du formulaire de souscription.
-  * Transmission de l'ID candidat via un `hidden input`.
-  * Traitement du formulaire en `POST`.
-  * Utilisation de requêtes préparées PDO.
-  * Validation des données côté serveur.
-  * Redirection dynamique après traitement.
+- **Création d'un Contrat :**
+  - Création du formulaire de souscription.
+  - Transmission de l'ID candidat via un `hidden input`.
+  - Traitement du formulaire en `POST`.
+  - Utilisation de requêtes préparées PDO.
+  - Validation des données côté serveur.
+  - Redirection dynamique après traitement.
 
 ## 🎯 Use Cases concernés
 
-* **UC03 — Gestion des candidats**
-* **UC06 — Gestion des contrats**
+- **UC03 — Gestion des candidats**
+- **UC06 — Gestion des contrats**
 
 ## 📌 État
 
@@ -364,34 +352,33 @@ Finaliser le module **Gestion des Contrats (UC06)** en ajoutant les opérations 
 
 ## ✅ Réalisations
 
-* ✏️ Implémentation de la **modification des contrats**
-* 🗑️ Implémentation de la **suppression des contrats**
-* 🔔 Ajout des **Toast Notifications** pour les actions sur les contrats
-* 🛡️ Renforcement de la **validation des données du formulaire**
-* 🧪 Test des opérations principales du **CRUD des contrats**
-* 🔗 Vérification de la relation **Contrat ↔ Candidat**
-* ✅ Vérification du bon fonctionnement des redirections et des actions après chaque opération
+- ✏️ Implémentation de la **modification des contrats**
+- 🗑️ Implémentation de la **suppression des contrats**
+- 🔔 Ajout des **Toast Notifications** pour les actions sur les contrats
+- 🛡️ Renforcement de la **validation des données du formulaire**
+- 🧪 Test des opérations principales du **CRUD des contrats**
+- 🔗 Vérification de la relation **Contrat ↔ Candidat**
+- ✅ Vérification du bon fonctionnement des redirections et des actions après chaque opération
 
 ## 🧠 Décisions importantes
 
-* Utilisation des requêtes **PDO préparées** pour sécuriser les opérations SQL.
-* Conservation d'une relation cohérente entre les **candidats et leurs contrats**.
-* Utilisation des **Toast Notifications** pour informer clairement l'utilisateur du résultat de chaque action.
-* Centralisation des opérations du module Contrats à travers l'architecture **MVC**.
+- Utilisation des requêtes **PDO préparées** pour sécuriser les opérations SQL.
+- Conservation d'une relation cohérente entre les **candidats et leurs contrats**.
+- Utilisation des **Toast Notifications** pour informer clairement l'utilisateur du résultat de chaque action.
+- Centralisation des opérations du module Contrats à travers l'architecture **MVC**.
 
 ## 🎯 Use Cases concernés
 
-* **UC06 — Gérer les contrats**
+- **UC06 — Gérer les contrats**
+  - Création
+  - Consultation
+  - Modification
+  - Suppression
 
-  * Création
-  * Consultation
-  * Modification
-  * Suppression
-* Préparation des fonctionnalités liées à :
-
-  * **UC07 — Gérer les paiements**
-  * **UC08 — Planifier les séances**
-  * **UC11 — Planifier les examens**
+- Préparation des fonctionnalités liées à :
+  - **UC07 — Gérer les paiements**
+  - **UC08 — Planifier les séances**
+  - **UC11 — Planifier les examens**
 
 ## 📌 État
 
@@ -399,15 +386,71 @@ Finaliser le module **Gestion des Contrats (UC06)** en ajoutant les opérations 
 
 Le module permet maintenant de **créer, consulter, modifier et supprimer les contrats**, avec validation des données et notifications utilisateur.
 
-# 🎯 Prochaine étape — Jour 11
+# 📅 Jour 11 — Impression des documents & amélioration de l'interface
 
-📄 **Implémenter l'impression des documents liés aux contrats et aux candidats.**
+## 🎯 Objectif
 
-* [ ] Impression du **Contrat d'Apprentissage**
-* [ ] Impression de l'**Attestation d'Inscription**
-* [ ] Impression de la **Carte Candidat**
-* [ ] Préparer les vues dédiées à l'impression
-* [ ] Vérifier la mise en page et les informations affichées sur chaque document
+Implémenter les premiers documents administratifs imprimables liés aux **contrats et aux candidats**, puis améliorer l'interface existante et corriger certains problèmes d'utilisation.
+
+## ✅ Réalisations
+
+### 📄 Impression des documents
+
+- 📝 Implémentation du template PDF du **Contrat d'Apprentissage**
+- 🪪 Implémentation du template PDF de la **Carte Candidat**
+- 🏫 Ajout de la table **`schools`**
+- 🔢 Ajout de la colonne **`num_enregistrement`** dans la table des contrats
+- 🔗 Mise à jour du modèle **Contract** pour récupérer les informations de l'auto-école avec les données du candidat et du véhicule
+- 🛣️ Ajout des routes dédiées à l'impression
+- 🎮 Ajout des actions correspondantes dans le **ContratController**
+- 🌐 Création des templates HTML/CSS bilingues :
+  - `contrat_print.php`
+  - `fiche_candidat_print.php`
+
+- 📷 Correction du chemin de stockage des photos candidats :
+  `/smart-auto-ecole/public/uploads/`
+- 🖨️ Ajout des options d'impression dans le profil candidat via un menu déroulant
+- 🎨 Ajustement du positionnement et de l'overflow du menu d'impression
+
+### 🎨 Amélioration de l'interface
+
+- 🔧 Amélioration du **Sidebar**
+- 📊 Amélioration de l'affichage des **tableaux**
+- 🐛 Correction de plusieurs bugs d'interface et de navigation
+- ↩️ Correction du comportement du bouton **Retour** pour permettre de revenir correctement à la page précédente
+
+## 🧠 Décisions importantes
+
+- Séparer les vues d'impression des vues classiques de l'application afin d'obtenir des documents adaptés à l'impression.
+- Centraliser les informations de l'auto-école dans la base de données afin de les réutiliser dans les documents administratifs.
+- Conserver les templates d'impression en **HTML/CSS bilingue** pour faciliter leur adaptation et leur maintenance.
+- Améliorer progressivement l'interface avant de poursuivre avec les prochains modules fonctionnels.
+
+## 🎯 Use Cases concernés
+
+- **UC03 — Gérer les candidats**
+- **UC06 — Gérer les contrats**
+- Préparation des fonctionnalités administratives liées aux documents.
+
+## 📌 État
+
+🟢 **UC06 — Gestion des contrats : 85%**
+
+La création, consultation, modification, suppression et une partie de l'impression des documents liés aux contrats sont maintenant fonctionnelles.
+
+# 🎯 Prochaine étape — Jour 12
+
+### 📄 Finalisation de l'impression
+
+- [ ] Implémenter l'**Attestation d'Inscription**
+- [ ] Vérifier et finaliser les templates d'impression
+- [ ] Tester l'impression avec différents candidats et contrats
+
+### 🎨 Finalisation de l'interface
+
+- [ ] Finaliser les améliorations du **Sidebar**
+- [ ] Uniformiser l'affichage des tableaux
+- [ ] Corriger les derniers bugs de navigation et d'affichage
 
 # 📊 Progression actuelle
 
@@ -419,10 +462,10 @@ Le module permet maintenant de **créer, consulter, modifier et supprimer les co
 | Dashboard                | 🟢 100%     |
 | UC03 — Candidats         | 🟢 90%      |
 | UC02 — Utilisateurs      | 🟡 En cours |
-| UC06 — Contrats          | 🟢 80%      |
+| UC06 — Contrats          | 🟢 85%      |
 | UC01 — Authentification  | 🔴 À venir  |
 | UC04 → UC05              | 🔴 À venir  |
 | UC07 → UC15              | 🔴 À venir  |
 | Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le module **Gestion des contrats (UC06)** est maintenant fonctionnel pour la **création, la consultation, la modification et la suppression des contrats**. La prochaine étape consiste à intégrer l'impression des documents administratifs : **Contrat d'Apprentissage, Attestation d'Inscription et Carte Candidat**.
+> **État actuel :** Le module **Gestion des contrats (UC06)** est maintenant fonctionnel pour la **création, la consultation, la modification, la suppression et l'impression partielle des documents administratifs**. Le **Contrat d'Apprentissage** et la **Carte Candidat** disposent désormais de leurs templates d'impression. La prochaine étape consiste à finaliser l'**Attestation d'Inscription**, poursuivre les améliorations de l'interface et corriger les derniers bugs de navigation.

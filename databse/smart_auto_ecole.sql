@@ -23,7 +23,32 @@ CREATE TABLE IF NOT EXISTS `role` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_unicode_ci;
+-- -----------------------------------------------------
+-- Table `shool_info`
+-- -----------------------------------------------------
 
+CREATE TABLE school_info (
+    id INT NOT NULL DEFAULT 1,
+    nom_ecole VARCHAR(150) NOT NULL,
+    num_autorisation VARCHAR(50),
+    num_registre_national VARCHAR(50),
+    num_patente VARCHAR(50),
+    num_rc VARCHAR(50),
+    adresse VARCHAR(255),
+    ville VARCHAR(100),
+    telephone VARCHAR(20),
+    fax VARCHAR(20),
+    email VARCHAR(100),
+    representant_legal VARCHAR(150),
+    logo VARCHAR(255),
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        ON UPDATE CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    CONSTRAINT chk_single_row CHECK (id = 1)
+);
 -- -----------------------------------------------------
 -- Table `utilisateur`
 -- -----------------------------------------------------
