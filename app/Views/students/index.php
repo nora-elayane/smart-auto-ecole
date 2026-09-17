@@ -21,8 +21,7 @@
     </script>
 <?php endif; ?>
 
-<!-- ماكايناش هنا حتى <main> ولا <div class="page-content"> -->
-<!-- header.php سبق فتح <main class="main-content"><section class="page-content">, والمحتوى كيدخل مباشرة هنا -->
+
 
 <div class="card-header">
     <div>

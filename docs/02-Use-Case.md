@@ -74,7 +74,7 @@ Directeur
 
 ### Description
 
-Ajouter, modifier, consulter ou supprimer un moniteur.
+Ajouter, modifier, consulter ou supprimer un moniteur ou secretaire.
 
 ---
 
@@ -235,4 +235,3 @@ Fermer la session utilisateur de manière sécurisée.
 # 4. Diagramme UML
 
 Le diagramme de cas d'utilisation sera réalisé à partir des cas d'utilisation décrits dans ce document.
-

@@ -15,8 +15,6 @@
 
         <div class="card" style="max-width: 900px; margin: 0 auto;">
             <form action="<?php echo $formAction; ?>" method="POST" enctype="multipart/form-data" id="studentForm">
-                
-                <input type="hidden" name="id_role" value="<?php echo $roleId; ?>">
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
                     <div class="form-group">
@@ -72,6 +70,19 @@
                         <input type="file" id="photo" name="photo" class="form-control" accept="image/png, image/jpeg, image/jpg">
                     </div>
                 </div>
+
+                                
+<?php if (isset($roleId) && $roleId !== 4): ?>
+    <div class="col-md-6 mb-3">
+        <label for="id_role" class="form-label">Rôle<span style="color: var(--danger);">*</span></label>
+        <select name="id_role" id="id_role" class="form-control" required>
+            <option value="2" <?= (isset($roleId) && $roleId == 2) ? 'selected' : ''; ?>>Secrétaire</option>
+            <option value="3" <?= (isset($roleId) && $roleId == 3) ? 'selected' : ''; ?>>Moniteur</option>
+        </select>
+    </div>
+<?php else: ?>
+    <input type="hidden" name="id_role" value="4">
+<?php endif; ?>
 
                 <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px;">
                     <button type="submit" class="btn btn-primary">Enregistrer</button>

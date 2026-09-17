@@ -7,7 +7,8 @@ error_reporting(E_ALL);
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
 require_once __DIR__ . '/../app/Controllers/StudentsController.php' ; 
-require_once __DIR__ . '/../app/Controllers/ContratController.php' ; 
+require_once __DIR__ . '/../app/Controllers/ContratController.php' ;
+require_once __DIR__ . '/../app/Controllers/EmployeController.php'; 
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = rtrim($uri , '/') ; 
@@ -71,6 +72,30 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
     require_once __DIR__ . '/../app/Controllers/SchoolController.php';
     $controller = new SchoolController();
     $controller->update();
+}elseif($uri === $basePath . '/employes'){
+    $controller = new EmployeController();
+    $controller->index();
+}elseif($uri === $basePath . '/employes/create'){
+    $controller = new EmployeController();
+    $controller->create();
+}elseif($uri === $basePath . '/employes/store'){
+    $controller = new EmployeController();
+    $controller->store();
+}elseif($uri === $basePath . '/employes/edit'){
+    $controller = new EmployeController();
+    $controller->edit();
+}elseif($uri === $basePath . '/employes/update'){
+    $controller = new EmployeController();
+    $controller->update();
+}elseif($uri === $basePath . '/employes/archive'){
+    $controller = new EmployeController();
+    $controller->archive();
+}elseif($uri === $basePath . '/employes/active'){
+    $controller = new EmployeController();
+    $controller->active();
+}elseif($uri === $basePath . '/employes/delete'){
+    $controller = new EmployeController();
+    $controller->delete();
 }else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";

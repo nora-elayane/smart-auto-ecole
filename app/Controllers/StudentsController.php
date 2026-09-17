@@ -82,12 +82,16 @@ class StudentController {
         $etat = $_POST['etat'] ?? 'Actif';
         $roleId = $_POST['id_role'] ?? 4;
 
-        if (!empty($_POST['mot_de_passe'])) {
-            $mot = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
-        } else {
-            $mot = $_POST['oldmot'];
-        }
+       // استرجاع كلمة السر القديمة بأمان بدون Warning
+$oldPassword = $_POST['oldmot'] ?? $_POST['mot_de_passe_actuel'] ?? null;
 
+// إذا تم إدخال كلمة سر جديدة قم بتشفيرها، وإلا احتفظ بالقديمة
+if (!empty($_POST['mot_de_passe'])) {
+    $mot = password_hash($_POST['mot_de_passe'], PASSWORD_DEFAULT);
+} else {
+    // استخدام كلمة السر القديمة من الـ Form
+    $mot = $oldPassword; 
+}
         $photoName = $_POST['oldphoto'] ?? null;
 
         if (isset($_FILES['photo']) && $_FILES['photo']['error'] === UPLOAD_ERR_OK) {

@@ -482,32 +482,112 @@ Finaliser les améliorations visuelles de l'interface et corriger les principaux
 
 Les principaux problèmes liés au **Sidebar, aux tableaux, aux Dropdowns et à la navigation** ont été corrigés.
 
-# 🎯 Prochaine étape — Jour 13
+# 📅 Jour 13 — Gestion des employés
 
-👥 **Développement du module Gestion des employés**
+## 🎯 Objectif
 
-- [ ] Gestion des **Secrétaires**
-- [ ] Gestion des **Moniteurs**
-- [ ] Réutilisation de la logique commune de gestion des utilisateurs
-- [ ] Création et modification des profils employés
-- [ ] Gestion des rôles et des informations spécifiques à chaque type d'employé
-- [ ] Préparer la structure pour l'intégration future de l'authentification
+Implémenter le module **Gestion des employés (UC04)** pour permettre la gestion des **Secrétaires et des Moniteurs**, tout en réutilisant la logique commune de gestion des utilisateurs.
+
+## ✅ Réalisations
+
+### 👥 Gestion des employés
+
+- Implémentation du **CRUD complet des employés** :
+  - Consultation
+  - Création
+  - Modification
+  - Affichage du profil
+  - Suppression
+
+- Ajout de `EmployeController` avec les actions :
+  - `index`
+  - `create`
+  - `store`
+  - `edit`
+  - `update`
+  - `show`
+  - `delete`
+
+- Gestion des **rôles** pour les différents types d'employés :
+  - Secrétaire
+  - Moniteur
+
+### 🔄 Gestion des statuts
+
+- Implémentation de la gestion des statuts :
+  - **Actif**
+  - **Archivé**
+
+- Possibilité d'archiver et de réactiver les employés.
+
+### 📷 Gestion des photos
+
+- Mise en place de l'upload sécurisé des **photos de profil**.
+- Gestion du remplacement des anciennes photos lors de la modification.
+
+### 🛠️ Correction & amélioration du modèle
+
+- Correction de la requête `updateEmploye` dans le modèle **Employe**.
+- Correction de la mise à jour de `id_role` en l'intégrant correctement dans la clause `SET`.
+
+### 🔔 Feedback utilisateur
+
+- Intégration des **Flash Messages** pour informer l'utilisateur du résultat des différentes opérations.
+- Liaison des actions CRUD avec les différentes vues du module Employés.
+
+## 🧠 Décisions importantes
+
+- Réutilisation de la logique commune déjà développée pour les utilisateurs et les candidats.
+- Centralisation de la gestion des rôles afin de maintenir une structure cohérente.
+- Utilisation du système d'archivage pour éviter la suppression directe des employés actifs.
+- Conservation d'une gestion sécurisée des photos de profil.
+
+## 🎯 Use Cases concernés
+
+- **UC04 — Gérer les employés**
+  - Secrétaires
+  - Moniteurs
+  - Création
+  - Consultation
+  - Modification
+  - Archivage / activation
+  - Suppression
+
+## 📌 État
+
+🟢 **UC04 — Gestion des employés : 85%**
+
+Le module **Gestion des employés** dispose maintenant d'un CRUD complet avec gestion des rôles, des statuts, des photos et des notifications utilisateur.
+
+# 🎯 Prochaine étape — Jour 14
+
+🚗 **Développement du module Gestion des véhicules**
+
+- [ ] Affichage de la liste des véhicules
+- [ ] Ajouter un véhicule
+- [ ] Modifier un véhicule
+- [ ] Consulter les informations d'un véhicule
+- [ ] Supprimer / archiver un véhicule
+- [ ] Gérer le statut du véhicule
+- [ ] Ajouter les validations nécessaires
+- [ ] Intégrer les Flash Messages / Toast Notifications
+- [ ] Tester les opérations CRUD
 
 # 📊 Progression actuelle
 
-| Partie                      | État               |
-| --------------------------- | ------------------ |
-| Analyse & Conception        | 🟢 100%            |
-| Architecture & Interface    | 🟢 100%            |
-| Base de données             | 🟢 100%            |
-| Dashboard                   | 🟢 100%            |
-| UC03 — Candidats            | 🟢 90%             |
-| UC02 — Utilisateurs         | 🟡 En cours        |
-| UC06 — Contrats             | 🟢 85%             |
-| UC01 — Authentification     | 🔴 À venir         |
-| UC04 — Gestion des employés | 🟡 Prochaine étape |
-| UC05 — Véhicules            | 🔴 À venir         |
-| UC07 → UC15                 | 🔴 À venir         |
-| Tests & Déploiement         | 🔴 À venir         |
+| Partie                   | État               |
+| ------------------------ | ------------------ |
+| Analyse & Conception     | 🟢 100%            |
+| Architecture & Interface | 🟢 100%            |
+| Base de données          | 🟢 100%            |
+| Dashboard                | 🟢 100%            |
+| UC03 — Candidats         | 🟢 90%             |
+| UC02 — Utilisateurs      | 🟡 En cours        |
+| UC04 — Employés          | 🟢 85%             |
+| UC06 — Contrats          | 🟢 85%             |
+| UC01 — Authentification  | 🔴 À venir         |
+| UC05 — Véhicules         | 🟡 Prochaine étape |
+| UC07 → UC15              | 🔴 À venir         |
+| Tests & Déploiement      | 🔴 À venir         |
 
-> **État actuel :** Les améliorations principales de l'interface, du **Sidebar**, des **tableaux**, des **Dropdowns** et de la **navigation** sont terminées. La prochaine étape consiste à développer le module **Gestion des employés**, comprenant les **Secrétaires et les Moniteurs**, tout en réutilisant la logique commune déjà développée pour la gestion des utilisateurs et des candidats.
+> **État actuel :** Le module **Gestion des employés (UC04)** est maintenant fonctionnel avec un **CRUD complet**, la gestion des **rôles**, des **statuts**, des **photos de profil** et des **Flash Messages**. La prochaine étape consiste à développer le module **Gestion des véhicules (UC05)**.

@@ -90,10 +90,10 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
                 </a>
             </li>
 
-            <li class="nav-item <?php echo (strpos($current_uri, '/instructors') !== false) ? 'active' : ''; ?>">
-                <a href="/smart-auto-ecole/public/instructors" class="nav-link">
+            <li class="nav-item <?php echo (strpos($current_uri, '/employes') !== false) ? 'active' : ''; ?>">
+                <a href="/smart-auto-ecole/public/employes" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 21v-2a7 7 0 0 1 14 0v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                    <span>Moniteurs</span>
+                    <span>Personnel</span>
                 </a>
             </li>
 
