@@ -9,6 +9,8 @@ require_once __DIR__ . '/../app/Controllers/HomeController.php';
 require_once __DIR__ . '/../app/Controllers/StudentsController.php' ; 
 require_once __DIR__ . '/../app/Controllers/ContratController.php' ;
 require_once __DIR__ . '/../app/Controllers/EmployeController.php'; 
+require_once __DIR__ . '/../app/Controllers/VehiculeController.php'; 
+
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = rtrim($uri , '/') ; 
@@ -96,6 +98,27 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/employes/delete'){
     $controller = new EmployeController();
     $controller->delete();
+}elseif($uri === $basePath . '/vehicules'){
+    $controller = new VehiculeController();
+    $controller->index();
+}elseif($uri === $basePath . '/vehicules/create'){
+    $controller = new VehiculeController();
+    $controller->create();
+}elseif($uri === $basePath . '/vehicules/store'){
+    $controller = new VehiculeController();
+    $controller->store();
+}elseif($uri === $basePath . '/vehicules/edit'){
+    $controller = new VehiculeController();
+    $controller->edit();
+}elseif($uri === $basePath . '/vehicules/update'){
+    $controller = new VehiculeController();
+    $controller->update();
+}elseif($uri === $basePath . '/vehicules/delete'){
+    $controller = new VehiculeController();
+    $controller->delete();
+}elseif($uri === $basePath . '/contrats'){
+    $controller = new ContratController();
+    $controller->index();
 }else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";

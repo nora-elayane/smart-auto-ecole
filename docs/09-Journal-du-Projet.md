@@ -559,35 +559,109 @@ Implémenter le module **Gestion des employés (UC04)** pour permettre la gestio
 
 Le module **Gestion des employés** dispose maintenant d'un CRUD complet avec gestion des rôles, des statuts, des photos et des notifications utilisateur.
 
-# 🎯 Prochaine étape — Jour 14
+# 📅 Jour 14 — Gestion des véhicules
 
-🚗 **Développement du module Gestion des véhicules**
+## 🎯 Objectif
 
-- [ ] Affichage de la liste des véhicules
-- [ ] Ajouter un véhicule
-- [ ] Modifier un véhicule
-- [ ] Consulter les informations d'un véhicule
-- [ ] Supprimer / archiver un véhicule
-- [ ] Gérer le statut du véhicule
-- [ ] Ajouter les validations nécessaires
-- [ ] Intégrer les Flash Messages / Toast Notifications
-- [ ] Tester les opérations CRUD
+Implémenter le module **Gestion des véhicules (UC05)** avec un CRUD complet, une interface cohérente avec les autres modules et une gestion correcte des erreurs et validations.
+
+## ✅ Réalisations
+
+### 🚗 Gestion des véhicules
+
+- Implémentation de l'affichage de la **liste des véhicules**.
+- Création du formulaire d'**ajout d'un véhicule**.
+- Création du formulaire de **modification d'un véhicule**.
+- Implémentation de la **suppression des véhicules**.
+- Gestion du **statut / état du véhicule**.
+- Ajout des validations nécessaires aux formulaires.
+- Mise en place des **Toast Notifications** pour améliorer le feedback utilisateur.
+
+### 🎨 Interface & UX
+
+- Uniformisation de la vue `index` avec le style déjà utilisé dans la gestion des candidats.
+- Ajout d'une **barre d'actions flottante**.
+- Utilisation de **badges** pour l'affichage des états.
+- Amélioration de la présentation générale des informations.
+
+### 📝 Formulaires
+
+- Création de formulaires structurés avec une **mise en page en grille**.
+- Ajout d'une **validation côté client avec JavaScript**.
+- Amélioration de l'expérience utilisateur lors de la saisie des données.
+
+### 🛣️ Routing & Backend
+
+- Ajout des routes du module **Véhicules** dans le routeur principal.
+
+- Gestion et amélioration du traitement des erreurs PDO.
+
+- Correction de l'exception :
+
+  `Data truncated for column 'etat'`
+
+- Alignement des valeurs utilisées avec les options **ENUM** définies dans la base de données.
+
+## 🧠 Décisions importantes
+
+- Réutilisation du style d'interface déjà établi dans le module **Candidats** afin de conserver une cohérence visuelle.
+- Utilisation des validations **côté client et côté serveur** pour renforcer la fiabilité des données.
+- Alignement strict entre les valeurs de l'application et les valeurs **ENUM** de la base de données.
+- Centralisation des routes du module dans le routeur principal.
+
+## 🎯 Use Cases concernés
+
+- **UC05 — Gérer les véhicules**
+  - Consulter
+  - Ajouter
+  - Modifier
+  - Supprimer
+  - Gérer l'état du véhicule
+
+## 📌 État
+
+🟢 **UC05 — Gestion des véhicules : 85%**
+
+Le module dispose maintenant d'un **CRUD fonctionnel**, avec des vues dédiées, des formulaires validés, une gestion des états, des notifications utilisateur et une gestion améliorée des erreurs.
+
+# 🎯 Prochaine étape — Jour 15
+
+📄 **Développement de la page Liste des Contrats**
+
+- [ ] Créer la page **Tableau des Contrats**
+- [ ] Réutiliser le design et les composants des pages précédentes
+- [ ] Uniformiser le **tableau des contrats** avec les tableaux existants
+- [ ] Réutiliser la **barre d'actions**, les boutons, badges et Dropdowns déjà développés
+- [ ] Afficher les principales informations du contrat :
+  - Candidat
+  - Catégorie
+  - Date du contrat
+  - Montant
+  - Statut
+  - Actions
+
+- [ ] Ajouter les actions nécessaires : **Consulter, Modifier, Supprimer, Imprimer**
+- [ ] Ajouter les **Toast Notifications** pour les actions
+- [ ] Vérifier la navigation et les redirections
+- [ ] Tester l'affichage et les différentes actions du tableau
+
+> **Objectif :** Réutiliser au maximum les composants et patterns déjà développés dans les pages **Candidats, Employés et Véhicules**, afin de maintenir une interface cohérente et éviter la duplication du code.
 
 # 📊 Progression actuelle
 
-| Partie                   | État               |
-| ------------------------ | ------------------ |
-| Analyse & Conception     | 🟢 100%            |
-| Architecture & Interface | 🟢 100%            |
-| Base de données          | 🟢 100%            |
-| Dashboard                | 🟢 100%            |
-| UC03 — Candidats         | 🟢 90%             |
-| UC02 — Utilisateurs      | 🟡 En cours        |
-| UC04 — Employés          | 🟢 85%             |
-| UC06 — Contrats          | 🟢 85%             |
-| UC01 — Authentification  | 🔴 À venir         |
-| UC05 — Véhicules         | 🟡 Prochaine étape |
-| UC07 → UC15              | 🔴 À venir         |
-| Tests & Déploiement      | 🔴 À venir         |
+| Partie                   | État        |
+| ------------------------ | ----------- |
+| Analyse & Conception     | 🟢 100%     |
+| Architecture & Interface | 🟢 100%     |
+| Base de données          | 🟢 100%     |
+| Dashboard                | 🟢 100%     |
+| UC03 — Candidats         | 🟢 90%      |
+| UC02 — Utilisateurs      | 🟡 En cours |
+| UC04 — Employés          | 🟢 85%      |
+| UC05 — Véhicules         | 🟢 85%      |
+| UC06 — Contrats          | 🟢 85%      |
+| UC01 — Authentification  | 🔴 À venir  |
+| UC07 → UC15              | 🔴 À venir  |
+| Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le module **Gestion des employés (UC04)** est maintenant fonctionnel avec un **CRUD complet**, la gestion des **rôles**, des **statuts**, des **photos de profil** et des **Flash Messages**. La prochaine étape consiste à développer le module **Gestion des véhicules (UC05)**.
+> **État actuel :** Le module **Gestion des véhicules (UC05)** dispose maintenant d'un **CRUD fonctionnel**, avec une interface harmonisée, des formulaires structurés, une validation JavaScript, des notifications utilisateur et une gestion correcte des valeurs `ENUM`. La prochaine étape consiste à développer le module **Gestion des paiements et finances**, en commençant par l'historique et l'enregistrement des paiements liés aux contrats.

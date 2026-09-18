@@ -70,7 +70,15 @@ class Contrat{
         $stm = $this->conn->prepare($query) ; 
         return $stm->execute($ids) ;
     }
-    
+public function getAllWithCandidat() {
+    $query = "SELECT c.*, u.nom, u.prenom, u.cin 
+              FROM " . $this->table . " c
+              JOIN utilisateur u ON c.id_user = u.id_user 
+              ORDER BY c.id_contrat DESC";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
     }
 

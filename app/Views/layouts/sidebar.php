@@ -97,8 +97,8 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
                 </a>
             </li>
 
-            <li class="nav-item <?php echo (strpos($current_uri, '/vehicles') !== false) ? 'active' : ''; ?>">
-                <a href="/smart-auto-ecole/public/vehicles" class="nav-link">
+            <li class="nav-item <?php echo (strpos($current_uri, '/vehicules') !== false) ? 'active' : ''; ?>">
+                <a href="/smart-auto-ecole/public/vehicules" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14l-1-6H6l-1 6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11l2-5h6l2 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
                     <span>Véhicules</span>
                 </a>

@@ -6,6 +6,16 @@ require_once __DIR__ . '/../Models/schoolInfo.php';
 
 
 class ContratController{
+    public function index() {
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $contratModel = new Contrat($db);
+    $contrats = $contratModel->getAllWithCandidat();
+
+    $pageTitle = "Gestion des Contrats";
+    require_once __DIR__ . '/../Views/contrats/index.php';
+}
    public function showContrats() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $id_candidate = $_GET["id"] ?? null; 
