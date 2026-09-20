@@ -27,7 +27,7 @@
         <h1 style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;">Gestion des Contrats</h1>
         <p class="card-description">Liste globale et suivi de tous les contrats d'apprentissage.</p>
     </div>
-    <a href="/smart-auto-ecole/public/candidates/contrats/create" class="btn btn-primary">
+    <a href="/smart-auto-ecole/public/contrats/create" class="btn btn-primary">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
         Nouveau Contrat
     </a>
@@ -36,25 +36,40 @@
 <div class="table-wrapper table-container" style="position: relative;">
 
     <!-- Floating Action Bar -->
-    <div id="actionBar" class="action-bar-overlay">
-        <div class="d-flex align-items-center gap-3">
-            <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
+     <div id="actionBar" class="action-bar-overlay" style="margin-bottom: 15px; padding: 5px 0;">
+                <div class="d-flex align-items-center gap-3">
+                    <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
+            <button type="button" id="btnEdit" data-action-url="/smart-auto-ecole/public/contrats/edit?from=contrats" class="btn btn-sm btn-outline-secondary">
+    Éditer
+</button>
+                    <button type="button" id="btnDelete" data-action-url="/smart-auto-ecole/public/contrats/delete?from=contrats" class="btn btn-sm btn-outline-danger">
+                        Supprimer
+                    </button>
+                    
+                    <div class="dropdown-wrapper" style="position: relative; display: inline-block; z-index: 1050;">
+                        <button type="button" id="btnPrintDropdown" class="btn btn-sm btn-secondary">
+                            Imprimer ▾
+                        </button>
+                        <div id="printMenu" class="custom-dropdown-menu" style="position: absolute; top: 100%; right: 0; z-index: 1060; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border-radius: 6px; min-width: 200px;">
+                            <button type="button" class="dropdown-item print-action" data-type="contrat">Contrat d'apprentissage</button>
+                            <button type="button" class="dropdown-item print-action" data-type="attestation">Attestation d'inscription</button>
+                            <div class="dropdown-divider"></div>
+                            <button type="button" class="dropdown-item print-action" data-type="carte">Carte Candidat</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            <button type="button" id="btnDelete" class="btn btn-sm btn-outline-danger" data-action-url="/smart-auto-ecole/public/candidates/contrats/delete">
-                Supprimer
-            </button>
-        </div>
-    </div>
 
     <table class="table align-middle">
         <thead>
             <tr>
                 <th width="40"><input type="checkbox" id="selectAll" class="form-check-input"></th>
-                <th>#N° CONTRAT</th>
+                <th>N° CONTRAT</th>
                 <th>CANDIDAT</th>
                 <th>CIN</th>
-                <th>DATE DEBUT</th>
-                <th>MONTANT TOTAL</th>
+                <th>TÉLÉPHONE</th>
+                <th>CATÉGORIE PERMIS</th>
                 <th>STATUT</th>
                 <th style="text-align: right;">ACTIONS</th>
             </tr>
@@ -77,15 +92,17 @@
                         <td data-label="CIN" style="font-weight: 500; font-family: monospace;">
                             <?= htmlspecialchars($c['cin'] ?? 'N/A'); ?>
                         </td>
-                        <td data-label="Date Début" style="color: var(--text-secondary);">
-                            <?= !empty($c['date_debut']) ? date('d/m/Y', strtotime($c['date_debut'])) : 'N/A'; ?>
+                        <td data-label="Téléphone" style="color: var(--text-secondary);">
+                            <?= htmlspecialchars($c['telephone'] ?? $c['phone'] ?? 'N/A'); ?>
                         </td>
-                        <td data-label="Montant Total" style="font-weight: 600; color: var(--text-primary);">
-                            <?= number_format($c['prix_total'] ?? 0, 2); ?> DH
-                        </td>
+                        <td data-label="Catégorie Permis">
+    <span class="badge bg-light text-dark border">
+        Permis <?= htmlspecialchars($c['categorie_code'] ?? 'B'); ?>
+    </span>
+</td>
                         <td data-label="Statut">
                             <?php 
-                                $statut = $c['statut'] ?? 'Actif';
+                                $statut = $c['statut'] ?? 'En cours';
                                 $badgeClass = ($statut === 'Actif' || $statut === 'En cours') ? 'badge-success' : 'badge-danger';
                             ?>
                             <span class="badge <?= $badgeClass; ?>">

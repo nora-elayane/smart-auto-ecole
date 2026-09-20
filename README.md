@@ -12,24 +12,25 @@ Le projet a pour objectif de centraliser et simplifier la gestion des différent
 
 - 👥 Utilisateurs
 - 👨‍🎓 Candidats
-- 👨‍🏫 Moniteurs
+- 👨‍🏫 Employés (Secrétaires & Moniteurs)
 - 🚗 Véhicules
 - 📄 Contrats
 - 💰 Paiements
-- 📅 Séances et planning
+- 📅 Séances & Planning
 - 📝 Examens
 - 📊 Statistiques
+- 🖨️ Documents administratifs
 
 Le projet est actuellement **en cours de développement**.
 
 ---
 
-## 🎯 Objectifs
+# 🎯 Objectifs
 
 - Digitaliser la gestion d'une auto-école.
 - Centraliser les données et les opérations de gestion.
 - Faciliter le suivi des candidats.
-- Automatiser la gestion des contrats et des documents.
+- Automatiser la gestion des contrats et des documents administratifs.
 - Préparer la gestion des séances, du planning et des examens.
 - Mettre en pratique l'architecture **MVC**.
 - Approfondir la **POO en PHP**.
@@ -42,91 +43,157 @@ Le projet est actuellement **en cours de développement**.
 
 ## 🔐 Authentification & Utilisateurs
 
-Le système prévoit une gestion complète des utilisateurs et des rôles.
+La structure des utilisateurs et des rôles est déjà en place. L'authentification complète sera développée dans une prochaine étape.
 
 - [x] Structure des utilisateurs
 - [x] Gestion des rôles
 - [x] Création des utilisateurs
-- [x] Modification des utilisateurs
-- [x] Désactivation des utilisateurs
-- [x] Suppression des utilisateurs
+- [x] Gestion des profils utilisateurs via les modules concernés
 - [ ] Authentification complète
-- [ ] Gestion du profil
+- [ ] Gestion des permissions
 - [ ] Déconnexion sécurisée
 
 ---
 
-## 👨‍🎓 Gestion des candidats
+## 👨‍🎓 Gestion des candidats — UC03
 
-Le module **Candidats (UC03)** est actuellement l'un des modules fonctionnels principaux de l'application.
+Le module **Candidats (UC03)** est l'un des modules fonctionnels principaux de l'application.
 
 ### Fonctionnalités disponibles
 
 - [x] Liste des candidats
+- [x] Consultation des informations
 - [x] Ajout d'un candidat
 - [x] Attribution automatique du rôle candidat
-- [x] Affichage des photos de profil
-- [x] Consultation des informations
 - [x] Modification d'un candidat
-- [x] Suppression d'un candidat
+- [x] Archivage d'un candidat
+- [x] Activation d'un candidat archivé
+- [x] Suppression définitive
+- [x] Gestion des photos de profil
+- [x] Prévisualisation des photos
 - [x] Validation des formulaires
 - [x] Gestion des erreurs
-- [x] Flash Messages
+- [x] Flash Messages / Toast Notifications
 - [x] Gestion des données liées au candidat
+- [x] Fiche candidat
+- [x] Historique des contrats
+- [x] Accès aux documents administratifs
 
-Le CRUD des candidats est actuellement **opérationnel**.
+Le CRUD principal des candidats est **opérationnel**.
 
 ---
 
-## 📄 Gestion des contrats
+## 👥 Gestion des employés — UC04
 
-Le module **Contrats (UC06)** a également été développé.
+Le module **Gestion des employés** permet de gérer les **Secrétaires et les Moniteurs**.
+
+### Fonctionnalités disponibles
+
+- [x] Liste des employés
+- [x] Ajout d'un employé
+- [x] Modification d'un employé
+- [x] Consultation du profil
+- [x] Suppression
+- [x] Archivage
+- [x] Activation
+- [x] Gestion des rôles
+- [x] Gestion des statuts
+- [x] Gestion des photos de profil
+- [x] Upload sécurisé des photos
+- [x] Flash Messages
+- [x] CRUD complet
+
+Le module **Employés** est actuellement fonctionnel pour les opérations principales de gestion.
+
+---
+
+## 🚗 Gestion des véhicules — UC05
+
+Le module **Véhicules (UC05)** dispose maintenant d'un CRUD fonctionnel.
+
+### Fonctionnalités disponibles
+
+- [x] Liste des véhicules
+- [x] Ajout d'un véhicule
+- [x] Modification d'un véhicule
+- [x] Suppression
+- [x] Gestion de l'état du véhicule
+- [x] Validation côté client avec JavaScript
+- [x] Gestion des erreurs PDO
+- [x] Flash Messages / Toast Notifications
+- [x] Formulaires structurés
+- [x] Badges d'état
+- [x] Interface harmonisée avec les autres modules
+
+Une correction a également été apportée concernant les valeurs **ENUM** de la colonne `etat` afin d'éviter les erreurs `Data truncated`.
+
+---
+
+## 📄 Gestion des contrats — UC06
+
+Le module **Contrats (UC06)** est actuellement fonctionnel pour les principales opérations CRUD.
 
 ### Fonctionnalités disponibles
 
 - [x] Création d'un contrat
-- [x] Consultation des contrats
-- [x] Affichage des informations liées au candidat
-- [x] Modification d'un contrat
-- [x] Suppression d'un contrat
+- [x] Consultation
+- [x] Modification
+- [x] Suppression
 - [x] Validation des données
-- [x] Gestion des messages de confirmation/erreur
-- [ ] Impression des contrats
-- [ ] Génération des documents imprimables
+- [x] Flash Messages / Toast Notifications
+- [x] Relation Contrat ↔ Candidat
+- [x] Récupération des informations de l'auto-école
+- [x] Récupération des informations du véhicule
+- [x] Routing standardisé sous `/contrats/*`
+- [x] Redirections contextuelles
+- [x] Gestion du paramètre `from`
+- [x] Retour vers la fiche candidat ou la liste des contrats
 
-La prochaine étape de ce module consiste à implémenter **l'impression des documents liés aux contrats et aux candidats**.
+### Routing Contrats
+
+Les principales routes du module sont maintenant standardisées :
+
+```text
+/contrats/create
+/contrats/edit
+/contrats/update
+/contrats/delete
+/contrats/show
+```
+
+La navigation est adaptée au contexte d'origine afin de permettre des retours cohérents entre les pages **Candidats** et **Contrats**.
 
 ---
 
-## 👨‍🏫 Gestion des moniteurs
+## 🖨️ Impression & Documents administratifs
 
-Module prévu dans l'application.
+Une première partie du système d'impression est maintenant fonctionnelle.
 
-- [ ] Liste des moniteurs
-- [ ] Ajout d'un moniteur
-- [ ] Modification
-- [ ] Suppression
-- [ ] Consultation des informations
-- [ ] Gestion des disponibilités
+### Documents disponibles
 
----
+- [x] Template imprimable du **Contrat d'Apprentissage**
+- [x] Template imprimable de la **Carte Candidat**
+- [x] Routes d'impression
+- [x] Actions d'impression dans le Controller
+- [x] Templates HTML/CSS dédiés
+- [x] Templates bilingues
+- [x] Menu Dropdown d'impression
+- [x] Intégration des informations de l'auto-école
+- [x] Intégration des informations du candidat
+- [x] Intégration des informations du véhicule
+- [ ] Attestation d'Inscription
 
-## 🚗 Gestion des véhicules
+### Structure de l'auto-école
 
-Module prévu pour gérer les véhicules utilisés par l'auto-école.
+Une table `schools` a été ajoutée afin de centraliser les informations de l'auto-école utilisées dans les documents administratifs.
 
-- [ ] Liste des véhicules
-- [ ] Ajout d'un véhicule
-- [ ] Modification
-- [ ] Suppression
-- [ ] Consultation des informations
-- [ ] Gestion de l'état et de la disponibilité
+La colonne `num_enregistrement` a également été ajoutée aux contrats.
 
 ---
 
 ## 💰 Gestion des paiements
 
-Le module financier permettra de gérer les paiements effectués par les candidats.
+Le module financier est prévu pour gérer les paiements liés aux contrats.
 
 - [ ] Enregistrement des paiements
 - [ ] Consultation des paiements
@@ -183,6 +250,33 @@ Le projet dispose déjà d'un **Dashboard** permettant de centraliser les princi
 
 ---
 
+# 🎨 Interface & Expérience utilisateur
+
+L'interface a été progressivement harmonisée entre les différents modules.
+
+### Réalisations
+
+- [x] Header
+- [x] Sidebar
+- [x] Footer
+- [x] Design responsive
+- [x] Tables harmonisées
+- [x] Barres d'actions
+- [x] Boutons d'action
+- [x] Badges
+- [x] Dropdowns
+- [x] Toast Notifications
+- [x] Menus d'impression
+- [x] Correction du positionnement et de l'overflow des Dropdowns
+- [x] Amélioration du Sidebar
+- [x] Correction de la navigation
+- [x] Correction du bouton Retour
+- [x] Redirections contextuelles
+
+L'objectif est de conserver une interface **cohérente et réutilisable** entre les différents modules.
+
+---
+
 # 👥 Utilisateurs
 
 L'application prévoit quatre profils principaux :
@@ -190,11 +284,11 @@ L'application prévoit quatre profils principaux :
 | Rôle           | Description                                          |
 | -------------- | ---------------------------------------------------- |
 | **Directeur**  | Gestion globale de l'auto-école                      |
-| **Secrétaire** | Gestion administrative et candidats                  |
+| **Secrétaire** | Gestion administrative et des candidats              |
 | **Moniteur**   | Gestion des séances et suivi des candidats           |
 | **Candidat**   | Consultation de ses informations, séances et examens |
 
-Les fonctionnalités accessibles dépendent du **rôle de l'utilisateur**.
+Les fonctionnalités accessibles seront progressivement adaptées au **rôle de l'utilisateur** avec l'implémentation du système d'authentification et des permissions.
 
 ---
 
@@ -213,7 +307,7 @@ Les fonctionnalités accessibles dépendent du **rôle de l'utilisateur**.
 | URLs              | Clean URLs                       |
 | Design            | Figma                            |
 | Versioning        | Git / GitHub                     |
-| Base de données   | MySQL Workbench                  |
+| Conception BDD    | MySQL Workbench                  |
 
 ---
 
@@ -240,7 +334,7 @@ Le projet utilise une architecture **MVC (Model - View - Controller)**.
                               ▼
                     ┌────────────────────┐
                     │     Controller     │
-                    │  Logique métier    │
+                    │   Logique métier   │
                     └─────────┬──────────┘
                               │
                               ▼
@@ -254,15 +348,15 @@ Le projet utilise une architecture **MVC (Model - View - Controller)**.
                     │       MySQL        │
                     └────────────────────┘
 
+                              ▲
                               │
-                              ▼
-                    ┌────────────────────┐
+                    ┌─────────┴──────────┐
                     │       View         │
                     │   Interface HTML   │
                     └────────────────────┘
 ```
 
-### Front Controller
+## Front Controller
 
 Toutes les requêtes sont centralisées via :
 
@@ -270,13 +364,16 @@ Toutes les requêtes sont centralisées via :
 public/index.php
 ```
 
-Le projet utilise également **Apache `mod_rewrite`** afin de gérer les **Clean URLs**.
+Le projet utilise **Apache `mod_rewrite`** afin de gérer les **Clean URLs**.
 
-Exemple :
+Exemples :
 
 ```text
 /candidates
-/contracts
+/contrats
+/contrats/create
+/employes
+/vehicules
 /dashboard
 ```
 
@@ -293,7 +390,9 @@ smart-auto-ecole/
 │   ├── Views/
 │   │   ├── layouts/
 │   │   ├── candidates/
-│   │   ├── contracts/
+│   │   ├── contrats/
+│   │   ├── employes/
+│   │   ├── vehicules/
 │   │   └── ...
 │   ├── Core/
 │   └── Helpers/
@@ -326,11 +425,8 @@ smart-auto-ecole/
 │   └── index.php
 │
 ├── routes/
-│
 ├── storage/
-│
 ├── tests/
-│
 ├── README.md
 └── LICENSE
 ```
@@ -382,10 +478,25 @@ Elle comprend notamment :
 - [x] Responsive Design
 - [x] Architecture MVC
 - [x] Front Controller
-- [x] Routing
 - [x] Clean URLs
+- [x] Routing initial
+- [x] Routing Contrats standardisé
+- [x] Redirections contextuelles
 - [x] Connexion MySQL avec PDO
 - [x] Dashboard
+- [x] Tables harmonisées
+- [x] Dropdowns
+- [x] Toast Notifications
+
+### 🔧 Refactoring à venir
+
+- [ ] Architecture Tree des routes
+- [ ] Création de `config/app.php`
+- [ ] Centralisation de `BASE_URL`
+- [ ] Création du helper `url()`
+- [ ] Création du helper `redirect()`
+- [ ] Amélioration du Router principal
+- [ ] Détection automatique Controller / Action
 
 ---
 
@@ -395,63 +506,85 @@ Elle comprend notamment :
 
 - [x] Structure utilisateur
 - [x] Gestion des rôles
-- [x] Formulaire centralisé de création
+- [x] Création des utilisateurs
 - [x] Modification
-- [x] Désactivation
+- [x] Désactivation / gestion des statuts
 - [x] Suppression
 - [ ] Authentification complète
-- [ ] Gestion du profil
-- [ ] Déconnexion
+- [ ] Gestion des permissions
+- [ ] Déconnexion sécurisée
 
 ### 👨‍🎓 Candidats — UC03
 
-- [x] Liste des candidats
-- [x] Ajout d'un candidat
-- [x] Attribution automatique du rôle
-- [x] Affichage des photos
+- [x] Liste
 - [x] Consultation
+- [x] Création
+- [x] Modification
+- [x] Attribution automatique du rôle
+- [x] Photos de profil
+- [x] Archivage
+- [x] Activation
+- [x] Suppression définitive
+- [x] Validation
+- [x] Gestion des erreurs
+- [x] Flash Messages / Toasts
+- [x] Fiche candidat
+- [x] Historique des contrats
+
+### 👥 Employés — UC04
+
+- [x] CRUD complet
+- [x] Secrétaires
+- [x] Moniteurs
+- [x] Gestion des rôles
+- [x] Gestion des statuts
+- [x] Archivage / activation
+- [x] Gestion des photos
+- [x] Flash Messages
+
+### 🚗 Véhicules — UC05
+
+- [x] Liste
+- [x] Création
 - [x] Modification
 - [x] Suppression
-- [x] Validation des formulaires
+- [x] Gestion de l'état
+- [x] Validation JavaScript
 - [x] Gestion des erreurs
-- [x] Flash Messages
-- [x] CRUD complet
+- [x] Toast Notifications
+- [x] Interface harmonisée
 
 ### 📄 Contrats — UC06
 
-- [x] Création des contrats
-- [x] Liste des contrats
+- [x] Création
 - [x] Consultation
 - [x] Modification
 - [x] Suppression
 - [x] Validation
 - [x] Flash Messages
-- [ ] Impression des contrats
-- [ ] Génération des documents
-
-### 👨‍🏫 Moniteurs — UC04
-
-- [ ] CRUD des moniteurs
-- [ ] Gestion des disponibilités
-- [ ] Gestion des affectations
-
-### 🚗 Véhicules — UC05
-
-- [ ] CRUD des véhicules
-- [ ] Gestion de la disponibilité
-- [ ] Gestion des affectations
+- [x] Routing `/contrats/*`
+- [x] Redirections contextuelles
+- [x] Paramètre `from`
+- [x] Contrat ↔ Candidat
+- [x] Informations de l'auto-école
+- [x] Informations du véhicule
+- [x] Template Contrat d'Apprentissage
+- [x] Template Carte Candidat
+- [ ] Attestation d'Inscription
 
 ### 💰 Paiements — UC07
 
-- [ ] Enregistrement des paiements
+- [ ] Enregistrement
+- [ ] Consultation
 - [ ] Historique
-- [ ] Suivi des paiements
-- [ ] Gestion des montants restants
+- [ ] Suivi des montants
+- [ ] Montants restants
+- [ ] Statuts de paiement
 - [ ] Statistiques financières
 
 ### 📅 Séances & Planning — UC08 / UC09 / UC10
 
-- [ ] Planification des séances
+- [ ] Planification
 - [ ] Affectation candidat / moniteur / véhicule
 - [ ] Consultation du planning
 - [ ] Validation des séances
@@ -459,10 +592,10 @@ Elle comprend notamment :
 
 ### 📝 Examens — UC11 / UC12
 
-- [ ] Planification des examens
-- [ ] Consultation des examens
+- [ ] Planification
+- [ ] Consultation
 - [ ] Gestion des résultats
-- [ ] Historique des examens
+- [ ] Historique
 
 ### 📊 Statistiques — UC13
 
@@ -474,30 +607,28 @@ Elle comprend notamment :
 
 ---
 
-# 🖨️ Prochaine étape
+# 🖨️ Documents administratifs
 
-La prochaine étape du développement concerne principalement **l'impression des documents**.
+Documents déjà préparés :
 
-### Jour suivant
+- [x] **Contrat d'Apprentissage**
+- [x] **Carte Candidat**
+- [ ] **Attestation d'Inscription**
 
-- [ ] Impression du contrat
-- [ ] Mise en forme du document imprimable
-- [ ] Impression des informations du candidat
-- [ ] Préparation des documents administratifs
-- [ ] Vérification de la présentation avant impression
-
-L'objectif est de permettre à l'administration de générer facilement des documents propres et prêts à être imprimés.
+Les documents utilisent des **templates HTML/CSS dédiés**, avec support des informations de l'auto-école, du candidat et du véhicule.
 
 ---
 
-# 🧪 Finalisation
+# 🧪 Tests & Finalisation
 
 Une fois les principaux modules terminés :
 
 - [ ] Tests fonctionnels
+- [ ] Tests CRUD complets
 - [ ] Tests de validation
+- [ ] Tests de navigation
+- [ ] Tests des permissions
 - [ ] Sécurité
-- [ ] Gestion des permissions
 - [ ] Protection des données
 - [ ] Optimisation du code
 - [ ] Optimisation de la base de données
@@ -511,30 +642,41 @@ Une fois les principaux modules terminés :
 
 🟡 **En cours de développement**
 
-### Progression actuelle
+### Modules actuellement avancés
 
 - ✅ Analyse & conception
 - ✅ Base de données
 - ✅ Architecture MVC
 - ✅ Front Controller
-- ✅ Routing & Clean URLs
+- ✅ Clean URLs
 - ✅ Connexion MySQL / PDO
-- ✅ Interface UI
 - ✅ Dashboard
-- ✅ Gestion des utilisateurs
-- ✅ CRUD Candidats
-- ✅ CRUD Contrats
-- 🚧 Impression des documents
+- ✅ Gestion des candidats
+- ✅ Gestion des employés
+- ✅ Gestion des véhicules
+- ✅ Gestion des contrats
+- ✅ Documents imprimables — Contrat & Carte Candidat
+- 🚧 Refactoring du système de routing
+- 🚧 Attestation d'Inscription
 - ⏳ Authentification complète
-- ⏳ Gestion des moniteurs
-- ⏳ Gestion des véhicules
 - ⏳ Gestion des paiements
 - ⏳ Gestion des séances
 - ⏳ Planning
 - ⏳ Gestion des examens
 - ⏳ Statistiques avancées
-- ⏳ Tests
+- ⏳ Tests finaux
 - ⏳ Déploiement
+
+### 📍 Prochaine étape
+
+**Refactoring de l'architecture du routing et centralisation des URLs**, avec :
+
+1. Architecture Tree des routes
+2. `config/app.php`
+3. `BASE_URL`
+4. Helpers `url()` et `redirect()`
+5. Amélioration du Router principal
+6. Détection automatique du Controller et de l'Action
 
 ---
 
@@ -544,7 +686,7 @@ Une fois les principaux modules terminés :
 
 Projet personnel réalisé dans le cadre de mon apprentissage du **développement web Full Stack**.
 
-Le projet constitue également un exercice pratique permettant de mettre en œuvre :
+Le projet permet de mettre en pratique :
 
 - PHP orienté objet
 - Architecture MVC
@@ -553,6 +695,7 @@ Le projet constitue également un exercice pratique permettant de mettre en œuv
 - HTML / CSS / JavaScript
 - Git / GitHub
 - Conception de bases de données
+- Routing et Clean URLs
 - Développement d'une application web complète
 
 ---

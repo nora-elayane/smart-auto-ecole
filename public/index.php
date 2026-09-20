@@ -53,7 +53,13 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/candidates/contrats/store'){
     $controller = new ContratController();
     $controller->store();
+}elseif($uri === $basePath . '/contrats/store'){
+    $controller = new ContratController();
+    $controller->store();
 }elseif($uri === $basePath . '/candidates/contrats/delete'){
+    $controller = new ContratController();
+    $controller->delete();
+}elseif($uri === $basePath . '/contrats/delete'){
     $controller = new ContratController();
     $controller->delete();
 }elseif($uri === $basePath . '/candidates/contrats/edit'){
@@ -116,10 +122,19 @@ if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $
 }elseif($uri === $basePath . '/vehicules/delete'){
     $controller = new VehiculeController();
     $controller->delete();
+}elseif($uri === $basePath . '/contrats/create'){
+    $controller = new ContratController();
+    $controller->create();
 }elseif($uri === $basePath . '/contrats'){
     $controller = new ContratController();
     $controller->index();
-}else{
+} elseif ($uri === $basePath . '/contrats/edit') {
+    $controller = new ContratController();
+    $controller->edit();
+
+} elseif ($uri === $basePath . '/contrats/update') {
+    $controller = new ContratController();
+    $controller->update();}else{
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found/h1>";
     echo "<p>current path " . htmlspecialchars($uri) . "</p>"; 

@@ -624,28 +624,95 @@ Implémenter le module **Gestion des véhicules (UC05)** avec un CRUD complet, u
 
 Le module dispose maintenant d'un **CRUD fonctionnel**, avec des vues dédiées, des formulaires validés, une gestion des états, des notifications utilisateur et une gestion améliorée des erreurs.
 
-# 🎯 Prochaine étape — Jour 15
+# 📅 Jour 15 — Unification du routing des contrats & préparation du refactoring
 
-📄 **Développement de la page Liste des Contrats**
+## 🎯 Objectif
 
-- [ ] Créer la page **Tableau des Contrats**
-- [ ] Réutiliser le design et les composants des pages précédentes
-- [ ] Uniformiser le **tableau des contrats** avec les tableaux existants
-- [ ] Réutiliser la **barre d'actions**, les boutons, badges et Dropdowns déjà développés
-- [ ] Afficher les principales informations du contrat :
-  - Candidat
-  - Catégorie
-  - Date du contrat
-  - Montant
-  - Statut
-  - Actions
+Finaliser et uniformiser le système de routing du module **Contrats**, améliorer la gestion du contexte de navigation et préparer une architecture de routing plus propre et maintenable pour l'ensemble de l'application.
 
-- [ ] Ajouter les actions nécessaires : **Consulter, Modifier, Supprimer, Imprimer**
-- [ ] Ajouter les **Toast Notifications** pour les actions
-- [ ] Vérifier la navigation et les redirections
-- [ ] Tester l'affichage et les différentes actions du tableau
+## ✅ Réalisations
 
-> **Objectif :** Réutiliser au maximum les composants et patterns déjà développés dans les pages **Candidats, Employés et Véhicules**, afin de maintenir une interface cohérente et éviter la duplication du code.
+### 🛣️ Standardisation du routing
+
+- Uniformisation de toutes les routes du module Contrats sous :
+  - `/contrats/create`
+  - `/contrats/edit`
+  - `/contrats/update`
+  - `/contrats/delete`
+  - `/contrats/show`
+
+### 🔄 Gestion du contexte de navigation
+
+- Ajout de la gestion du paramètre `from` dans les **Views** et les **Controllers**.
+- Adaptation dynamique des redirections selon la page d'origine.
+- Correction du comportement du bouton **Annuler**.
+- Correction des redirections après soumission des formulaires.
+- Gestion des retours contextuels vers :
+  - `candidates/show`
+  - `contrats/index`
+
+### 📝 Formulaire de création
+
+- Affichage dynamique de la sélection du candidat selon le contexte.
+- Utilisation d'un champ caché lorsque le candidat est déjà défini depuis sa fiche.
+- Correction de l'ordre des paramètres lors de l'appel à `Contrat::createContrat()` dans `ContratController`.
+
+## 🧠 Décisions importantes
+
+- Centraliser progressivement les routes du module Contrats sous `/contrats/*`.
+- Conserver le contexte de navigation afin d'éviter les redirections incorrectes.
+- Préparer une architecture de routing commune pour les prochains modules.
+- Réduire progressivement les URLs et redirections écrites manuellement dans les Controllers et les Views.
+
+## 🎯 Use Cases concernés
+
+- **UC06 — Gérer les contrats**
+- **UC03 — Gérer les candidats**
+- Préparation de l'architecture technique pour les prochains modules.
+
+## 📌 État
+
+🟢 **UC06 — Gestion des contrats : 90%**
+
+Le routing du module Contrats est maintenant uniformisé et les redirections sont adaptées au contexte de navigation.
+
+# 🎯 Prochaine étape — Jour 16
+
+🏗️ **Refactoring de l'architecture du routing et centralisation des URLs**
+
+### 📋 Étapes prévues
+
+#### 1. 🌳 Draw the Architecture Tree
+
+- [ ] Réaliser une carte simple de l'architecture actuelle.
+- [ ] Identifier les principales routes de l'application :
+  - `/candidates`
+  - `/contrats`
+  - `/employes`
+  - `/vehicules`
+  - etc.
+
+- [ ] Visualiser les relations entre les différentes pages et modules.
+- [ ] Utiliser un outil comme **Excalidraw** ou **Diagrams.net** si nécessaire.
+
+#### 2. ⚙️ Créer `config/app.php` & Helpers
+
+- [ ] Créer `config/app.php`.
+- [ ] Définir une constante ou configuration `BASE_URL`.
+- [ ] Créer une fonction `url($path)`.
+- [ ] Créer une fonction `redirect($path)`.
+- [ ] Remplacer progressivement les URLs écrites manuellement dans les Views.
+- [ ] Remplacer les `header('Location: ...')` dispersés dans les Controllers.
+
+#### 3. 🛣️ Améliorer le Router
+
+- [ ] Améliorer `public/index.php`.
+- [ ] Faire en sorte que le Router identifie automatiquement le **Controller** à partir de l'URL.
+- [ ] Identifier automatiquement l'**Action / Method** correspondante.
+- [ ] Réduire les conditions `if/elseif` liées aux routes.
+- [ ] Préparer une structure de routing facilement extensible pour les prochains modules.
+
+> **Objectif :** passer progressivement d'un routing basé sur des conditions manuelles à une architecture plus **centralisée, propre, réutilisable et maintenable**, avant de poursuivre avec les prochains modules fonctionnels.
 
 # 📊 Progression actuelle
 
@@ -659,9 +726,9 @@ Le module dispose maintenant d'un **CRUD fonctionnel**, avec des vues dédiées,
 | UC02 — Utilisateurs      | 🟡 En cours |
 | UC04 — Employés          | 🟢 85%      |
 | UC05 — Véhicules         | 🟢 85%      |
-| UC06 — Contrats          | 🟢 85%      |
+| UC06 — Contrats          | 🟢 90%      |
 | UC01 — Authentification  | 🔴 À venir  |
 | UC07 → UC15              | 🔴 À venir  |
 | Tests & Déploiement      | 🔴 À venir  |
 
-> **État actuel :** Le module **Gestion des véhicules (UC05)** dispose maintenant d'un **CRUD fonctionnel**, avec une interface harmonisée, des formulaires structurés, une validation JavaScript, des notifications utilisateur et une gestion correcte des valeurs `ENUM`. La prochaine étape consiste à développer le module **Gestion des paiements et finances**, en commençant par l'historique et l'enregistrement des paiements liés aux contrats.
+> **État actuel :** Le module **Gestion des contrats (UC06)** dispose maintenant d'un routing uniformisé et de redirections contextuelles entre les fiches candidats et la liste des contrats. La prochaine étape est consacrée au **refactoring du système de routing**, à la centralisation des URLs et à l'amélioration du Router principal afin de préparer une architecture plus propre pour la suite du projet.

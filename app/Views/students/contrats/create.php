@@ -1,22 +1,55 @@
 <div class="page-content" style="max-width: 800px; margin: 0 auto;">
-   <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
+    <link rel="stylesheet" href="/smart-auto-ecole/public/css/style.css">
     <link rel="stylesheet" href="/smart-auto-ecole/public/css/toast.css">
+
+    <?php 
+        $candidateId = $id_candidate ?? $_GET['id_user'] ?? $_GET['id'] ?? '';
+        $cancelUrl = ($from === 'candidate' && !empty($candidateId)) 
+            ? '/smart-auto-ecole/public/candidates/show?id=' . $candidateId 
+            : '/smart-auto-ecole/public/contrats';
+    ?>
+
     <div class="card-header" style="margin-bottom: 24px;">
         <div>
             <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Nouveau Contrat</h1>
             <p class="card-description">Créer un nouveau contrat de formation pour le candidat.</p>
         </div>
-        <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($_GET['id'] ?? '') ?>" class="btn btn-secondary">
+
+        <a href="<?= $cancelUrl; ?>" class="btn btn-secondary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Annuler
         </a>
     </div>
 
-    <!-- Form Card -->
     <div class="card">
-        <form action="/smart-auto-ecole/public/candidates/contrats/store" method="POST">
-            <!-- ID Candidat Hidden Input -->
-<input type="hidden" name="id_user" value="<?= htmlspecialchars($_GET['id_user'] ?? $_GET['id'] ?? '') ?>">            <div class="form-group">
+
+        <form action="/smart-auto-ecole/public/contrats/store" method="POST">
+                                <?php if ($from === 'candidate' || !empty($candidateId)): ?>
+
+            <!-- الحقول المخفية للتوجيه والربط -->
+            <input type="hidden" name="from" value="<?= htmlspecialchars($from ?? 'contrats'); ?>">
+
+            <!-- 1. إيلا كنا جايين من صفحة كونديدا: نمرر ID الكونديدا في input hidden -->
+                <input type="hidden" name="id_user" value="<?= htmlspecialchars($candidateId); ?>">
+            
+            <!-- 2. إيلا كنا جايين من صفحة العقود العامة (from = contrats): نُظهر الـ select لتحديد الكونديدا -->
+            <?php else: ?>
+                <div class="form-group">
+                    <label class="form-label" for="id_user">Candidat <span style="color: var(--danger);">*</span></label>
+                    <select name="id_user" id="id_user" class="form-control" required>
+                        <option value="" disabled selected>Sélectionner un candidat</option>
+                        <?php if (!empty($candidats)): ?>
+                            <?php foreach ($candidats as $candidat): ?>
+                                <option value="<?= htmlspecialchars($candidat['id_user']) ?>">
+                                    <?= htmlspecialchars($candidat['nom'] . ' ' . $candidat['prenom']) ?> (CIN: <?= htmlspecialchars($candidat['cin'] ?? 'N/A') ?>)
+                                </option>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </select>
+                </div>
+            <?php endif; ?>
+
+            <div class="form-group">
                 <label class="form-label" for="id_categorie">Catégorie du Permis <span style="color: var(--danger);">*</span></label>
                 <select name="id_categorie" id="id_categorie" class="form-control" required>
                     <option value="" disabled selected>Sélectionner une catégorie</option>
@@ -44,10 +77,11 @@
                     <label class="form-label" for="prix_final">Prix Final (DH) <span style="color: var(--danger);">*</span></label>
                     <input type="number" step="0.01" name="prix_final" id="prix_final" class="form-control" placeholder="ex: 3500.00" required>
                 </div>
+
                 <div class="form-group">
-    <label class="form-label" for="num_enregistrement">N° d'enregistrement (NARSA / Ref Web)</label>
-    <input type="text" name="num_enregistrement" id="num_enregistrement" class="form-control" placeholder="ex: 12345678 أو Ref Web">
-</div>
+                    <label class="form-label" for="num_enregistrement">N° d'enregistrement (NARSA / Ref Web)</label>
+                    <input type="text" name="num_enregistrement" id="num_enregistrement" class="form-control" placeholder="ex: 12345678 أو Ref Web">
+                </div>
             </div>
 
             <div class="form-group">
@@ -60,7 +94,7 @@
             </div>
 
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($_GET['id_user'] ?? '') ?>" class="btn btn-secondary">
+                <a href="<?= $cancelUrl; ?>" class="btn btn-secondary">
                     Annuler
                 </a>
                 <button type="submit" class="btn btn-primary">

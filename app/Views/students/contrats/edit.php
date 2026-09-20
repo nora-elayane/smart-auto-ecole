@@ -7,22 +7,28 @@
             <h1 style="font-size: 22px; font-weight: 700; color: var(--text-primary);">Modifier le Contrat</h1>
             <p class="card-description">Mise à jour des informations du contrat N° #<?= htmlspecialchars($contrat['id_contrat'] ?? '') ?></p>
         </div>
-        <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($contrat['id_user'] ?? $_GET['student_id'] ?? '') ?>" class="btn btn-secondary">
+        <?php 
+    $cancelUrl = ($from === 'contrats') 
+        ? '/smart-auto-ecole/public/contrats' 
+        : '/smart-auto-ecole/public/candidates/show?id=' . ($contrat['id_user'] ?? '');
+?>
+        <a href="<?= $cancelUrl; ?>" class="btn btn-secondary">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
             Annuler
         </a>
     </div>
 
     <div class="card">
-        <form action="/smart-auto-ecole/public/candidates/contrats/update" method="POST">
-            <input type="hidden" name="id_contrat" value="<?= htmlspecialchars($contrat['id_contrat'] ?? '') ?>">
-            <input type="hidden" name="id_user" value="<?= htmlspecialchars($contrat['id_user'] ?? $_GET['student_id'] ?? '') ?>">
+        <form action="/smart-auto-ecole/public/contrats/update" method="POST">
+    <input type="hidden" name="from" value="<?= htmlspecialchars($from ?? $_GET['from'] ?? 'candidate'); ?>">
+    <input type="hidden" name="id_contrat" value="<?= htmlspecialchars($contrat['id_contrat'] ?? '') ?>">
+    <input type="hidden" name="id_user" value="<?= htmlspecialchars($contrat['id_user'] ?? $_GET['student_id'] ?? '') ?>">
 
-            <div class="form-group">
-                <label class="form-label" for="id_categorie">Catégorie du Permis <span style="color: var(--danger);">*</span></label>
-                <select name="id_categorie" id="id_categorie" class="form-control" required>
-                    <option value="" disabled>Sélectionner une catégorie</option>
-                    <?php if (!empty($categories)): ?>
+    <div class="form-group">
+        <label class="form-label" for="id_categorie">Catégorie du Permis <span style="color: var(--danger);">*</span></label>
+        <select name="id_categorie" id="id_categorie" class="form-control" required>
+            <option value="" disabled>Sélectionner une catégorie</option>
+            <?php if (!empty($categories)): ?>
                         <?php foreach ($categories as $cat): ?>
                             <option value="<?= htmlspecialchars($cat['id_categorie']) ?>" 
                                 <?= (isset($contrat['id_categorie']) && $contrat['id_categorie'] == $cat['id_categorie']) ? 'selected' : '' ?>>
@@ -52,7 +58,6 @@
            value="<?= htmlspecialchars($contrat['num_enregistrement'] ?? '') ?>" placeholder="ex: 12345678 أو Ref Web">
 </div>
 
-            <!-- Statut -->
             <div class="form-group">
                 <label class="form-label" for="statut">Statut du Contrat</label>
                 <select name="statut" id="statut" class="form-control">
@@ -63,9 +68,8 @@
                 </select>
             </div>
 
-            <!-- Form Actions -->
             <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border-color);">
-                <a href="/smart-auto-ecole/public/candidates/show?id=<?= htmlspecialchars($contrat['id_user'] ?? $_GET['student_id'] ?? '') ?>" class="btn btn-secondary">
+                <a href="<?= $cancelUrl; ?>" class="btn btn-secondary">
                     Annuler
                 </a>
                 <button type="submit" class="btn btn-primary">

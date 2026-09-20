@@ -199,7 +199,10 @@ class TableActionsManager {
         const ids = this.getSelectedIds();
         const baseUrl = this.btnEdit.getAttribute("data-action-url");
         if (ids.length !== 1 || !baseUrl) return;
-        window.location.href = `${baseUrl}?id=${ids[0]}`;
+
+        // فحص هل يوجد ديجا ? في الرابط
+        const separator = baseUrl.includes("?") ? "&" : "?";
+        window.location.href = `${baseUrl}${separator}id=${ids[0]}`;
       });
     }
 
@@ -226,10 +229,26 @@ class TableActionsManager {
     // 4. Supprimer
     if (this.btnDelete) {
       this.btnDelete.addEventListener("click", () => {
-        this.handleBulkAction(
-          this.btnDelete,
-          "Attention ! Voulez-vous supprimer définitivement la sélection ?",
-        );
+        const ids = this.getSelectedIds(); // جلب قائمة الأرقام المحددة
+
+        if (ids.length === 0) {
+          alert("Veuillez sélectionner au moins un contrat.");
+          return;
+        }
+
+        if (
+          confirm(
+            "Attention ! Voulez-vous supprimer définitivement la sélection ?",
+          )
+        ) {
+          const baseUrl = this.btnDelete.getAttribute("data-action-url"); // /smart-auto-ecole/public/contrats/delete?from=contrats
+          const separator = baseUrl.includes("?") ? "&" : "?";
+
+          // إرسال الـ IDs كـ Query String (مثال: &ids[]=1&ids[]=2) أو كـ id فردي
+          const idsQuery = ids.map((id) => `ids[]=${id}`).join("&");
+
+          window.location.href = `${baseUrl}${separator}${idsQuery}`;
+        }
       });
     }
   }

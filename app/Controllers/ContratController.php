@@ -37,83 +37,116 @@ class ContratController{
             }
         }
     }
-   public function create(){
+public function create() {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        $id_candidate = $_GET["id"] ?? null ; 
-        if($id_candidate){ 
+        $id_candidate = $_GET["id"] ?? null; 
+        
+        $from = $_GET['from'] ?? (!empty($id_candidate) ? 'candidate' : 'contrats');
+        
         $database = new Database();
-    $db = $database->getConnection();
-    
-    $categoryModel = new Categorie($db); 
-    $categories = $categoryModel->getAllCategories();
-        require_once __DIR__ . '/../Views/students/contrats/create.php' ;
-         }
-   }
+        $db = $database->getConnection();
+        
+        $categoryModel = new Categorie($db); 
+        $categories = $categoryModel->getAllCategories();
+
+        $studentModel = new Students($db); 
+        $candidats = $studentModel->getAll(); 
+
+        require_once __DIR__ . '/../Views/students/contrats/create.php';
+        exit();
+    }
 }
 
    public function store() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
         $id_user      = $_POST['id_user'] ?? null;
         $id_categorie = $_POST['id_categorie'] ?? null;
-        $date_contrat = $_POST['date_contrat'] ?? date('Y-m-d');
+        $date_contrat = $_POST['date_contrat'] ?? null;
         $prix_final   = $_POST['prix_final'] ?? null;
         $statut       = $_POST['statut'] ?? 'En cours';
         $num_enregistrement = $_POST['num_enregistrement'] ?? null;
+        
+        $from = $_POST['from'] ?? 'contrats';
 
-        if (!empty($id_user) && !empty($id_categorie) && !empty($prix_final)) {
+        if (!empty($id_user) && !empty($id_categorie) && !empty($date_contrat) && !empty($prix_final)) {
             $database = new Database();
             $db = $database->getConnection();
 
             $contratModel = new Contrat($db);
-
-            // createContrat($date, $prix, $statut, $id_user, $id_categorie)
-            $result = $contratModel->createContrat($date_contrat, $prix_final, $statut, $id_user, $id_categorie , $num_enregistrement);
+            
+            // ($date, $prix, $statut, $id_user, $id_categorie, $num_enregistrement)
+            $result = $contratModel->createContrat(
+                $date_contrat, 
+                $prix_final, 
+                $statut, 
+                $id_user, 
+                $id_categorie, 
+                $num_enregistrement
+            );
 
             if ($result) {
-                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat ajouté avec succès.'];
-                header("Location: /smart-auto-ecole/public/candidates/show?id=" . $id_user);
-                exit();
+                if (session_status() === PHP_SESSION_NONE) session_start();
+                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat créé avec succès.'];
 
+                if ($from === 'candidate' && !empty($id_user)) {
+                    header("Location: /smart-auto-ecole/public/candidates/show?id=" . $id_user);
+                } else {
+                    header("Location: /smart-auto-ecole/public/contrats");
+                }
+                exit();
             } else {
-                echo "Erreur lors de la création du contrat dans la base de données.";
+                echo "Erreur lors de la création du contrat.";
             }
         } else {
-            echo "<pre style='background: #f8f9fa; padding: 15px; border: 1px solid #ccc;'>";
-            echo "<strong>البيانات القادمة من الفورم:</strong><br>";
-            var_dump($_POST);
-            echo "</pre>";
-            echo "<p style='color: red;'>Veuillez remplir tous les champs obligatoires.</p>";
+            header("Location: /smart-auto-ecole/public/contrats/create?from=" . $from);
+            exit();
         }
     }
 }
+
+
 private function parseIdsFromRequest() {
-        $raw = $_GET['ids'] ?? $_GET['id'] ?? null;
-        if (!$raw) return [];
-        $ids = explode(',', $raw);
-        return array_map('intval', array_filter($ids));
+    if (isset($_GET['ids'])) {
+        return is_array($_GET['ids']) ? $_GET['ids'] : [$_GET['ids']];
     }
- public function delete(){
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (isset($_POST['ids'])) {
+        return is_array($_POST['ids']) ? $_POST['ids'] : [$_POST['ids']];
+    }
+    if (isset($_GET['id'])) {
+        return [$_GET['id']];
+    }
+    if (isset($_POST['id'])) {
+        return [$_POST['id']];
+    }
+    return [];
+}
+public function delete() {
+    if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_METHOD'] === 'POST') {
         $ids = $this->parseIdsFromRequest();
+        $from = $_REQUEST['from'] ?? 'candidate';
         $studentId = null;
+
         if (!empty($ids)) {
             $database = new Database(); 
             $db = $database->getConnection(); 
             $contratModel = new Contrat($db); 
+            
             $studentId = $contratModel->getStudentIdByContratId($ids[0]);
 
             if ($contratModel->deleteContrat($ids)) {
                 $count = count($ids);
-                $msg = ($count > 1) ? "$count contrats supprimés." : 'Contrat supprimé.';
+                $msg = ($count > 1) ? "$count contrats supprimés." : 'Contrat supprimé avec succès.';
+                if (session_status() === PHP_SESSION_NONE) session_start();
                 $_SESSION['flash'] = ['type' => 'danger', 'message' => $msg];
             }
         }
 
-        if ($studentId) {
+        if ($from === 'contrats') {
+            header('Location: /smart-auto-ecole/public/contrats');
+        } elseif ($studentId) {
             header('Location: /smart-auto-ecole/public/candidates/show?id=' . $studentId);
         } else {
-            header('Location: /smart-auto-ecole/public/candidates');
+            header('Location: /smart-auto-ecole/public/contrats');
         }
         exit();
     }
@@ -121,6 +154,8 @@ private function parseIdsFromRequest() {
 public function edit() {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $id_contrat = $_GET['id'] ?? null;
+        $from = $_GET['from'] ?? 'candidate';
+
         if (!$id_contrat) {
             $ids = $this->parseIdsFromRequest();
             $id_contrat = $ids[0] ?? null;
@@ -142,47 +177,57 @@ public function edit() {
             }
         }
 
-        header("Location: /smart-auto-ecole/public/candidates");
+        $redirectUrl = ($from === 'contrats') ? '/smart-auto-ecole/public/contrats' : '/smart-auto-ecole/public/candidates';
+        header("Location: " . $redirectUrl);
         exit();
     }
 }
 
-    public function update() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id_contrat   = $_POST['id_contrat'] ?? null;
-            $id_user      = $_POST['id_user'] ?? null;
-            $id_categorie = $_POST['id_categorie'] ?? null;
-            $date_contrat = $_POST['date_contrat'] ?? null;
-            $prix_final   = $_POST['prix_final'] ?? null;
-            $statut       = $_POST['statut'] ?? 'En cours';
-            $num_enregistrement = $_POST['num_enregistrement'] ?? null;
+   public function update() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $id_contrat   = $_POST['id_contrat'] ?? null;
+        $id_user      = $_POST['id_user'] ?? null;
+        $id_categorie = $_POST['id_categorie'] ?? null;
+        $date_contrat = $_POST['date_contrat'] ?? null;
+        $prix_final   = $_POST['prix_final'] ?? null;
+        $statut       = $_POST['statut'] ?? 'En cours';
+        $num_enregistrement = $_POST['num_enregistrement'] ?? null;
+        
+        $from = $_POST['from'] ?? 'candidate';
 
-            if (!empty($id_user) && !empty($id_categorie) && !empty($date_contrat) && !empty($prix_final)) {
-                $database = new Database();
-                $db = $database->getConnection();
+        if (!empty($id_user) && !empty($id_categorie) && !empty($date_contrat) && !empty($prix_final)) {
+            $database = new Database();
+            $db = $database->getConnection();
 
-                $contratModel = new Contrat($db);
-                $result = $contratModel->updateContrat($id_contrat, 
-    $date_contrat, 
-    $prix_final, 
-    $statut, 
-    $id_categorie, 
-    $num_enregistrement);
+            $contratModel = new Contrat($db);
+            $result = $contratModel->updateContrat(
+                $id_contrat, 
+                $date_contrat, 
+                $prix_final, 
+                $statut, 
+                $id_categorie, 
+                $num_enregistrement
+            );
 
-                if ($result) {
-                    if (session_status() === PHP_SESSION_NONE) session_start();
-                    $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat mis à jour avec succès.'];
-                    header("Location: /smart-auto-ecole/public/candidates/show?id=" . $id_user);
-                    exit();
+            if ($result) {
+                if (session_status() === PHP_SESSION_NONE) session_start();
+                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat mis à jour avec succès.'];
+
+                if ($from === 'contrats') {
+                    header("Location: /smart-auto-ecole/public/contrats");
                 } else {
-                    echo "Erreur lors de la mise à jour du contrat.";
+                    header("Location: /smart-auto-ecole/public/candidates/show?id=" . $id_user);
                 }
-            } else {
-                header("Location: /smart-auto-ecole/public/candidates/contrats/edit?id=" . $id_contrat);
                 exit();
+            } else {
+                echo "Erreur lors de la mise à jour du contrat.";
             }
+        } else {
+            header("Location: /smart-auto-ecole/public/contrats/edit?id=" . $id_contrat . "&from=" . $from);
+            exit();
         }
     }
+}
 
     public function print() {
     if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -231,6 +276,7 @@ public function edit() {
         }
     }
 }
+
  
 }
 
