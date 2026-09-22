@@ -124,7 +124,6 @@
 
         <div class="table-wrapper table-container" style="width: 100% !important; padding: 0; background: #fff; border-radius: 10px; overflow-x: auto; overflow-y: visible;">
             
-            <!-- شريط العمليات -->
             <div id="actionBar" class="action-bar-overlay" style="margin-bottom: 15px; padding: 5px 0;">
                 <div class="d-flex align-items-center gap-3">
                     <span id="selectedCount" class="badge bg-primary">0 sélectionné(s)</span>
