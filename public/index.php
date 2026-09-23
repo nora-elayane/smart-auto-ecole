@@ -1,141 +1,106 @@
 <?php
-session_start();
+// 1. Charger la configuration et les helpers
+require_once __DIR__ . '/../config/app.php';
+require_once __DIR__ . '/../app/helpers.php';
+
+// 2. Démarrer la session si nécessaire
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Mode Debug (à désactiver en production)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Base de données et contrôleurs principaux
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
-require_once __DIR__ . '/../app/Controllers/StudentsController.php' ; 
-require_once __DIR__ . '/../app/Controllers/ContratController.php' ;
+require_once __DIR__ . '/../app/Controllers/StudentsController.php'; 
+require_once __DIR__ . '/../app/Controllers/ContratController.php';
 require_once __DIR__ . '/../app/Controllers/EmployeController.php'; 
 require_once __DIR__ . '/../app/Controllers/VehiculeController.php'; 
 
+// 3. Extraction et nettoyage de l'URI
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestUri = rtrim($requestUri, '/');
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = rtrim($uri , '/') ; 
-$basePath = '/smart-auto-ecole/public' ; 
+// Supprimer le BASE_URL pour ne garder que la route relative
+$route = str_replace(BASE_URL, '', $requestUri);
 
-if ($uri === $basePath . '/dashboard' || $uri === $basePath .  '/index.php' || $uri === '') {
-    $controller = new HomeController();
-    $controller->index();
-}elseif($uri === $basePath .  '/candidates'){
-    $controller = new StudentController() ; 
-    $controller->index() ; 
-}elseif($uri === $basePath . '/candidates/createStudent'){
-    $controller = new StudentController() ;
-    $controller->createStudent() ;
-
-}elseif($uri === $basePath . '/candidates/storeStudent'){
-    $controller = new StudentController();
-    $controller->storeStudent();
-}elseif($uri === $basePath . '/candidates/edit'){
-    $controller = new StudentController();
-    $controller->edit();
-}elseif($uri === $basePath . '/candidates/update'){
-    $controller = new StudentController();
-    $controller->update();
-}elseif($uri === $basePath . '/candidates/archive'){
-    $controller = new StudentController();
-    $controller->archive();
-}elseif($uri === $basePath . '/candidates/activate'){
-    $controller = new StudentController();
-    $controller->active();
-}elseif($uri === $basePath . '/candidates/delete'){
-    $controller = new StudentController();
-    $controller->delete();
-}elseif($uri === $basePath . '/candidates/show'){
-    $controller = new ContratController();
-    $controller->showContrats();
-}elseif($uri === $basePath . '/candidates/contrats/create'){
-    $controller = new ContratController();
-    $controller->create();
-}elseif($uri === $basePath . '/candidates/contrats/store'){
-    $controller = new ContratController();
-    $controller->store();
-}elseif($uri === $basePath . '/contrats/store'){
-    $controller = new ContratController();
-    $controller->store();
-}elseif($uri === $basePath . '/candidates/contrats/delete'){
-    $controller = new ContratController();
-    $controller->delete();
-}elseif($uri === $basePath . '/contrats/delete'){
-    $controller = new ContratController();
-    $controller->delete();
-}elseif($uri === $basePath . '/candidates/contrats/edit'){
-    $controller = new ContratController();
-    $controller->edit();
-}elseif ($uri === $basePath . '/candidates/contrats/update') {
-    $controller = new ContratController();
-    $controller->update();
-}elseif ($uri === $basePath . '/candidates/contrats/print') {
-    $controller = new ContratController();
-    $controller->print();
+if ($route === '' || $route === '/index.php') {
+    $route = '/dashboard';
 }
- elseif ($uri === $basePath . '/settings/school') {
-    require_once __DIR__ . '/../app/Controllers/SchoolController.php';
-    $controller = new SchoolController();
-    $controller->index();
-} elseif ($uri === $basePath . '/settings/school/update') {
-    require_once __DIR__ . '/../app/Controllers/SchoolController.php';
-    $controller = new SchoolController();
-    $controller->update();
-}elseif($uri === $basePath . '/employes'){
-    $controller = new EmployeController();
-    $controller->index();
-}elseif($uri === $basePath . '/employes/create'){
-    $controller = new EmployeController();
-    $controller->create();
-}elseif($uri === $basePath . '/employes/store'){
-    $controller = new EmployeController();
-    $controller->store();
-}elseif($uri === $basePath . '/employes/edit'){
-    $controller = new EmployeController();
-    $controller->edit();
-}elseif($uri === $basePath . '/employes/update'){
-    $controller = new EmployeController();
-    $controller->update();
-}elseif($uri === $basePath . '/employes/archive'){
-    $controller = new EmployeController();
-    $controller->archive();
-}elseif($uri === $basePath . '/employes/active'){
-    $controller = new EmployeController();
-    $controller->active();
-}elseif($uri === $basePath . '/employes/delete'){
-    $controller = new EmployeController();
-    $controller->delete();
-}elseif($uri === $basePath . '/vehicules'){
-    $controller = new VehiculeController();
-    $controller->index();
-}elseif($uri === $basePath . '/vehicules/create'){
-    $controller = new VehiculeController();
-    $controller->create();
-}elseif($uri === $basePath . '/vehicules/store'){
-    $controller = new VehiculeController();
-    $controller->store();
-}elseif($uri === $basePath . '/vehicules/edit'){
-    $controller = new VehiculeController();
-    $controller->edit();
-}elseif($uri === $basePath . '/vehicules/update'){
-    $controller = new VehiculeController();
-    $controller->update();
-}elseif($uri === $basePath . '/vehicules/delete'){
-    $controller = new VehiculeController();
-    $controller->delete();
-}elseif($uri === $basePath . '/contrats/create'){
-    $controller = new ContratController();
-    $controller->create();
-}elseif($uri === $basePath . '/contrats'){
-    $controller = new ContratController();
-    $controller->index();
-} elseif ($uri === $basePath . '/contrats/edit') {
-    $controller = new ContratController();
-    $controller->edit();
 
-} elseif ($uri === $basePath . '/contrats/update') {
-    $controller = new ContratController();
-    $controller->update();}else{
+// 4. Dispatch Table (Table de Routage Centralisée)
+$routes = [
+    // Dashboard & Home
+    '/dashboard'               => [HomeController::class, 'index'],
+
+    // Candidates / Students
+    '/candidates'              => [StudentController::class, 'index'],
+    '/candidates/createStudent'=> [StudentController::class, 'createStudent'],
+    '/candidates/storeStudent' => [StudentController::class, 'storeStudent'],
+    '/candidates/edit'         => [StudentController::class, 'edit'],
+    '/candidates/update'       => [StudentController::class, 'update'],
+    '/candidates/archive'      => [StudentController::class, 'archive'],
+    '/candidates/activate'     => [StudentController::class, 'active'],
+    '/candidates/delete'       => [StudentController::class, 'delete'],
+    '/candidates/show'         => [ContratController::class, 'showContrats'],
+
+    // Contrats (Routes standardisées)
+    '/contrats'                => [ContratController::class, 'index'],
+    '/contrats/create'         => [ContratController::class, 'create'],
+    '/contrats/store'          => [ContratController::class, 'store'],
+    '/contrats/edit'           => [ContratController::class, 'edit'],
+    '/contrats/update'         => [ContratController::class, 'update'],
+    '/contrats/delete'         => [ContratController::class, 'delete'],
+
+    // Contrats (Routes Legacy pour compatibilité)
+    '/candidates/contrats/create' => [ContratController::class, 'create'],
+    '/candidates/contrats/store'  => [ContratController::class, 'store'],
+    '/candidates/contrats/edit'   => [ContratController::class, 'edit'],
+    '/candidates/contrats/update' => [ContratController::class, 'update'],
+    '/candidates/contrats/delete' => [ContratController::class, 'delete'],
+    '/candidates/contrats/print'  => [ContratController::class, 'print'],
+
+    // Employés
+    '/employes'                => [EmployeController::class, 'index'],
+    '/employes/create'         => [EmployeController::class, 'create'],
+    '/employes/store'          => [EmployeController::class, 'store'],
+    '/employes/edit'           => [EmployeController::class, 'edit'],
+    '/employes/update'         => [EmployeController::class, 'update'],
+    '/employes/archive'        => [EmployeController::class, 'archive'],
+    '/employes/active'         => [EmployeController::class, 'active'],
+    '/employes/delete'         => [EmployeController::class, 'delete'],
+
+    // Véhicules
+    '/vehicules'               => [VehiculeController::class, 'index'],
+    '/vehicules/create'        => [VehiculeController::class, 'create'],
+    '/vehicules/store'         => [VehiculeController::class, 'store'],
+    '/vehicules/edit'          => [VehiculeController::class, 'edit'],
+    '/vehicules/update'        => [VehiculeController::class, 'update'],
+    '/vehicules/delete'        => [VehiculeController::class, 'delete'],
+
+    // Paramètres (School)
+    '/settings/school'        => ['SchoolController', 'index'],
+    '/settings/school/update' => ['SchoolController', 'update'],
+];
+
+// 5. Exécution du Dispatcher
+if (array_key_exists($route, $routes)) {
+    [$controllerClass, $method] = $routes[$route];
+
+    // Chargement dynamique du contrôleur si non encore inclus
+    if ($controllerClass === 'SchoolController') {
+        require_once __DIR__ . '/../app/Controllers/SchoolController.php';
+    }
+
+    $controller = new $controllerClass();
+    $controller->$method();
+} else {
+    // Page 404 propres avec fermeture correcte des balises
     header("HTTP/1.0 404 Not Found");
-    echo "<h1>404 Page Not Found/h1>";
-    echo "<p>current path " . htmlspecialchars($uri) . "</p>"; 
+    echo "<h1>404 Page Not Found</h1>";
+    echo "<p>Route demandée non trouvée : " . htmlspecialchars($route) . "</p>";
 }

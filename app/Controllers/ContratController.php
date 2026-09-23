@@ -57,7 +57,7 @@ public function create() {
     }
 }
 
-   public function store() {
+  public function store() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_user      = $_POST['id_user'] ?? null;
         $id_categorie = $_POST['id_categorie'] ?? null;
@@ -88,18 +88,18 @@ public function create() {
                 if (session_status() === PHP_SESSION_NONE) session_start();
                 $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat créé avec succès.'];
 
+                // 🟢 استبدال header بـ redirect النظيف
                 if ($from === 'candidate' && !empty($id_user)) {
-                    header("Location: /smart-auto-ecole/public/candidates/show?id=" . $id_user);
+                    redirect('/candidates/show?id=' . $id_user);
                 } else {
-                    header("Location: /smart-auto-ecole/public/contrats");
+                    redirect('/contrats');
                 }
-                exit();
             } else {
                 echo "Erreur lors de la création du contrat.";
             }
         } else {
-            header("Location: /smart-auto-ecole/public/contrats/create?from=" . $from);
-            exit();
+            // 🟢 استبدال header بـ redirect النظيف
+            redirect('/contrats/create?from=' . $from);
         }
     }
 }
