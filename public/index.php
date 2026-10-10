@@ -39,12 +39,14 @@ $routes = [
 
     // Candidates / Students
     '/candidates'              => [StudentController::class, 'index'],
-    '/candidates/createStudent'=> [StudentController::class, 'createStudent'],
-    '/candidates/storeStudent' => [StudentController::class, 'storeStudent'],
+    '/candidates/create'        => [StudentController::class, 'create'],       
+    '/candidates/createStudent'=> [StudentController::class, 'create'],
+    '/candidates/storeStudent' => [StudentController::class, 'store'],
     '/candidates/edit'         => [StudentController::class, 'edit'],
+    '/candidates/store'         => [StudentController::class, 'store'],      
     '/candidates/update'       => [StudentController::class, 'update'],
     '/candidates/archive'      => [StudentController::class, 'archive'],
-    '/candidates/activate'     => [StudentController::class, 'active'],
+    '/candidates/activate'     => [StudentController::class, 'activate'],
     '/candidates/delete'       => [StudentController::class, 'delete'],
     '/candidates/show'         => [ContratController::class, 'showContrats'],
 
@@ -71,7 +73,7 @@ $routes = [
     '/employes/edit'           => [EmployeController::class, 'edit'],
     '/employes/update'         => [EmployeController::class, 'update'],
     '/employes/archive'        => [EmployeController::class, 'archive'],
-    '/employes/active'         => [EmployeController::class, 'active'],
+    '/employes/active'         => [EmployeController::class, 'activate'],
     '/employes/delete'         => [EmployeController::class, 'delete'],
 
     // Véhicules

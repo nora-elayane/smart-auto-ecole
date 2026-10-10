@@ -198,7 +198,7 @@ class EmployeController {
         }
     }
 
-    public function active() {
+    public function activate() {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $ids = $this->parseIdsFromRequest();
             if (!empty($ids)) {

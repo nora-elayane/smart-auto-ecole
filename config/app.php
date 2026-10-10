@@ -1,6 +1,6 @@
 <?php
 // config/app.php
-
+ini_set('error_log', __DIR__ . '/../storage/logs/error.log');
 // Define Base URL of the application
 define('BASE_URL', '/smart-auto-ecole/public');
 

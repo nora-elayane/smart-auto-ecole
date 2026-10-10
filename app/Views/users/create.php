@@ -1,5 +1,24 @@
 <?php require_once __DIR__ . '/../layouts/header.php'; ?>
+<!-- Toast Notification UI -->
+<?php if (isset($_SESSION['flash'])): ?>
+    <div id="toastNotification" class="custom-toast toast-<?php echo $_SESSION['flash']['type']; ?>">
+        <div class="toast-indicator"></div>
+        <div class="toast-content">
+            <?php echo $_SESSION['flash']['message']; ?>
+        </div>
+    </div>
+    <?php unset($_SESSION['flash']); ?>
 
+    <script>
+        setTimeout(function() {
+            const toast = document.getElementById('toastNotification');
+            if (toast) {
+                toast.classList.add('toast-hide');
+                setTimeout(() => toast.remove(), 400);
+            }
+        }, 6000);
+    </script>
+<?php endif; ?>
 <main class="main-content">
     <div class="page-content">
 

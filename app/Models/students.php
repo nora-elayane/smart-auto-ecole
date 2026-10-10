@@ -18,7 +18,7 @@ class Students {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
     // id_user	nom	prenom	email	mot_de_passe	cin	telephone	adresse	date_naissance	photo	etat	id_role	 
-   public function createStudent($nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat, $roleId) {
+   public function create($nom, $prenom, $email, $mot, $cin, $telephone, $adresse, $date, $photo, $etat, $roleId) {
     $query = "INSERT INTO utilisateur (nom, prenom, email, mot_de_passe, cin, telephone, adresse, date_naissance, photo, etat, id_role) 
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
               
