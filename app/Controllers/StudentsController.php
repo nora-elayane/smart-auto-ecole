@@ -3,6 +3,11 @@ require_once __DIR__ . '/../Models/students.php';
 require_once __DIR__ . '/../Models/schoolInfo.php'; 
 
 class StudentController {
+
+public function __construct() {
+        authorize([1, 2]);
+    }
+
     public function index(){
         $database = new Database(); 
         $db = $database->getConnection(); 

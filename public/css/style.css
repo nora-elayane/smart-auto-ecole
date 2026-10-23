@@ -347,8 +347,6 @@ ul {
   width: calc(100% - var(--sidebar-collapsed-width));
 }
 
-/* نسخة إضافية معتمدة على class فـ app-layout، أقوى من adjacent-sibling
-   حيت مرتبطة بالبنية الفعلية للـ DOM (سكريبت بين aside و main كان كيبطل الأولى) */
 .app-layout.sidebar-collapsed .main-content {
   margin-left: var(--sidebar-collapsed-width);
   width: calc(100% - var(--sidebar-collapsed-width));
@@ -903,12 +901,86 @@ ul {
 }
 
 /* =========================================================
-   RESPONSIVE - TABLETS
+   RESPONSIVE - TABLETS (768px - 1024px / 1100px)
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
+  /* 1. Dashboard Grid Optimization */
   .dashboard-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  /* 2. Main Content Spacing */
+  .page-content {
+    padding: 20px;
+  }
+
+  .top-navbar {
+    padding: 0 20px;
+  }
+
+  /* 3. Card Headers & Action Bars */
+  .card-header {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .card-header .btn {
+    font-size: 13.5px;
+  }
+
+  /* 4. Form Layouts in Tablets */
+  .form-row,
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 14px;
+  }
+
+  /* 5. Table Container Touch & Scroll Adjustments */
+  .table-wrapper {
+    margin-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table th,
+  .table td {
+    padding: 12px 14px;
+    font-size: 13.5px;
+  }
+}
+
+/* Tablet Portrait Specific Rules (768px - 900px) */
+@media (min-width: 768px) and (max-width: 900px) {
+  /* Auto-collapse Sidebar on medium-sized tablet screens to maximize workspace */
+  body:not(.sidebar-expanded) .sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+
+  body:not(.sidebar-expanded) .sidebar .brand-text,
+  body:not(.sidebar-expanded) .sidebar .nav-section-title,
+  body:not(.sidebar-expanded) .sidebar .nav-link span,
+  body:not(.sidebar-expanded) .sidebar .system-status {
+    display: none !important;
+  }
+
+  body:not(.sidebar-expanded) .sidebar .sidebar-brand,
+  body:not(.sidebar-expanded) .sidebar .nav-link {
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  body:not(.sidebar-expanded) .main-content {
+    margin-left: var(--sidebar-collapsed-width) !important;
+    width: calc(100% - var(--sidebar-collapsed-width)) !important;
+  }
+
+  /* Adjust Modal & Popup dialogs for Tablets */
+  .modal-dialog {
+    max-width: 90%;
+    margin: 24px auto;
   }
 }
 

@@ -46,7 +46,7 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
 
         <p class="nav-section-title">MENU PRINCIPAL</p>
 
-        <ul class="nav-list">
+       <ul class="nav-list">
 
             <li class="nav-item <?php echo ($current_uri === '/smart-auto-ecole/public/' || $current_uri === '/smart-auto-ecole/public/dashboard') ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/dashboard" class="nav-link">
@@ -55,19 +55,23 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
                 </a>
             </li>
 
+            <?php if (hasRole([1, 2])): ?>
             <li class="nav-item <?php echo (strpos($current_uri, '/candidates') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/candidates" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 5.5a3 3 0 0 1 0 5.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M18 14c1.8 1.1 3 3 3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <span>Candidats</span>
                 </a>
             </li>
+            <?php endif; ?>
 
+            <?php if (hasRole([1, 2])): ?>
             <li class="nav-item <?php echo (strpos($current_uri, '/contrats') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/contrats" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="none" stroke="currentColor" stroke-width="2"/><polyline points="14 2 14 8 20 8" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16" y1="13" x2="8" y2="13" stroke="currentColor" stroke-width="2"/><line x1="16" y1="17" x2="8" y2="17" stroke="currentColor" stroke-width="2"/></svg>
                     <span>Contrats</span>
                 </a>
             </li>
+            <?php endif; ?>
 
             <li class="nav-item <?php echo (strpos($current_uri, '/lessons') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/lessons" class="nav-link">
@@ -83,27 +87,34 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
                 </a>
             </li>
 
+            <?php if (hasRole([1, 2])): ?>
             <li class="nav-item <?php echo (strpos($current_uri, '/payments') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/payments" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" fill="none" stroke="currentColor" stroke-width="2"/><path d="M7 15h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <span>Paiements & Finances</span>
                 </a>
             </li>
+            <?php endif; ?>
 
+            <?php if (hasRole([1])): ?>
             <li class="nav-item <?php echo (strpos($current_uri, '/employes') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/employes" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 21v-2a7 7 0 0 1 14 0v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <span>Personnel</span>
                 </a>
             </li>
+            <?php endif; ?>
 
+            <?php if (hasRole([1, 2])): ?>
             <li class="nav-item <?php echo (strpos($current_uri, '/vehicules') !== false) ? 'active' : ''; ?>">
                 <a href="/smart-auto-ecole/public/vehicules" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 17h14l-1-6H6l-1 6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7 11l2-5h6l2 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="18" r="2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
                     <span>Véhicules</span>
                 </a>
             </li>
+            <?php endif; ?>
 
+            <?php if (hasRole([1])): ?>
             <p class="nav-section-title" style="margin-top: 15px;">CONFIGURATION</p>
 
             <li class="nav-item <?php echo (strpos($current_uri, '/settings') !== false || strpos($current_uri, '/school') !== false) ? 'active' : ''; ?>">
@@ -112,9 +123,9 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
                     <span>Paramètres</span>
                 </a>
             </li>
+            <?php endif; ?>
 
         </ul>
-
     </nav>
 
     <div class="sidebar-footer">
@@ -136,7 +147,6 @@ function toggleSidebar() {
         if (overlay) overlay.classList.toggle('active');
     } else {
         sidebar.classList.toggle('collapsed');
-        document.body.classList.toggle('sidebar-collapsed'); // مهم جداً للتأثير على الهيدر
-    }
+        document.body.classList.toggle('sidebar-collapsed'); 
 }
 </script>

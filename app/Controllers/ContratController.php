@@ -6,6 +6,11 @@ require_once __DIR__ . '/../Models/schoolInfo.php';
 
 
 class ContratController{
+
+public function __construct() {
+        authorize([1, 2]);
+    }
+
     public function index() {
     $database = new Database();
     $db = $database->getConnection();
@@ -88,7 +93,6 @@ public function create() {
                 if (session_status() === PHP_SESSION_NONE) session_start();
                 $_SESSION['flash'] = ['type' => 'success', 'message' => 'Contrat créé avec succès.'];
 
-                // 🟢 استبدال header بـ redirect النظيف
                 if ($from === 'candidate' && !empty($id_user)) {
                     redirect('/candidates/show?id=' . $id_user);
                 } else {
@@ -98,7 +102,6 @@ public function create() {
                 echo "Erreur lors de la création du contrat.";
             }
         } else {
-            // 🟢 استبدال header بـ redirect النظيف
             redirect('/contrats/create?from=' . $from);
         }
     }

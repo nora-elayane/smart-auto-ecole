@@ -26,13 +26,10 @@
         <form action="/smart-auto-ecole/public/contrats/store" method="POST">
                                 <?php if ($from === 'candidate' || !empty($candidateId)): ?>
 
-            <!-- الحقول المخفية للتوجيه والربط -->
             <input type="hidden" name="from" value="<?= htmlspecialchars($from ?? 'contrats'); ?>">
 
-            <!-- 1. إيلا كنا جايين من صفحة كونديدا: نمرر ID الكونديدا في input hidden -->
                 <input type="hidden" name="id_user" value="<?= htmlspecialchars($candidateId); ?>">
             
-            <!-- 2. إيلا كنا جايين من صفحة العقود العامة (from = contrats): نُظهر الـ select لتحديد الكونديدا -->
             <?php else: ?>
                 <div class="form-group">
                     <label class="form-label" for="id_user">Candidat <span style="color: var(--danger);">*</span></label>

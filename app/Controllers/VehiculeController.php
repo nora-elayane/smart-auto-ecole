@@ -4,6 +4,10 @@ require_once __DIR__ . '/../Models/schoolInfo.php';
 
 class VehiculeController {
 
+public function __construct() {
+        authorize([1, 2]);
+    }
+
     public function index() {
         $database = new Database();
         $db = $database->getConnection();

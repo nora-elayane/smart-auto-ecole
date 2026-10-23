@@ -15,6 +15,7 @@ error_reporting(E_ALL);
 
 // Base de données et contrôleurs principaux
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../app/Controllers/AuthController.php'; // 🟢 إضافة الـ AuthController
 require_once __DIR__ . '/../app/Controllers/HomeController.php';
 require_once __DIR__ . '/../app/Controllers/StudentsController.php'; 
 require_once __DIR__ . '/../app/Controllers/ContratController.php';
@@ -32,18 +33,28 @@ if ($route === '' || $route === '/index.php') {
     $route = '/dashboard';
 }
 
+$publicRoutes = ['/login', '/login/submit'];
+if (!isset($_SESSION['user_id']) && !in_array($route, $publicRoutes)) {
+    redirect('/login');
+}
+
 // 4. Dispatch Table (Table de Routage Centralisée)
 $routes = [
+    // Routes d'authentification (حرة للجميع)
+    '/login'                   => [AuthController::class, 'login'],
+    '/login/submit'            => [AuthController::class, 'authenticate'],
+    '/logout'                  => [AuthController::class, 'logout'],
+
     // Dashboard & Home
     '/dashboard'               => [HomeController::class, 'index'],
 
     // Candidates / Students
     '/candidates'              => [StudentController::class, 'index'],
-    '/candidates/create'        => [StudentController::class, 'create'],       
+    '/candidates/create'       => [StudentController::class, 'create'],       
     '/candidates/createStudent'=> [StudentController::class, 'create'],
     '/candidates/storeStudent' => [StudentController::class, 'store'],
     '/candidates/edit'         => [StudentController::class, 'edit'],
-    '/candidates/store'         => [StudentController::class, 'store'],      
+    '/candidates/store'        => [StudentController::class, 'store'],      
     '/candidates/update'       => [StudentController::class, 'update'],
     '/candidates/archive'      => [StudentController::class, 'archive'],
     '/candidates/activate'     => [StudentController::class, 'activate'],
@@ -101,7 +112,7 @@ if (array_key_exists($route, $routes)) {
     $controller = new $controllerClass();
     $controller->$method();
 } else {
-    // Page 404 propres avec fermeture correcte des balises
+    // Page 404 propre
     header("HTTP/1.0 404 Not Found");
     echo "<h1>404 Page Not Found</h1>";
     echo "<p>Route demandée non trouvée : " . htmlspecialchars($route) . "</p>";

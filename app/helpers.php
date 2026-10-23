@@ -1,5 +1,26 @@
 <?php
 // app/helpers.php
+function hasRole($roles) {
+    if (!isset($_SESSION['user_role'])) {
+        return false;
+    }
+    if (is_array($roles)) {
+        return in_array($_SESSION['user_role'], $roles);
+    }
+    return $_SESSION['user_role'] === $roles;
+}
+
+function authorize($roles) {
+    if (!hasRole($roles)) {
+        $_SESSION['flash'] = [
+            'type' => 'danger',
+            'message' => 'pas autorisé'
+        ];
+        redirect('/dashboard'); 
+        exit;
+    }
+}
+
 
 if (!function_exists('url')) {
     /**

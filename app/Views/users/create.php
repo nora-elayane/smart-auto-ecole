@@ -95,6 +95,7 @@
     <div class="col-md-6 mb-3">
         <label for="id_role" class="form-label">Rôle<span style="color: var(--danger);">*</span></label>
         <select name="id_role" id="id_role" class="form-control" required>
+            <option value="1" <?= (isset($roleId) && $roleId == 1) ? 'selected' : ''; ?>>Directeur</option>
             <option value="2" <?= (isset($roleId) && $roleId == 2) ? 'selected' : ''; ?>>Secrétaire</option>
             <option value="3" <?= (isset($roleId) && $roleId == 3) ? 'selected' : ''; ?>>Moniteur</option>
         </select>

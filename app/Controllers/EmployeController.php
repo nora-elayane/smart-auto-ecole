@@ -3,6 +3,9 @@ require_once __DIR__ . '/../Models/Employe.php';
 require_once __DIR__ . '/../Models/schoolInfo.php'; 
 
 class EmployeController {
+    public function __construct() {
+        authorize([1]);
+    }
 
    public function index() {
     $database = new Database(); 

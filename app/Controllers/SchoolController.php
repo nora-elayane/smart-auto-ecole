@@ -19,7 +19,6 @@ class SchoolController {
 
     public function update() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // كود Update
             header('Location: /smart-auto-ecole/public/settings/school');
             exit;
         }
