@@ -21,6 +21,7 @@ require_once __DIR__ . '/../app/Controllers/StudentsController.php';
 require_once __DIR__ . '/../app/Controllers/ContratController.php';
 require_once __DIR__ . '/../app/Controllers/EmployeController.php'; 
 require_once __DIR__ . '/../app/Controllers/VehiculeController.php'; 
+require_once __DIR__ . '/../app/Controllers/PayementController.php'; 
 
 // 3. Extraction et nettoyage de l'URI
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -40,7 +41,6 @@ if (!isset($_SESSION['user_id']) && !in_array($route, $publicRoutes)) {
 
 // 4. Dispatch Table (Table de Routage Centralisée)
 $routes = [
-    // Routes d'authentification (حرة للجميع)
     '/login'                   => [AuthController::class, 'login'],
     '/login/submit'            => [AuthController::class, 'authenticate'],
     '/logout'                  => [AuthController::class, 'logout'],
@@ -68,6 +68,7 @@ $routes = [
     '/contrats/edit'           => [ContratController::class, 'edit'],
     '/contrats/update'         => [ContratController::class, 'update'],
     '/contrats/delete'         => [ContratController::class, 'delete'],
+    '/contrats/show' => [ContratController::class, 'show'],
 
     // Contrats (Routes Legacy pour compatibilité)
     '/candidates/contrats/create' => [ContratController::class, 'create'],
@@ -76,6 +77,7 @@ $routes = [
     '/candidates/contrats/update' => [ContratController::class, 'update'],
     '/candidates/contrats/delete' => [ContratController::class, 'delete'],
     '/candidates/contrats/print'  => [ContratController::class, 'print'],
+    '/candidates/contrats/show' => [ContratController::class, 'show'],
 
     // Employés
     '/employes'                => [EmployeController::class, 'index'],
@@ -98,6 +100,11 @@ $routes = [
     // Paramètres (School)
     '/settings/school'        => ['SchoolController', 'index'],
     '/settings/school/update' => ['SchoolController', 'update'],
+
+    '/payments/store' => [PaymentController::class, 'store'],
+    '/payments/print'  => [PaymentController::class, 'print'],
+'/payments/update' => [PaymentController::class, 'update'],
+'/payments/delete' => [PaymentController::class, 'delete'],
 ];
 
 // 5. Exécution du Dispatcher

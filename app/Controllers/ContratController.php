@@ -280,6 +280,35 @@ public function edit() {
     }
 }
 
+
+public function show() {
+    authorize([1, 2]);
+
+    $id_contrat = $_GET['id'] ?? null;
+    if (!$id_contrat) {
+        $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Contrat non trouvé.'];
+        header("Location: " . BASE_URL . "/candidates");
+        exit();
+    }
+
+    $database = new Database();
+    $db = $database->getConnection();
+
+    $contratModel = new Contrat($db);
+    $contrat = $contratModel->getContratDetails($id_contrat);
+
+    if (!$contrat) {
+        $_SESSION['flash'] = ['type' => 'danger', 'message' => 'Ce contrat n\'existe pas.'];
+        header("Location: " . BASE_URL . "/candidates");
+        exit();
+    }
+
+    $schoolModel = new SchoolInfo($db);
+    $schoolInfo = $schoolModel->getInfo();
+    require_once __DIR__ . '/../Views/students/contrats/show.php';
+
+}
+
  
 }
 

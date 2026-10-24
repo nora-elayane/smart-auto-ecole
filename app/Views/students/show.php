@@ -40,7 +40,6 @@
         </div>
     </div>
 
-    <!-- بطاقة تفاصيل المرشح -->
     <div class="card" style="margin-bottom: 24px; padding: 24px; width: 100% !important; box-sizing: border-box;">
         <div class="d-flex align-items-center justify-content-between mb-4 pb-3" style="border-bottom: 1px solid var(--border-color, #eef2f6);">
             <div class="d-flex align-items-center gap-3">
@@ -113,7 +112,6 @@
         </div>
     </div>
 
-    <!-- بطاقة العقود -->
     <div class="card" style="width: 100% !important; padding: 20px; box-sizing: border-box; overflow: visible;">
         <div class="card-header" style="margin-bottom: 15px;">
             <div>

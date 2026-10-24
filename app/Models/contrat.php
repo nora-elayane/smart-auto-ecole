@@ -86,6 +86,43 @@ public function getAllWithCandidat() {
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+public function getContratDetails($id_contrat) {
+    // 1. Informations du contrat et candidat
+    $query = "SELECT c.*, cat.code as categorie_code, cat.description as categorie_libelle,
+                     u.nom, u.prenom, u.email, u.telephone, u.cin, u.date_naissance, u.adresse
+              FROM " . $this->table . " c
+              LEFT JOIN categorie cat ON c.id_categorie = cat.id_categorie
+              LEFT JOIN utilisateur u ON c.id_user = u.id_user
+              WHERE c.id_contrat = ?
+              LIMIT 1";
+    
+    $stm = $this->conn->prepare($query);
+    $stm->execute([$id_contrat]);
+    $contrat = $stm->fetch(PDO::FETCH_ASSOC);
+
+    if (!$contrat) {
+        return null;
+    }
+
+    // 2. Récupération des paiements enregistrés dans la table 'paiement'
+    $payQuery = "SELECT * FROM paiement WHERE id_contrat = ? ORDER BY date_paiement DESC";
+    $payStm = $this->conn->prepare($payQuery);
+    $payStm->execute([$id_contrat]);
+    $contrat['paiements'] = $payStm->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+    // 3. Calcul dynamique du total payé et du reste à payer
+    $totalPaye = 0;
+    foreach ($contrat['paiements'] as $p) {
+        $totalPaye += floatval($p['montant']);
+    }
+    
+    $contrat['total_paye'] = $totalPaye;
+    $contrat['reste_a_payer'] = max(0, floatval($contrat['prix_final']) - $totalPaye);
+
+    return $contrat;
+}
     }
 
 ?>

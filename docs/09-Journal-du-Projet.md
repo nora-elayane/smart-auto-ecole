@@ -676,59 +676,213 @@ Finaliser et uniformiser le système de routing du module **Contrats**, amélior
 
 Le routing du module Contrats est maintenant uniformisé et les redirections sont adaptées au contexte de navigation.
 
-# 🎯 Prochaine étape — Jour 16
+# 📅 Jour 16 — Audit de l’architecture et préparation du refactoring
 
-🏗️ **Refactoring de l'architecture du routing et centralisation des URLs**
+## 🎯 Objectif
 
-### 📋 Étapes prévues
+Analyser l’architecture existante du routing afin de préparer sa centralisation et d’améliorer la maintenabilité du projet.
 
-#### 1. 🌳 Draw the Architecture Tree
+## ✅ Réalisations
 
-- [ ] Réaliser une carte simple de l'architecture actuelle.
-- [ ] Identifier les principales routes de l'application :
-  - `/candidates`
-  - `/contrats`
-  - `/employes`
-  - `/vehicules`
-  - etc.
+- Réalisation d’un audit de l’architecture actuelle.
+- Analyse des routes et des relations entre les différents modules.
+- Étude de la navigation entre les candidats, les contrats et les autres fonctionnalités.
+- Identification des améliorations nécessaires pour centraliser les URLs et simplifier le Router.
+- Préparation de la nouvelle organisation du routing.
 
-- [ ] Visualiser les relations entre les différentes pages et modules.
-- [ ] Utiliser un outil comme **Excalidraw** ou **Diagrams.net** si nécessaire.
+## 🧠 Décisions importantes
 
-#### 2. ⚙️ Créer `config/app.php` & Helpers
+- Centraliser progressivement la gestion des URLs.
+- Uniformiser les conventions de nommage des routes et des actions CRUD.
+- Réduire la dépendance aux URLs écrites manuellement dans les Views et les Controllers.
+- Préparer une architecture extensible pour les prochains modules.
 
-- [ ] Créer `config/app.php`.
-- [ ] Définir une constante ou configuration `BASE_URL`.
-- [ ] Créer une fonction `url($path)`.
-- [ ] Créer une fonction `redirect($path)`.
-- [ ] Remplacer progressivement les URLs écrites manuellement dans les Views.
-- [ ] Remplacer les `header('Location: ...')` dispersés dans les Controllers.
+## 🎯 Use Cases concernés
 
-#### 3. 🛣️ Améliorer le Router
+- UC03 — Gestion des candidats
+- UC04 — Gestion des employés
+- UC05 — Gestion des véhicules
+- UC06 — Gestion des contrats
 
-- [ ] Améliorer `public/index.php`.
-- [ ] Faire en sorte que le Router identifie automatiquement le **Controller** à partir de l'URL.
-- [ ] Identifier automatiquement l'**Action / Method** correspondante.
-- [ ] Réduire les conditions `if/elseif` liées aux routes.
-- [ ] Préparer une structure de routing facilement extensible pour les prochains modules.
+## 📌 État
 
-> **Objectif :** passer progressivement d'un routing basé sur des conditions manuelles à une architecture plus **centralisée, propre, réutilisable et maintenable**, avant de poursuivre avec les prochains modules fonctionnels.
+L’audit de l’architecture est terminé. Les améliorations à apporter au système de routing ont été identifiées afin de préparer leur implémentation au Jour 17.
+
+---
+
+# 📅 Jour 17 — Centralisation du routing et gestion des exceptions
+
+## 🎯 Objectif
+
+Refactoriser le système de routing, uniformiser les actions CRUD et renforcer la gestion des erreurs dans l’application.
+
+## ✅ Réalisations
+
+- Standardisation des méthodes des Controllers : `index()`, `create()`, `store()`, `edit()`, `update()` et `delete()`.
+- Nettoyage des anciennes routes devenues inutiles.
+- Mise à jour de la table de dispatch dans `public/index.php`.
+- Uniformisation des sessions Flash et des helpers de redirection.
+- Mise à jour des Views et des formulaires pour respecter la nouvelle structure du routing centralisé.
+- Mise en place d’une gestion sécurisée des exceptions avec `try/catch`.
+- Gestion des exceptions PDO avec journalisation des erreurs via `error_log()`.
+
+## 🧠 Décisions importantes
+
+- Adopter des conventions communes pour les actions CRUD.
+- Centraliser la définition et la distribution des routes.
+- Séparer les messages destinés à l’utilisateur des détails techniques des erreurs.
+- Améliorer la traçabilité des erreurs sans exposer les informations sensibles à l’interface.
+
+## 🎯 Use Cases concernés
+
+- UC03 — Gestion des candidats
+- UC04 — Gestion des employés
+- UC05 — Gestion des véhicules
+- UC06 — Gestion des contrats
+
+## 📌 État
+
+Le routing a été refactorisé et les actions CRUD harmonisées. La gestion des exceptions, des redirections et des notifications Flash a également été améliorée.
+
+**Commit :** `refactor: centralize routing, standardize CRUD actions and enhance exception handling`
+
+---
+
+# 📅 Jour 18 — Authentification, autorisations RBAC et interface responsive
+
+## 🎯 Objectif
+
+Mettre en place un système complet d’authentification et de contrôle d’accès basé sur les rôles, tout en adaptant l’interface aux tablettes.
+
+## ✅ Réalisations
+
+- Implémentation du système d’authentification.
+- Mise en place des contrôles d’autorisation basés sur les rôles (RBAC).
+- Ajout de protections pour contrôler l’accès aux fonctionnalités selon les permissions.
+- Filtrage dynamique de la Sidebar en fonction du rôle de l’utilisateur connecté.
+- Adaptation de l’interface pour améliorer l’affichage sur tablette.
+- Amélioration de la cohérence entre les autorisations et les éléments de navigation affichés.
+
+## 🧠 Décisions importantes
+
+- Contrôler les autorisations côté serveur, et pas uniquement au niveau de l’interface.
+- Adapter les éléments de navigation aux rôles des utilisateurs.
+- Préserver une expérience responsive sur les écrans de taille intermédiaire.
+
+## 🎯 Use Cases concernés
+
+- UC01 — Authentification
+- UC02 — Gestion des utilisateurs
+- UC14 — Gestion du profil personnel
+- UC15 — Déconnexion
+
+## 📌 État
+
+L’authentification, les contrôles d’accès RBAC, le filtrage de la Sidebar et l’adaptation responsive pour tablette ont été implémentés.
+
+**Commit :** `feat(auth): implement complete authentication, RBAC authorization guards, UI sidebar filtering, and responsive tablet layout`
+
+---
+
+# 📅 Jour 19 — Détails des contrats et gestion des paiements (UC07)
+
+## 🎯 Objectif
+
+Développer la consultation détaillée des contrats et intégrer le suivi financier ainsi que l’enregistrement et l’impression des paiements.
+
+## ✅ Réalisations
+
+### 1. Détails du contrat
+
+- Création d’une vue détaillée du contrat.
+- Affichage des informations générales du contrat.
+- Affichage du numéro d’enregistrement `num_enregistrement`.
+- Ajout d’une navigation dynamique pour retourner à la page précédente selon le contexte.
+
+### 2. Suivi financier
+
+- Affichage dynamique du montant total payé.
+- Calcul et affichage du solde restant à payer.
+- Affichage du statut financier du contrat.
+- Ajout d’une barre de progression représentant l’état des paiements.
+
+### 3. Gestion des paiements
+
+- Création du modèle `Payment`.
+- Création du contrôleur `PaymentController`.
+- Implémentation de l’enregistrement des paiements associés aux contrats.
+- Ajout de boutons d’action pour imprimer, modifier et supprimer les paiements individuels.
+
+### 4. Impression des reçus
+
+- Création du modèle d’impression `recu_paiement.php`.
+- Mise en place d’un reçu de paiement imprimable.
+- Intégration du logo dans le document.
+- Préparation d’une présentation adaptée à l’impression.
+
+## 🧠 Décisions importantes
+
+- Associer les paiements au contrat concerné afin de conserver un suivi financier cohérent.
+- Présenter les indicateurs financiers directement dans la fiche détaillée du contrat.
+- Permettre l’impression d’un reçu pour justifier un paiement.
+- Préserver une navigation cohérente entre la fiche candidat, les contrats et leurs détails.
+
+## 🎯 Use Cases concernés
+
+- UC06 — Gestion des contrats
+- UC07 — Enregistrement et gestion des paiements
+- UC03 — Gestion des candidats, pour la navigation contextuelle
+
+## 📌 État
+
+La consultation détaillée des contrats, le suivi des montants payés et du solde restant, ainsi que l’enregistrement et l’impression des reçus de paiement ont été implémentés.
+
+Les fonctionnalités de modification et de suppression des paiements disposent également de boutons d’action. Leur validation complète devra être confirmée par des tests fonctionnels.
+
+**Commit :** `feat(contrats): implement contract details view with payment tracking and receipt printing (UC07)`
+
+---
+
+# 🎯 Prochaine étape — Jour 20
+
+## 📋 Finalisation et sécurisation du module Paiements
+
+- [ ] Tester l’enregistrement des paiements et les validations côté serveur.
+- [ ] Vérifier le calcul du montant total payé et du solde restant.
+- [ ] Vérifier la cohérence du statut financier après chaque opération.
+- [ ] Tester la modification et la suppression des paiements.
+- [ ] Vérifier les notifications Flash et les redirections.
+- [ ] Contrôler la présentation et les informations du reçu imprimable.
+- [ ] Vérifier les cas limites : paiement nul, montant négatif, montant supérieur au solde restant et contrat sans paiement.
+- [ ] Vérifier les autorisations d’accès aux paiements selon les rôles.
+
+**Objectif :** fiabiliser le module UC07 avant de poursuivre avec la planification des séances de conduite.
+
+---
 
 # 📊 Progression actuelle
 
-| Partie                   | État        |
-| ------------------------ | ----------- |
-| Analyse & Conception     | 🟢 100%     |
-| Architecture & Interface | 🟢 100%     |
-| Base de données          | 🟢 100%     |
-| Dashboard                | 🟢 100%     |
-| UC03 — Candidats         | 🟢 90%      |
-| UC02 — Utilisateurs      | 🟡 En cours |
-| UC04 — Employés          | 🟢 85%      |
-| UC05 — Véhicules         | 🟢 85%      |
-| UC06 — Contrats          | 🟢 90%      |
-| UC01 — Authentification  | 🔴 À venir  |
-| UC07 → UC15              | 🔴 À venir  |
-| Tests & Déploiement      | 🔴 À venir  |
+| Partie                           |                                     État |
+| -------------------------------- | ---------------------------------------: |
+| Analyse & Conception             |                                 🟢 100 % |
+| Architecture & Interface         |                                 🟢 100 % |
+| Base de données                  |                                 🟢 100 % |
+| Dashboard                        |                                 🟢 100 % |
+| UC01 — Authentification          |                           🟢 Implémentée |
+| UC02 — Gestion des utilisateurs  |                            🟡 À vérifier |
+| UC03 — Candidats                 |                                  🟢 90 % |
+| UC04 — Employés                  |                                  🟢 85 % |
+| UC05 — Véhicules                 |                                  🟢 85 % |
+| UC06 — Contrats                  |                                  🟢 95 % |
+| UC07 — Paiements                 | 🟡 Implémentation en cours de validation |
+| UC08 — Planification des séances |                               🔴 À venir |
+| UC09 — Consultation du planning  |                               🔴 À venir |
+| UC10 — Validation des séances    |                               🔴 À venir |
+| UC11 — Planification des examens |                               🔴 À venir |
+| UC12 — Consultation des examens  |                               🔴 À venir |
+| UC13 — Statistiques              |                               🔴 À venir |
+| UC14 — Profil personnel          |                            🟡 À vérifier |
+| UC15 — Déconnexion               |                            🟡 À vérifier |
+| Tests & Déploiement              |                               🔴 À venir |
 
-> **État actuel :** Le module **Gestion des contrats (UC06)** dispose maintenant d'un routing uniformisé et de redirections contextuelles entre les fiches candidats et la liste des contrats. La prochaine étape est consacrée au **refactoring du système de routing**, à la centralisation des URLs et à l'amélioration du Router principal afin de préparer une architecture plus propre pour la suite du projet.
+> **État actuel :** après la centralisation du routing et l’intégration de l’authentification avec contrôle d’accès RBAC, le projet dispose désormais d’une base plus structurée et sécurisée. Le module Contrats a été enrichi par une fiche détaillée intégrant le suivi financier et les reçus de paiement. La prochaine étape consiste à valider la fiabilité du module Paiements avant d’entamer la gestion des séances et du planning.
