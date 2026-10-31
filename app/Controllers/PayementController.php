@@ -41,7 +41,6 @@ class PaymentController {
  public function print() {
     authorize([1, 2]);
     
-    // Récupération de l'id depuis table-actions.js (GET ou POST)
     $id = $_GET['id'] ?? $_POST['id'] ?? null;
     
     if (!$id) {
@@ -53,7 +52,7 @@ class PaymentController {
     $db = $database->getConnection();
     
     require_once __DIR__ . '/../Models/Paiement.php';
-    require_once __DIR__ . '/../Models/SchoolInfo.php';
+    require_once __DIR__ . '/../Models/schoolInfo.php';
     
     $paiementModel = new Paiement($db);
     $schoolModel = new SchoolInfo($db);
@@ -61,7 +60,7 @@ class PaymentController {
     $paiement = $paiementModel->getPaiementWithDetails($id);
     $schoolInfo = $schoolModel->getInfo();
 
-    require_once __DIR__ . '/../Views/prints/recu_paiement.php';
+    require_once __DIR__ . '/../Views/students/prints/recu_paiement.php';
 }
 public function update() {
     authorize([1, 2]);

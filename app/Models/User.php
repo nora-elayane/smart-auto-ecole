@@ -15,4 +15,12 @@ class User {
         
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+ public function getUsersByRole($role_id) {
+    $query = "SELECT id_user, nom, prenom, telephone FROM utilisateur WHERE id_role = :role_id ORDER BY nom ASC";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':role_id', $role_id);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

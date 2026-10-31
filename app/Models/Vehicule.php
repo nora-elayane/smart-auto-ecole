@@ -76,4 +76,11 @@ class Vehicule {
             return $stmt->execute();
         }
     }
+
+    public function getAllVehicules() {
+    $query = "SELECT id_vehicule, marque, modele, immatriculation FROM vehicule ORDER BY marque ASC";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 }

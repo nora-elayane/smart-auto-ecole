@@ -22,6 +22,8 @@ require_once __DIR__ . '/../app/Controllers/ContratController.php';
 require_once __DIR__ . '/../app/Controllers/EmployeController.php'; 
 require_once __DIR__ . '/../app/Controllers/VehiculeController.php'; 
 require_once __DIR__ . '/../app/Controllers/PayementController.php'; 
+require_once __DIR__ . '/../app/Controllers/PlanningController.php'; 
+
 
 // 3. Extraction et nettoyage de l'URI
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -103,8 +105,14 @@ $routes = [
 
     '/payments/store' => [PaymentController::class, 'store'],
     '/payments/print'  => [PaymentController::class, 'print'],
-'/payments/update' => [PaymentController::class, 'update'],
-'/payments/delete' => [PaymentController::class, 'delete'],
+    '/payments/update' => [PaymentController::class, 'update'],
+    '/payments/delete' => [PaymentController::class, 'delete'],
+
+    // Planning
+    '/planning'         => [PlanningController::class, 'index'],
+    '/planning/store'   => [PlanningController::class, 'store'],
+    '/planning/delete'  => [PlanningController::class, 'delete'],
+
 ];
 
 // 5. Exécution du Dispatcher

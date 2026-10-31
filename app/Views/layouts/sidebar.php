@@ -74,7 +74,7 @@ $hasImage = !empty($logoFileName) && file_exists($imagePath);
             <?php endif; ?>
 
             <li class="nav-item <?php echo (strpos($current_uri, '/lessons') !== false) ? 'active' : ''; ?>">
-                <a href="/smart-auto-ecole/public/lessons" class="nav-link">
+                <a href="/smart-auto-ecole/public/planning" class="nav-link">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5" width="16" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 3v4M16 3v4M4 10h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M8 14h3M8 18h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
                     <span>Séances & Planning</span>
                 </a>
