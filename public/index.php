@@ -110,8 +110,15 @@ $routes = [
 
     // Planning
     '/planning'         => [PlanningController::class, 'index'],
+    '/planning/create' => [PlanningController::class, 'create'],
     '/planning/store'   => [PlanningController::class, 'store'],
     '/planning/delete'  => [PlanningController::class, 'delete'],
+    '/planning/addParticipant'    => [PlanningController::class, 'addParticipant'],
+'/planning/removeParticipant' => [PlanningController::class, 'removeParticipant'],
+'/planning/updatePresence'    => [PlanningController::class, 'updatePresence'],
+'/planning/validate'          => [PlanningController::class, 'validate'],
+'/planning/edit'   => [PlanningController::class, 'edit'],
+'/planning/update' => [PlanningController::class, 'update']
 
 ];
 

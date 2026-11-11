@@ -23,12 +23,28 @@ class Participation {
         $query = "SELECT p.*, c.num_enregistrement, u.nom, u.prenom, u.telephone
                   FROM " . $this->table . " p
                   JOIN contrat c ON p.id_contrat = c.id_contrat
-                  JOIN users u ON c.id_user = u.id_user
+                  JOIN utilisateur u ON c.id_user = u.id_user
                   WHERE p.id_seance = :id_seance";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id_seance', $id_seance);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Le candidat est-il déjà inscrit à cette séance ?
+    public function exists($id_seance, $id_contrat) {
+        $query = "SELECT COUNT(*) FROM " . $this->table . " WHERE id_seance = :s AND id_contrat = :c";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':s' => $id_seance, ':c' => $id_contrat]);
+        return (int)$stmt->fetchColumn() > 0;
+    }
+
+    // Séance à laquelle appartient une participation
+    public function getSeanceId($id_participation) {
+        $query = "SELECT id_seance FROM " . $this->table . " WHERE id_participation = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([':id' => $id_participation]);
+        return $stmt->fetchColumn();
     }
 
     public function updatePresence($id_participation, $presence, $remarque) {

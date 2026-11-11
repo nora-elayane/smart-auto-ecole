@@ -843,46 +843,173 @@ Les fonctionnalités de modification et de suppression des paiements disposent �
 
 ---
 
-# 🎯 Prochaine étape — Jour 20
+# 📅 Jour 20 — Finalisation et sécurisation du module Paiements
 
-## 📋 Finalisation et sécurisation du module Paiements
+## 🎯 Objectif
+Fiabiliser le module de gestion des paiements (UC07) et vérifier la cohérence du suivi financier des contrats.
 
-- [ ] Tester l’enregistrement des paiements et les validations côté serveur.
-- [ ] Vérifier le calcul du montant total payé et du solde restant.
-- [ ] Vérifier la cohérence du statut financier après chaque opération.
-- [ ] Tester la modification et la suppression des paiements.
-- [ ] Vérifier les notifications Flash et les redirections.
-- [ ] Contrôler la présentation et les informations du reçu imprimable.
-- [ ] Vérifier les cas limites : paiement nul, montant négatif, montant supérieur au solde restant et contrat sans paiement.
-- [ ] Vérifier les autorisations d’accès aux paiements selon les rôles.
+## ✅ Réalisations
+- Finalisation et vérification de l’enregistrement des paiements.
+- Vérification des validations côté serveur.
+- Contrôle du calcul du montant total payé et du solde restant.
+- Vérification de la cohérence du statut financier après les opérations.
+- Tests des opérations de modification et de suppression des paiements.
+- Vérification des notifications Flash et des redirections.
+- Contrôle des informations et de la présentation du reçu imprimable.
+- Vérification des cas limites : paiement nul, montant négatif, dépassement du solde et contrat sans paiement.
+- Vérification des autorisations d’accès selon les rôles.
 
-**Objectif :** fiabiliser le module UC07 avant de poursuivre avec la planification des séances de conduite.
+## 🎯 Use Cases concernés
+- UC07 — Gestion des paiements
+- UC06 — Gestion des contrats
+- UC01 — Authentification et autorisations
+
+## 📌 État
+La phase de finalisation et de sécurisation du module Paiements est terminée. Le module est prêt pour poursuivre le développement des fonctionnalités de planification et de suivi des séances.
+
+---
+
+# 📅 Jour 21–24 — Développement du module Planning & Sessions
+
+## 🎯 Objectif
+Développer un module complet permettant de gérer le cycle de vie des séances de Code et de Conduite, depuis leur programmation jusqu'au suivi des participations et à leur validation.
+
+## ✅ Réalisations
+
+### 1. Consultation du planning — UC09
+
+- Développement d'une vue calendrier hebdomadaire interactive.
+- Positionnement dynamique des séances selon leurs horaires.
+- Distinction visuelle entre les séances de Code et de Conduite par couleur.
+- Ajout d'un indicateur de l'heure actuelle.
+- Développement d'une vue Liste filtrable.
+- Ajout du tri, de la recherche textuelle et des filtres par type de séance.
+
+**Gestion des accès selon les rôles :**
+- Directeur / Secrétaire : consultation globale et gestion des séances, des candidats, des moniteurs et des véhicules.
+- Moniteur : consultation de ses propres séances, suivi des présences et validation des séances réalisées.
+- Candidat : consultation de son planning personnel et de ses informations de présence, sans accès aux informations confidentielles des autres candidats.
+
+### 2. Programmation des séances — UC08
+
+- Création d'un formulaire dédié à la programmation des séances.
+- Gestion des deux types : Code et Conduite.
+- Validation des dates et des horaires.
+- Détection automatique des conflits de disponibilité des moniteurs et des véhicules.
+- Sélection multiple des candidats.
+- Filtrage des candidats selon la catégorie de permis.
+- Ajout d'une recherche instantanée pour faciliter la sélection.
+
+### 3. Suivi des participations et validation — UC10
+
+- Développement d'un tiroir latéral (*Drawer*) interactif pour consulter les détails d'une séance.
+- Gestion des statuts de présence :
+  - En attente
+  - Présent
+  - Absent
+- Possibilité d'ajouter des remarques individuelles.
+- Mise en place de la validation officielle de la séance par le moniteur à partir du jour de la séance.
+
+## 🧠 Décisions importantes
+
+- Centraliser la consultation des séances dans un planning interactif.
+- Adapter les informations et les actions disponibles selon le rôle de l'utilisateur.
+- Empêcher les conflits de réservation des moniteurs et des véhicules.
+- Utiliser la relation Participation pour assurer le suivi individuel des candidats.
+- Séparer la consultation du planning de la gestion détaillée des participations.
+
+## 🗄️ Structure technique
+
+**Modèles :**
+- `Seance.php`
+- `Participation.php`
+- `Contrat.php`
+- `User.php`
+- `Vehicule.php`
+
+**Contrôleur :**
+- `PlanningController.php`
+
+**Vues et ressources :**
+- `app/Views/planning/index.php`
+- `app/Views/planning/create.php`
+- `public/js/planning.js`
+- `public/css/planning.css`
+
+## 🎯 Use Cases concernés
+- UC08 — Programmation des séances
+- UC09 — Consultation du planning
+- UC10 — Suivi des participations et validation des séances
+
+## 📌 État
+Le module Planning & Sessions dispose des fonctionnalités principales de programmation, de consultation, de gestion des participations et de validation des séances, avec une interface adaptée aux différents profils utilisateurs.
+
+---
+
+# 🎯 Prochaine étape — Jour 25
+
+## 📊 Développement et amélioration du Dashboard
+
+### 📋 Étapes prévues
+
+**1. Analyse des besoins**
+- [ ] Identifier les indicateurs utiles à chaque profil.
+- [ ] Définir les statistiques prioritaires pour le Directeur.
+- [ ] Identifier les informations importantes pour le suivi quotidien de l'auto-école.
+
+**2. Statistiques générales**
+- [ ] Nombre total de candidats.
+- [ ] Nombre de contrats actifs.
+- [ ] Nombre d'employés et de moniteurs.
+- [ ] Nombre de véhicules disponibles.
+- [ ] Nombre de séances programmées.
+- [ ] Nombre de séances réalisées et en attente.
+
+**3. Indicateurs financiers**
+- [ ] Total des paiements encaissés.
+- [ ] Montants restant à payer.
+- [ ] Suivi des paiements récents.
+- [ ] Évolution des recettes.
+
+**4. Activité et planning**
+- [ ] Affichage des prochaines séances.
+- [ ] Affichage des dernières activités.
+- [ ] Suivi des examens à venir.
+- [ ] Accès rapide aux modules principaux.
+
+**5. Qualité et sécurité**
+- [ ] Utiliser des requêtes SQL optimisées pour les statistiques.
+- [ ] Vérifier la cohérence des données affichées.
+- [ ] Adapter les informations selon le rôle de l'utilisateur.
+- [ ] Maintenir une interface responsive.
+
+**Objectif :** transformer le Dashboard actuel en un véritable espace de pilotage permettant au Directeur de suivre l'activité administrative, pédagogique et financière de son auto-école.
 
 ---
 
 # 📊 Progression actuelle
 
-| Partie                           |                                     État |
-| -------------------------------- | ---------------------------------------: |
-| Analyse & Conception             |                                 🟢 100 % |
-| Architecture & Interface         |                                 🟢 100 % |
-| Base de données                  |                                 🟢 100 % |
-| Dashboard                        |                                 🟢 100 % |
-| UC01 — Authentification          |                           🟢 Implémentée |
-| UC02 — Gestion des utilisateurs  |                            🟡 À vérifier |
-| UC03 — Candidats                 |                                  🟢 90 % |
-| UC04 — Employés                  |                                  🟢 85 % |
-| UC05 — Véhicules                 |                                  🟢 85 % |
-| UC06 — Contrats                  |                                  🟢 95 % |
-| UC07 — Paiements                 | 🟡 Implémentation en cours de validation |
-| UC08 — Planification des séances |                               🔴 À venir |
-| UC09 — Consultation du planning  |                               🔴 À venir |
-| UC10 — Validation des séances    |                               🔴 À venir |
-| UC11 — Planification des examens |                               🔴 À venir |
-| UC12 — Consultation des examens  |                               🔴 À venir |
-| UC13 — Statistiques              |                               🔴 À venir |
-| UC14 — Profil personnel          |                            🟡 À vérifier |
-| UC15 — Déconnexion               |                            🟡 À vérifier |
-| Tests & Déploiement              |                               🔴 À venir |
+| Partie | État |
+|---|---:|
+| Analyse & Conception | 🟢 100 % |
+| Architecture & Interface | 🟢 100 % |
+| Base de données | 🟢 100 % |
+| Dashboard | 🟡 À améliorer |
+| UC01 — Authentification | 🟢 Implémentée |
+| UC02 — Gestion des utilisateurs | 🟡 À vérifier |
+| UC03 — Candidats | 🟢 90 % |
+| UC04 — Employés | 🟢 85 % |
+| UC05 — Véhicules | 🟢 85 % |
+| UC06 — Contrats | 🟢 95 % |
+| UC07 — Paiements | 🟢 Fonctionnalités principales finalisées |
+| UC08 — Planification des séances | 🟢 Implémentée |
+| UC09 — Consultation du planning | 🟢 Implémentée |
+| UC10 — Validation des séances | 🟢 Implémentée |
+| UC11 — Planification des examens | 🔴 À venir |
+| UC12 — Consultation des examens | 🔴 À venir |
+| UC13 — Statistiques | 🟡 À développer |
+| UC14 — Profil personnel | 🟡 À vérifier |
+| UC15 — Déconnexion | 🟡 À vérifier |
+| Tests & Déploiement | 🔴 À venir |
 
-> **État actuel :** après la centralisation du routing et l’intégration de l’authentification avec contrôle d’accès RBAC, le projet dispose désormais d’une base plus structurée et sécurisée. Le module Contrats a été enrichi par une fiche détaillée intégrant le suivi financier et les reçus de paiement. La prochaine étape consiste à valider la fiabilité du module Paiements avant d’entamer la gestion des séances et du planning.
+> **État actuel :** les modules principaux de gestion administrative et financière sont désormais accompagnés d'un module Planning & Sessions permettant de programmer les séances de Code et de Conduite, de consulter les plannings selon les rôles et de suivre les participations. La prochaine étape consiste à enrichir le Dashboard pour offrir une vision globale de l'activité de l'auto-école, avant de poursuivre avec la gestion des examens et les statistiques.

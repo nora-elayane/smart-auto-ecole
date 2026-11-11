@@ -148,5 +148,5 @@ function toggleSidebar() {
     } else {
         sidebar.classList.toggle('collapsed');
         document.body.classList.toggle('sidebar-collapsed'); 
-}
+}}
 </script>
